@@ -1,12 +1,12 @@
-package de.digitalcollections.cudami.server.business.impl.service;
+package de.digitalcollections.cudami.server.business.impl.service.identifiable;
 
 import de.digitalcollections.core.model.api.paging.PageRequest;
 import de.digitalcollections.core.model.api.paging.PageResponse;
 import de.digitalcollections.cudami.model.api.security.User;
 import de.digitalcollections.cudami.model.api.security.enums.Role;
 import de.digitalcollections.cudami.model.impl.security.UserImpl;
-import de.digitalcollections.cudami.server.backend.api.repository.UserRepository;
-import de.digitalcollections.cudami.server.business.api.service.UserService;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.UserRepository;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.UserService;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;

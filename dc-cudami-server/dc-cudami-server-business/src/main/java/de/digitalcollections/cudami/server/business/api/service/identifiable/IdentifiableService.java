@@ -1,4 +1,4 @@
-package de.digitalcollections.cudami.server.business.api.service;
+package de.digitalcollections.cudami.server.business.api.service.identifiable;
 
 import de.digitalcollections.core.model.api.paging.PageRequest;
 import de.digitalcollections.core.model.api.paging.PageResponse;

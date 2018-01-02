@@ -1,11 +1,12 @@
-package de.digitalcollections.cudami.server.backend.impl.jdbi;
+package de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable;
 
 import de.digitalcollections.core.model.api.paging.PageRequest;
 import de.digitalcollections.core.model.api.paging.PageResponse;
 import de.digitalcollections.core.model.impl.paging.PageResponseImpl;
 import de.digitalcollections.cudami.model.api.security.enums.Role;
 import de.digitalcollections.cudami.model.impl.security.UserImpl;
-import de.digitalcollections.cudami.server.backend.api.repository.UserRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.UserRepository;
+import de.digitalcollections.cudami.server.backend.impl.jdbi.AbstractPagingAndSortingRepositoryImpl;
 import java.util.List;
 import java.util.UUID;
 import org.jdbi.v3.core.Jdbi;

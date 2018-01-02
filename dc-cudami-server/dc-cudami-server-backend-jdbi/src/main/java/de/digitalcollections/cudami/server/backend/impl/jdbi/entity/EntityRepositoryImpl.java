@@ -1,4 +1,4 @@
-package de.digitalcollections.cudami.server.backend.impl.jdbi;
+package de.digitalcollections.cudami.server.backend.impl.jdbi.entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,8 +7,8 @@ import de.digitalcollections.core.model.api.paging.PageResponse;
 import de.digitalcollections.core.model.impl.paging.PageResponseImpl;
 import de.digitalcollections.cudami.model.api.entity.Entity;
 import de.digitalcollections.cudami.model.impl.entity.EntityImpl;
-import de.digitalcollections.cudami.server.backend.api.repository.EntityRepository;
-import java.lang.reflect.ParameterizedType;
+import de.digitalcollections.cudami.server.backend.api.repository.entity.EntityRepository;
+import de.digitalcollections.cudami.server.backend.impl.jdbi.AbstractPagingAndSortingRepositoryImpl;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -27,14 +27,6 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
     @Autowired
     ObjectMapper objectMapper;
     
-    private final Class<E> entityBeanType;
-
-    public EntityRepositoryImpl() {
-//        this.entityBeanType = (Class) ((ParameterizedType)this.getClass()).getActualTypeArguments()[0];
-        this.entityBeanType = ((Class) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0]);
-    }
-
     @Override
     public long count() {
         String sql = "SELECT count(*) FROM entities";
@@ -52,8 +44,8 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
         StringBuilder query = new StringBuilder("SELECT * FROM entities");
 
         addPageRequestParams(pageRequest, query);
-        List<E> result = dbi.withHandle(h -> h.createQuery(query.toString())
-                .mapToBean(entityBeanType)
+        List<EntityImpl> result = dbi.withHandle(h -> h.createQuery(query.toString())
+                .mapToBean(EntityImpl.class)
                 .list());
         long total = count();
         PageResponse pageResponse = new PageResponseImpl(result, pageRequest, total);
@@ -65,7 +57,7 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
         List<? extends Entity> list = dbi.withHandle(h -> h.createQuery(
                 "SELECT * FROM entities WHERE uuid = :uuid")
                 .bind("uuid", uuid)
-                .mapToBean(entityBeanType)
+                .mapToBean(EntityImpl.class)
                 .list());
         if (list.isEmpty()) {
             return null;
@@ -83,7 +75,7 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
         entity.setCreated(LocalDateTime.now());
         entity.setLastModified(LocalDateTime.now());
 
-        E result = null;
+        EntityImpl result = null;
         try {
             result = dbi.withHandle(h -> h
                     .createQuery("INSERT INTO entities(created, description, entity_type, label, last_modified, thumbnail, uuid) VALUES (:created, :description::JSONB, :entityType, :label::JSONB, :lastModified, :thumbnail::JSONB, :uuid) RETURNING *")
@@ -91,19 +83,19 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
                     .bind("label", objectMapper.writeValueAsString(entity.getLabel()))
                     .bind("thumbnail", objectMapper.writeValueAsString(entity.getThumbnail()))
                     .bindBean(entity)
-                    .mapToBean(entityBeanType)
+                    .mapToBean(EntityImpl.class)
                     .findOnly());
         } catch (JsonProcessingException ex) {
             Logger.getLogger(EntityRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return (E) result;
     }
 
     @Override
     public E update(E entity) {
         entity.setLastModified(LocalDateTime.now());
 
-        E result = null;
+        EntityImpl result = null;
         try {
             // do not update/left out from statement: created, uuid
             result = dbi.withHandle(h -> h
@@ -112,11 +104,11 @@ public class EntityRepositoryImpl<E extends EntityImpl> extends AbstractPagingAn
                     .bind("label", objectMapper.writeValueAsString(entity.getLabel()))
                     .bind("thumbnail", objectMapper.writeValueAsString(entity.getThumbnail()))
                     .bindBean(entity)
-                    .mapToBean(entityBeanType)
+                    .mapToBean(EntityImpl.class)
                     .findOnly());
         } catch (JsonProcessingException ex) {
             Logger.getLogger(EntityRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return (E) result;
     }
 }

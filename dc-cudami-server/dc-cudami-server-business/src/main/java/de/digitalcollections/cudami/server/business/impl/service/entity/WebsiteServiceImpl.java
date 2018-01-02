@@ -1,11 +1,11 @@
-package de.digitalcollections.cudami.server.business.impl.service;
+package de.digitalcollections.cudami.server.business.impl.service.entity;
 
 import de.digitalcollections.core.model.api.paging.PageRequest;
 import de.digitalcollections.core.model.api.paging.PageResponse;
-import de.digitalcollections.cudami.model.api.identifiable.Node;
 import de.digitalcollections.cudami.model.api.entity.Website;
-import de.digitalcollections.cudami.server.backend.api.repository.WebsiteRepository;
-import de.digitalcollections.cudami.server.business.api.service.WebsiteService;
+import de.digitalcollections.cudami.model.api.identifiable.Webpage;
+import de.digitalcollections.cudami.server.backend.api.repository.entity.WebsiteRepository;
+import de.digitalcollections.cudami.server.business.api.service.entity.WebsiteService;
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
 import java.util.List;
 import java.util.UUID;
@@ -47,7 +47,7 @@ public class WebsiteServiceImpl implements WebsiteService<Website> {
   }
 
   @Override
-  public List<Node> getRootNodes(Website website) {
+  public List<Webpage> getRootNodes(Website website) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 

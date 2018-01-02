@@ -1,4 +1,4 @@
-package de.digitalcollections.cudami.server.controller;
+package de.digitalcollections.cudami.server.controller.entity;
 
 import de.digitalcollections.core.model.api.paging.PageRequest;
 import de.digitalcollections.core.model.api.paging.PageResponse;
@@ -9,7 +9,7 @@ import de.digitalcollections.core.model.impl.paging.OrderImpl;
 import de.digitalcollections.core.model.impl.paging.PageRequestImpl;
 import de.digitalcollections.core.model.impl.paging.SortingImpl;
 import de.digitalcollections.cudami.model.api.entity.Website;
-import de.digitalcollections.cudami.server.business.api.service.WebsiteService;
+import de.digitalcollections.cudami.server.business.api.service.entity.WebsiteService;
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
 import java.util.Objects;
 import java.util.UUID;

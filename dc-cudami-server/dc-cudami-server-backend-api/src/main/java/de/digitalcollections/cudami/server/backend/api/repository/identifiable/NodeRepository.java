@@ -1,4 +1,4 @@
-package de.digitalcollections.cudami.server.backend.api.repository;
+package de.digitalcollections.cudami.server.backend.api.repository.identifiable;
 
 import de.digitalcollections.cudami.model.api.identifiable.Node;
 

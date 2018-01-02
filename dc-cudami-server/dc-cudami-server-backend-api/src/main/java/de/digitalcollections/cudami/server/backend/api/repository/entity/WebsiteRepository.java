@@ -1,7 +1,8 @@
-package de.digitalcollections.cudami.server.backend.api.repository;
+package de.digitalcollections.cudami.server.backend.api.repository.entity;
 
 import de.digitalcollections.cudami.model.api.identifiable.Node;
 import de.digitalcollections.cudami.model.api.entity.Website;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifiableRepository;
 import java.util.List;
 
 /**
