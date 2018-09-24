@@ -1,11 +1,13 @@
-package de.digitalcollections.cudami.server.business.impl.service.identifiable.resource;
+package de.digitalcollections.cudami.server.business.impl.service.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.backend.api.repository.identifiable.NodeRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.WebpageRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.parts.WebpageRepository;
 import de.digitalcollections.cudami.server.business.api.service.LocaleService;
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.resource.WebpageService;
-import de.digitalcollections.model.api.identifiable.resource.Webpage;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.parts.WebpageService;
+import de.digitalcollections.cudami.server.business.impl.service.identifiable.IdentifiableServiceImpl;
+import de.digitalcollections.model.api.identifiable.Identifiable;
+import de.digitalcollections.model.api.identifiable.entity.parts.Webpage;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //@Transactional(readOnly = true)
-public class WebpageServiceImpl extends ResourceServiceImpl<Webpage> implements WebpageService<Webpage> {
+public class WebpageServiceImpl extends IdentifiableServiceImpl<Webpage> implements WebpageService<Webpage> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebpageServiceImpl.class);
 
@@ -78,5 +80,15 @@ public class WebpageServiceImpl extends ResourceServiceImpl<Webpage> implements 
       LOGGER.error("Cannot save webpage " + webpage + ": ", e);
       throw new IdentifiableServiceException(e.getMessage());
     }
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(Webpage webpage) {
+    return getIdentifiables(webpage.getUuid());
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(UUID identifiableUuid) {
+    return ((WebpageRepository) repository).getIdentifiables(identifiableUuid);
   }
 }

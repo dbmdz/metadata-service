@@ -1,11 +1,13 @@
-package de.digitalcollections.cudami.server.business.impl.service.identifiable.resource;
+package de.digitalcollections.cudami.server.business.impl.service.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.backend.api.repository.identifiable.NodeRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.ContentNodeRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.parts.ContentNodeRepository;
 import de.digitalcollections.cudami.server.business.api.service.LocaleService;
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.resource.ContentNodeService;
-import de.digitalcollections.model.api.identifiable.resource.ContentNode;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.parts.ContentNodeService;
+import de.digitalcollections.cudami.server.business.impl.service.identifiable.IdentifiableServiceImpl;
+import de.digitalcollections.model.api.identifiable.Identifiable;
+import de.digitalcollections.model.api.identifiable.entity.parts.ContentNode;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //@Transactional(readOnly = true)
-public class ContentNodeServiceImpl extends ResourceServiceImpl<ContentNode> implements ContentNodeService<ContentNode> {
+public class ContentNodeServiceImpl extends IdentifiableServiceImpl<ContentNode> implements ContentNodeService<ContentNode> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ContentNodeServiceImpl.class);
 
@@ -80,4 +82,13 @@ public class ContentNodeServiceImpl extends ResourceServiceImpl<ContentNode> imp
     }
   }
 
+  @Override
+  public List<Identifiable> getIdentifiables(ContentNode contentNode) {
+    return getIdentifiables(contentNode.getUuid());
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(UUID identifiableUuid) {
+    return ((ContentNodeRepository) repository).getIdentifiables(identifiableUuid);
+  }
 }

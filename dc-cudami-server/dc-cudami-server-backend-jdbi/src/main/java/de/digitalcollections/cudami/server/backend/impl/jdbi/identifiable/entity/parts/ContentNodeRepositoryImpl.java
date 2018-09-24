@@ -1,17 +1,19 @@
-package de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.resource;
+package de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.backend.api.repository.LocaleRepository;
 import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifiableRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.ContentNodeRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.ResourceRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.parts.ContentNodeRepository;
+import de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.IdentifiableRepositoryImpl;
+import de.digitalcollections.model.api.identifiable.Identifiable;
 import de.digitalcollections.model.api.identifiable.parts.Translation;
-import de.digitalcollections.model.api.identifiable.resource.ContentNode;
+import de.digitalcollections.model.api.identifiable.entity.parts.ContentNode;
 import de.digitalcollections.model.api.paging.PageRequest;
 import de.digitalcollections.model.api.paging.PageResponse;
-import de.digitalcollections.model.api.paging.impl.PageResponseImpl;
+import de.digitalcollections.model.impl.paging.PageResponseImpl;
+import de.digitalcollections.model.impl.identifiable.IdentifiableImpl;
 import de.digitalcollections.model.impl.identifiable.parts.LocalizedTextImpl;
 import de.digitalcollections.model.impl.identifiable.parts.structuredcontent.LocalizedStructuredContentImpl;
-import de.digitalcollections.model.impl.identifiable.resource.ContentNodeImpl;
+import de.digitalcollections.model.impl.identifiable.entity.parts.ContentNodeImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -27,21 +29,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRepositoryImpl<C> implements ContentNodeRepository<C> {
+public class ContentNodeRepositoryImpl<C extends ContentNode> extends IdentifiableRepositoryImpl<C> implements ContentNodeRepository<C> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ContentNodeRepositoryImpl.class);
 
-  private final ResourceRepository resourceRepository;
+  private final IdentifiableRepository identifiableRepository;
   private final LocaleRepository localeRepository;
 
   @Autowired
   public ContentNodeRepositoryImpl(
           @Qualifier("identifiableRepositoryImpl") IdentifiableRepository identifiableRepository,
-          @Qualifier("resourceRepositoryImpl") ResourceRepository resourceRepository,
           LocaleRepository localeRepository,
           Jdbi dbi) {
-    super(dbi, identifiableRepository);
-    this.resourceRepository = resourceRepository;
+    this.dbi = dbi;
+    this.identifiableRepository = identifiableRepository;
     this.localeRepository = localeRepository;
   }
 
@@ -63,8 +64,9 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public PageResponse<C> find(PageRequest pageRequest) {
-    StringBuilder query = new StringBuilder("SELECT cn.uuid as uuid, i.label as label, i.description as description")
-            .append(" FROM contentnodes cn INNER JOIN resources r ON cn.uuid=r.uuid INNER JOIN identifiables i ON cn.uuid=i.uuid");
+    StringBuilder query = new StringBuilder()
+            .append("SELECT i.uuid as uuid, i.label as label, i.description as description")
+            .append(" FROM contentnodes cn INNER JOIN identifiables i ON cn.uuid=i.uuid");
 
     addPageRequestParams(pageRequest, query);
 
@@ -80,11 +82,12 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public C findOne(UUID uuid) {
-    String query = "SELECT cn.uuid as uuid, i.label as label, i.description as description"
-            + " FROM contentnodes cn INNER JOIN resources r ON cn.uuid=r.uuid INNER JOIN identifiables i ON cn.uuid=i.uuid"
-            + " WHERE cn.uuid = :uuid";
+    StringBuilder query = new StringBuilder()
+            .append("SELECT i.uuid as uuid, i.label as label, i.description as description")
+            .append(" FROM contentnodes cn INNER JOIN identifiables i ON cn.uuid=i.uuid")
+            .append(" WHERE cn.uuid = :uuid");
 
-    List<ContentNodeImpl> list = dbi.withHandle(h -> h.createQuery(query)
+    List<ContentNodeImpl> list = dbi.withHandle(h -> h.createQuery(query.toString())
             .bind("uuid", uuid)
             .mapToBean(ContentNodeImpl.class)
             .list());
@@ -138,12 +141,13 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
   @Override
   public List<C> getChildren(UUID uuid) {
     // minimal data required for creating text links in a list
-    String query = "SELECT cc.child_contentnode_uuid as uuid, i.label as label"
-            + " FROM contentnodes cn INNER JOIN contentnode_contentnode cc ON cn.uuid=cc.parent_contentnode_uuid INNER JOIN identifiables i ON cc.child_contentnode_uuid=i.uuid"
-            + " WHERE cn.uuid = :uuid"
-            + " ORDER BY cc.sortIndex ASC";
+    StringBuilder query = new StringBuilder()
+            .append("SELECT i.uuid as uuid, i.label as label")
+            .append(" FROM contentnodes cn INNER JOIN contentnode_contentnode cc ON cn.uuid=cc.parent_contentnode_uuid INNER JOIN identifiables i ON cc.child_contentnode_uuid=i.uuid")
+            .append(" WHERE cn.uuid = :uuid")
+            .append(" ORDER BY cc.sortIndex ASC");
 
-    List<ContentNodeImpl> list = dbi.withHandle(h -> h.createQuery(query)
+    List<ContentNodeImpl> list = dbi.withHandle(h -> h.createQuery(query.toString())
             .bind("uuid", uuid)
             .mapToBean(ContentNodeImpl.class)
             .list());
@@ -156,7 +160,7 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public C save(C contentNode) {
-    resourceRepository.save(contentNode);
+    identifiableRepository.save(contentNode);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO contentnodes(uuid) VALUES (:uuid)")
             .bindBean(contentNode)
@@ -167,7 +171,7 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public C saveWithParentContentTree(C contentNode, UUID parentContentTreeUuid) {
-    resourceRepository.save(contentNode);
+    identifiableRepository.save(contentNode);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO contentnodes(uuid) VALUES (:uuid)")
             .bindBean(contentNode)
@@ -187,7 +191,7 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public C saveWithParentContentNode(C contentNode, UUID parentContentNodeUuid) {
-    resourceRepository.save(contentNode);
+    identifiableRepository.save(contentNode);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO contentnodes(uuid) VALUES (:uuid)")
             .bindBean(contentNode)
@@ -207,7 +211,31 @@ public class ContentNodeRepositoryImpl<C extends ContentNode> extends ResourceRe
 
   @Override
   public C update(C contentNode) {
-    resourceRepository.update(contentNode);
+    identifiableRepository.update(contentNode);
     return findOne(contentNode.getUuid());
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(C contentNode) {
+    return getIdentifiables(contentNode.getUuid());
+  }
+  
+  @Override
+  public List<Identifiable> getIdentifiables(UUID uuid) {
+    // minimal data required for creating text links in a list
+    String query = "SELECT i.uuid as uuid, i.label as label"
+            + " FROM identifiables i INNER JOIN contentnode_identifiables ci ON ci.identifiable_uuid=i.uuid"
+            + " WHERE ci.contentnode_uuid = :uuid"
+            + " ORDER BY ci.sortIndex ASC";
+
+    List<IdentifiableImpl> list = dbi.withHandle(h -> h.createQuery(query)
+            .bind("uuid", uuid)
+            .mapToBean(IdentifiableImpl.class)
+            .list());
+
+    if (list.isEmpty()) {
+      return new ArrayList<>();
+    }
+    return list.stream().map(Identifiable.class::cast).collect(Collectors.toList());
   }
 }

@@ -1,17 +1,19 @@
-package de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.resource;
+package de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.backend.api.repository.LocaleRepository;
 import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifiableRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.ResourceRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.WebpageRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.parts.WebpageRepository;
+import de.digitalcollections.cudami.server.backend.impl.jdbi.identifiable.IdentifiableRepositoryImpl;
+import de.digitalcollections.model.api.identifiable.Identifiable;
+import de.digitalcollections.model.api.identifiable.entity.parts.Webpage;
 import de.digitalcollections.model.api.identifiable.parts.Translation;
-import de.digitalcollections.model.api.identifiable.resource.Webpage;
 import de.digitalcollections.model.api.paging.PageRequest;
 import de.digitalcollections.model.api.paging.PageResponse;
-import de.digitalcollections.model.api.paging.impl.PageResponseImpl;
+import de.digitalcollections.model.impl.identifiable.IdentifiableImpl;
+import de.digitalcollections.model.impl.identifiable.entity.parts.WebpageImpl;
 import de.digitalcollections.model.impl.identifiable.parts.LocalizedTextImpl;
 import de.digitalcollections.model.impl.identifiable.parts.structuredcontent.LocalizedStructuredContentImpl;
-import de.digitalcollections.model.impl.identifiable.resource.WebpageImpl;
+import de.digitalcollections.model.impl.paging.PageResponseImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -28,21 +30,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepositoryImpl<W> implements WebpageRepository<W> {
+public class WebpageRepositoryImpl<W extends Webpage> extends IdentifiableRepositoryImpl<W> implements WebpageRepository<W> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebpageRepositoryImpl.class);
 
-  private final ResourceRepository resourceRepository;
+  private final IdentifiableRepository identifiableRepository;
   private final LocaleRepository localeRepository;
 
   @Autowired
   public WebpageRepositoryImpl(
           @Qualifier("identifiableRepositoryImpl") IdentifiableRepository identifiableRepository,
-          @Qualifier("resourceRepositoryImpl") ResourceRepository resourceRepository,
           LocaleRepository localeRepository,
           Jdbi dbi) {
-    super(dbi, identifiableRepository);
-    this.resourceRepository = resourceRepository;
+    this.dbi = dbi;
+    this.identifiableRepository = identifiableRepository;
     this.localeRepository = localeRepository;
   }
 
@@ -65,8 +66,9 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public PageResponse<W> find(PageRequest pageRequest) {
-    StringBuilder query = new StringBuilder("SELECT wp.uuid as uuid, wp.text as text, i.label as label, i.description as description")
-            .append(" FROM webpages wp INNER JOIN resources r ON wp.uuid=r.uuid INNER JOIN identifiables i ON wp.uuid=i.uuid");
+    StringBuilder query = new StringBuilder()
+            .append("SELECT wp.text as text, i.uuid as uuid, i.label as label, i.description as description")
+            .append(" FROM webpages wp INNER JOIN identifiables i ON wp.uuid=i.uuid");
 
     addPageRequestParams(pageRequest, query);
 
@@ -82,8 +84,8 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public W findOne(UUID uuid) {
-    String query = "SELECT wp.uuid as uuid, wp.text as text, i.label as label, i.description as description"
-            + " FROM webpages wp INNER JOIN resources r ON wp.uuid=r.uuid INNER JOIN identifiables i ON wp.uuid=i.uuid"
+    String query = "SELECT wp.text as text, i.uuid as uuid, i.label as label, i.description as description"
+            + " FROM webpages wp INNER JOIN identifiables i ON wp.uuid=i.uuid"
             + " WHERE wp.uuid = :uuid";
 
     List<WebpageImpl> list = dbi.withHandle(h -> h.createQuery(query)
@@ -159,7 +161,7 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public W save(W webpage) {
-    resourceRepository.save(webpage);
+    identifiableRepository.save(webpage);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO webpages(uuid, text) VALUES (:uuid, :text::JSONB)")
             .bindBean(webpage)
@@ -170,7 +172,7 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public W saveWithParentWebsite(W webpage, UUID parentWebsiteUuid) {
-    resourceRepository.save(webpage);
+    identifiableRepository.save(webpage);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO webpages(uuid, text) VALUES (:uuid, :text::JSONB)")
             .bindBean(webpage)
@@ -190,7 +192,7 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public W saveWithParentWebpage(W webpage, UUID parentWebpageUuid) {
-    resourceRepository.save(webpage);
+    identifiableRepository.save(webpage);
 
     dbi.withHandle(h -> h.createUpdate("INSERT INTO webpages(uuid, text) VALUES (:uuid, :text::JSONB)")
             .bindBean(webpage)
@@ -210,10 +212,34 @@ public class WebpageRepositoryImpl<W extends Webpage> extends ResourceRepository
 
   @Override
   public W update(W webpage) {
-    resourceRepository.update(webpage);
+    identifiableRepository.update(webpage);
     dbi.withHandle(h -> h.createUpdate("UPDATE webpages SET text=:text::JSONB WHERE uuid=:uuid")
             .bindBean(webpage)
             .execute());
     return findOne(webpage.getUuid());
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(W webpage) {
+    return getIdentifiables(webpage.getUuid());
+  }
+
+  @Override
+  public List<Identifiable> getIdentifiables(UUID uuid) {
+    // minimal data required for creating text links in a list
+    String query = "SELECT i.uuid as uuid, i.label as label"
+            + " FROM identifiables i INNER JOIN webpage_identifiables wi ON wi.identifiable_uuid=i.uuid"
+            + " WHERE wi.webpage_uuid = :uuid"
+            + " ORDER BY wi.sortIndex ASC";
+
+    List<IdentifiableImpl> list = dbi.withHandle(h -> h.createQuery(query)
+            .bind("uuid", uuid)
+            .mapToBean(IdentifiableImpl.class)
+            .list());
+
+    if (list.isEmpty()) {
+      return new ArrayList<>();
+    }
+    return list.stream().map(Identifiable.class::cast).collect(Collectors.toList());
   }
 }

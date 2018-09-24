@@ -1,16 +1,17 @@
-package de.digitalcollections.cudami.server.controller.identifiable.resource;
+package de.digitalcollections.cudami.server.controller.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.resource.ContentNodeService;
-import de.digitalcollections.model.api.identifiable.resource.ContentNode;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.parts.ContentNodeService;
+import de.digitalcollections.model.api.identifiable.Identifiable;
+import de.digitalcollections.model.api.identifiable.entity.parts.ContentNode;
 import de.digitalcollections.model.api.paging.PageRequest;
 import de.digitalcollections.model.api.paging.PageResponse;
 import de.digitalcollections.model.api.paging.Sorting;
 import de.digitalcollections.model.api.paging.enums.Direction;
 import de.digitalcollections.model.api.paging.enums.NullHandling;
-import de.digitalcollections.model.api.paging.impl.OrderImpl;
-import de.digitalcollections.model.api.paging.impl.PageRequestImpl;
-import de.digitalcollections.model.api.paging.impl.SortingImpl;
+import de.digitalcollections.model.impl.paging.OrderImpl;
+import de.digitalcollections.model.impl.paging.PageRequestImpl;
+import de.digitalcollections.model.impl.paging.SortingImpl;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -108,7 +109,12 @@ public class ContentNodeController {
   @ApiMethod(description = "get child content nodes of content node")
   @RequestMapping(value = "/v1/contentnodes/{uuid}/children", produces = "application/json", method = RequestMethod.GET)
   @ApiResponseObject
-  List<ContentNode> getRootPages(@PathVariable UUID uuid) {
+  List<ContentNode> getChildren(@PathVariable UUID uuid) {
     return service.getChildren(uuid);
+  }
+  
+  @RequestMapping(value = "/v1/contentnodes/{uuid}/identifiables", produces = "application/json", method = RequestMethod.GET)
+  public List<Identifiable> getIdentifiables(@PathVariable UUID uuid) {
+    return service.getIdentifiables(uuid);
   }
 }
