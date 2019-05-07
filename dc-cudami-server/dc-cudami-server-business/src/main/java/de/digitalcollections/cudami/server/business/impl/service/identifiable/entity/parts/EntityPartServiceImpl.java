@@ -13,15 +13,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> extends IdentifiableServiceImpl<EP> implements EntityPartService<EP, E> {
+public class EntityPartServiceImpl<P extends EntityPart, E extends Entity> extends IdentifiableServiceImpl<P> implements EntityPartService<P, E> {
 
   @Autowired
-  public EntityPartServiceImpl(@Qualifier("entityPartRepositoryImpl") EntityPartRepository<EP, E> repository) {
+  public EntityPartServiceImpl(@Qualifier("entityPartRepositoryImpl") EntityPartRepository<P, E> repository) {
     super(repository);
   }
 
   @Override
-  public void addRelatedEntity(EP entityPart, E entity) {
+  public void addRelatedEntity(P entityPart, E entity) {
     ((EntityPartRepository) repository).addRelatedEntity(entityPart, entity);
   }
 
@@ -31,7 +31,7 @@ public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> exte
   }
 
   @Override
-  public void addRelatedFileresource(EP entityPart, FileResource fileResource) {
+  public void addRelatedFileresource(P entityPart, FileResource fileResource) {
     ((EntityPartRepository) repository).addRelatedFileresource(entityPart, fileResource);
   }
 
@@ -41,7 +41,7 @@ public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> exte
   }
 
   @Override
-  public LinkedHashSet<E> getRelatedEntities(EP entityPart) {
+  public LinkedHashSet<E> getRelatedEntities(P entityPart) {
     return ((EntityPartRepository) repository).getRelatedEntities(entityPart);
   }
 
@@ -51,7 +51,7 @@ public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> exte
   }
 
   @Override
-  public LinkedHashSet<FileResource> getRelatedFileResources(EP entityPart) {
+  public LinkedHashSet<FileResource> getRelatedFileResources(P entityPart) {
     return ((EntityPartRepository) repository).getRelatedFileResources(entityPart);
   }
 
@@ -61,7 +61,7 @@ public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> exte
   }
 
   @Override
-  public LinkedHashSet<E> saveRelatedEntities(EP entityPart, LinkedHashSet<E> entities) {
+  public LinkedHashSet<E> saveRelatedEntities(P entityPart, LinkedHashSet<E> entities) {
     return ((EntityPartRepository) repository).saveRelatedEntities(entityPart, entities);
   }
 
@@ -71,7 +71,7 @@ public class EntityPartServiceImpl<EP extends EntityPart, E extends Entity> exte
   }
 
   @Override
-  public LinkedHashSet<FileResource> saveRelatedFileResources(EP entityPart, LinkedHashSet<FileResource> fileResources) {
+  public LinkedHashSet<FileResource> saveRelatedFileResources(P entityPart, LinkedHashSet<FileResource> fileResources) {
     return ((EntityPartRepository) repository).saveRelatedFileResources(entityPart, fileResources);
   }
 
