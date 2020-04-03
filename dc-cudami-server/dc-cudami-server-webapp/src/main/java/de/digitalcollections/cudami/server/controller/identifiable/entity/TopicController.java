@@ -1,9 +1,9 @@
 package de.digitalcollections.cudami.server.controller.identifiable.entity;
 
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.ContentTreeService;
-import de.digitalcollections.model.api.identifiable.entity.ContentTree;
-import de.digitalcollections.model.api.identifiable.entity.parts.ContentNode;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.TopicService;
+import de.digitalcollections.model.api.identifiable.entity.Topic;
+import de.digitalcollections.model.api.identifiable.entity.parts.Subtopic;
 import de.digitalcollections.model.api.paging.PageRequest;
 import de.digitalcollections.model.api.paging.PageResponse;
 import de.digitalcollections.model.api.paging.Sorting;
@@ -28,18 +28,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(description = "The content tree controller", name = "ContentTree controller")
-public class ContentTreeController {
+@Api(description = "The topic controller", name = "Topic controller")
+public class TopicController {
 
-  @Autowired private ContentTreeService service;
+  @Autowired private TopicService service;
 
-  @ApiMethod(description = "Get all content trees")
+  @ApiMethod(description = "Get all topics")
   @RequestMapping(
-      value = {"/latest/contenttrees", "/v2/contenttrees"},
+      value = {"/latest/topics", "/v2/topics"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  public PageResponse<ContentTree> findAll(
+  public PageResponse<Topic> findAll(
       @RequestParam(name = "pageNumber", required = false, defaultValue = "0") int pageNumber,
       @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize,
       @RequestParam(name = "sortField", required = false, defaultValue = "uuid") String sortField,
@@ -53,43 +53,42 @@ public class ContentTreeController {
     return service.find(pageRequest);
   }
 
-  @ApiMethod(description = "Get content tree by uuid")
+  @ApiMethod(description = "Get topic by uuid")
   @RequestMapping(
-      value = {"/latest/contenttrees/{uuid}", "/v2/contenttrees/{uuid}"},
+      value = {"/latest/topics/{uuid}", "/v2/topics/{uuid}"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  public ContentTree findById(@PathVariable UUID uuid) {
-    return (ContentTree) service.get(uuid);
+  public Topic findById(@PathVariable UUID uuid) {
+    return (Topic) service.get(uuid);
   }
 
-  @ApiMethod(description = "Save a newly created ContentTree")
+  @ApiMethod(description = "Save a newly created topic")
   @RequestMapping(
-      value = {"/latest/contenttrees", "/v2/contenttrees"},
+      value = {"/latest/topics", "/v2/topics"},
       produces = "application/json",
       method = RequestMethod.POST)
   @ApiResponseObject
-  public ContentTree save(@RequestBody ContentTree contentTree, BindingResult errors)
+  public Topic save(@RequestBody Topic topic, BindingResult errors)
       throws IdentifiableServiceException {
-    return (ContentTree) service.save(contentTree);
+    return (Topic) service.save(topic);
   }
 
-  @ApiMethod(description = "Update a content tree")
+  @ApiMethod(description = "Update a topic")
   @RequestMapping(
-      value = {"/latest/contenttrees/{uuid}", "/v2/contenttrees/{uuid}"},
+      value = {"/latest/topics/{uuid}", "/v2/topics/{uuid}"},
       produces = "application/json",
       method = RequestMethod.PUT)
   @ApiResponseObject
-  public ContentTree update(
-      @PathVariable UUID uuid, @RequestBody ContentTree contentTree, BindingResult errors)
+  public Topic update(@PathVariable UUID uuid, @RequestBody Topic topic, BindingResult errors)
       throws IdentifiableServiceException {
-    assert Objects.equals(uuid, contentTree.getUuid());
-    return (ContentTree) service.update(contentTree);
+    assert Objects.equals(uuid, topic.getUuid());
+    return (Topic) service.update(topic);
   }
 
-  @ApiMethod(description = "Get count of content trees")
+  @ApiMethod(description = "Get count of topics")
   @RequestMapping(
-      value = {"/latest/contenttrees/count", "/v2/contenttrees/count"},
+      value = {"/latest/topics/count", "/v2/topics/count"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
@@ -97,13 +96,13 @@ public class ContentTreeController {
     return service.count();
   }
 
-  @ApiMethod(description = "Get root nodes of content tree")
+  @ApiMethod(description = "Get subtopics of topic")
   @RequestMapping(
-      value = {"/latest/contenttrees/{uuid}/rootNodes", "/v2/contenttrees/{uuid}/rootNodes"},
+      value = {"/latest/topics/{uuid}/rootNodes", "/v2/topics/{uuid}/subtopics"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  List<ContentNode> getRootNodes(@PathVariable UUID uuid) {
-    return service.getRootNodes(uuid);
+  List<Subtopic> getRootNodes(@PathVariable UUID uuid) {
+    return service.getSubtopics(uuid);
   }
 }

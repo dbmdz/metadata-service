@@ -1,9 +1,9 @@
 package de.digitalcollections.cudami.server.controller.identifiable.entity.parts;
 
 import de.digitalcollections.cudami.server.business.api.service.exceptions.IdentifiableServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.parts.ContentNodeService;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.parts.SubtopicService;
 import de.digitalcollections.model.api.identifiable.entity.Entity;
-import de.digitalcollections.model.api.identifiable.entity.parts.ContentNode;
+import de.digitalcollections.model.api.identifiable.entity.parts.Subtopic;
 import de.digitalcollections.model.api.identifiable.resource.FileResource;
 import de.digitalcollections.model.api.paging.PageRequest;
 import de.digitalcollections.model.api.paging.PageResponse;
@@ -36,18 +36,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(description = "The content node controller", name = "ContentNode controller")
-public class ContentNodeController {
+@Api(description = "The subtopic controller", name = "Subtopic controller")
+public class SubtopicController {
 
-  @Autowired private ContentNodeService<Entity> service;
+  @Autowired private SubtopicService service;
 
-  @ApiMethod(description = "Get all content nodes")
+  @ApiMethod(description = "Get all subtopics")
   @RequestMapping(
-      value = {"/latest/contentnodes", "/v2/contentnodes"},
+      value = {"/latest/subtopics", "/v2/subtopics"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  public PageResponse<ContentNode> findAll(
+  public PageResponse<Subtopic> findAll(
       @RequestParam(name = "pageNumber", required = false, defaultValue = "0") int pageNumber,
       @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize,
       @RequestParam(name = "sortField", required = false, defaultValue = "uuid") String sortField,
@@ -61,16 +61,16 @@ public class ContentNodeController {
     return service.find(pageRequest);
   }
 
-  // Test-URL: http://localhost:9000/latest/contentnodes/599a120c-2dd5-11e8-b467-0ed5f89f718b
+  // Test-URL: http://localhost:9000/latest/subtopics/599a120c-2dd5-11e8-b467-0ed5f89f718b
   @ApiMethod(
       description =
-          "Get a content node as JSON or XML, depending on extension or <tt>format</tt> request parameter or accept header")
+          "Get a subtopic as JSON or XML, depending on extension or <tt>format</tt> request parameter or accept header")
   @RequestMapping(
-      value = {"/latest/contentnodes/{uuid}", "/v2/contentnodes/{uuid}"},
+      value = {"/latest/subtopics/{uuid}", "/v2/subtopics/{uuid}"},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
       method = RequestMethod.GET)
   @ApiResponseObject
-  public ResponseEntity<ContentNode> getContentNode(
+  public ResponseEntity<Subtopic> getSubtopic(
       @ApiPathParam(
               description =
                   "UUID of the content node, e.g. <tt>599a120c-2dd5-11e8-b467-0ed5f89f718b</tt>")
@@ -84,65 +84,61 @@ public class ContentNodeController {
           Locale pLocale)
       throws IdentifiableServiceException {
 
-    ContentNode contentNode;
+    Subtopic subtopic;
     if (pLocale == null) {
-      contentNode = service.get(uuid);
+      subtopic = service.get(uuid);
     } else {
-      contentNode = service.get(uuid, pLocale);
+      subtopic = service.get(uuid, pLocale);
     }
-    return new ResponseEntity<>(contentNode, HttpStatus.OK);
+    return new ResponseEntity<>(subtopic, HttpStatus.OK);
   }
 
-  @ApiMethod(description = "Save a newly created top-level content node")
+  @ApiMethod(description = "Save a newly created top-level subtopic")
   @RequestMapping(
       value = {
-        "/latest/contenttrees/{parentContentTreeUuid}/contentnode",
-        "/v2/contenttrees/{parentContentTreeUuid}/contentnode"
+        "/latest/topics/{parentTopicUuid}/subtopic",
+        "/v2/topics/{parentTopicUuid}/subtopic"
       },
       produces = "application/json",
       method = RequestMethod.POST)
   @ApiResponseObject
-  public ContentNode saveWithParentContentTree(
-      @PathVariable UUID parentContentTreeUuid,
-      @RequestBody ContentNode contentNode,
-      BindingResult errors)
+  public Subtopic saveWithParentTopic(
+      @PathVariable UUID parentTopicUuid, @RequestBody Subtopic subtopic, BindingResult errors)
       throws IdentifiableServiceException {
-    return service.saveWithParentContentTree(contentNode, parentContentTreeUuid);
+    return service.saveWithParentTopic(subtopic, parentTopicUuid);
   }
 
-  @ApiMethod(description = "Save a newly created content node")
+  @ApiMethod(description = "Save a newly created subtopic")
   @RequestMapping(
       value = {
-        "/latest/contentnodes/{parentContentNodeUuid}/contentnode",
-        "/v2/contentnodes/{parentContentNodeUuid}/contentnode"
+        "/latest/subtopics/{parentSubtopicUuid}/subtopic",
+        "/v2/subtopics/{parentSubtopicUuid}/subtopic"
       },
       produces = "application/json",
       method = RequestMethod.POST)
   @ApiResponseObject
-  public ContentNode saveWithParentContentNode(
-      @PathVariable UUID parentContentNodeUuid,
-      @RequestBody ContentNode contentNode,
-      BindingResult errors)
+  public Subtopic saveWithParentSubtopic(
+      @PathVariable UUID parentSubtopicUuid, @RequestBody Subtopic subtopic, BindingResult errors)
       throws IdentifiableServiceException {
-    return service.saveWithParentContentNode(contentNode, parentContentNodeUuid);
+    return service.saveWithParentSubtopic(subtopic, parentSubtopicUuid);
   }
 
   @ApiMethod(description = "Update a content node")
   @RequestMapping(
-      value = {"/latest/contentnodes/{uuid}", "/v2/contentnodes/{uuid}"},
+      value = {"/latest/subtopics/{uuid}", "/v2/subtopics/{uuid}"},
       produces = "application/json",
       method = RequestMethod.PUT)
   @ApiResponseObject
-  public ContentNode update(
-      @PathVariable UUID uuid, @RequestBody ContentNode contentNode, BindingResult errors)
+  public Subtopic update(
+      @PathVariable UUID uuid, @RequestBody Subtopic subtopic, BindingResult errors)
       throws IdentifiableServiceException {
-    assert Objects.equals(uuid, contentNode.getUuid());
-    return service.update(contentNode);
+    assert Objects.equals(uuid, subtopic.getUuid());
+    return service.update(subtopic);
   }
 
   @ApiMethod(description = "Get count of content nodes")
   @RequestMapping(
-      value = {"/latest/contentnodes/count", "/v2/contentnodes/count"},
+      value = {"/latest/subtopics/count", "/v2/subtopics/count"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
@@ -152,17 +148,17 @@ public class ContentNodeController {
 
   @ApiMethod(description = "Get child content nodes of content node")
   @RequestMapping(
-      value = {"/latest/contentnodes/{uuid}/children", "/v2/contentnodes/{uuid}/children"},
+      value = {"/latest/subtopics/{uuid}/children", "/v2/subtopics/{uuid}/children"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  List<ContentNode> getChildren(@PathVariable UUID uuid) {
+  List<Subtopic> getChildren(@PathVariable UUID uuid) {
     return service.getChildren(uuid);
   }
 
   @ApiMethod(description = "Get entities of content node")
   @RequestMapping(
-      value = {"/latest/contentnodes/{uuid}/entities", "/v2/contentnodes/{uuid}/entities"},
+      value = {"/latest/subtopics/{uuid}/entities", "/v2/subtopics/{uuid}/entities"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
@@ -173,7 +169,7 @@ public class ContentNodeController {
   // FIXME
   @ApiMethod(description = "Save entities of content node")
   @PostMapping(
-      value = {"/latest/contentnodes/{uuid}/entities", "/v2/contentnodes/{uuid}/entities"},
+      value = {"/latest/subtopics/{uuid}/entities", "/v2/subtopics/{uuid}/entities"},
       produces = "application/json")
   @ApiResponseObject
   public List<Entity> saveEntities(@PathVariable UUID uuid, @RequestBody List<Entity> entities) {
@@ -182,10 +178,7 @@ public class ContentNodeController {
 
   @ApiMethod(description = "Get file resources of content node")
   @RequestMapping(
-      value = {
-        "/latest/contentnodes/{uuid}/fileresources",
-        "/v2/contentnodes/{uuid}/fileresources"
-      },
+      value = {"/latest/subtopics/{uuid}/fileresources", "/v2/subtopics/{uuid}/fileresources"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
@@ -196,10 +189,7 @@ public class ContentNodeController {
   // FIXME
   @ApiMethod(description = "Save fileresources of content node")
   @PostMapping(
-      value = {
-        "/latest/contentnodes/{uuid}/fileresources",
-        "/v2/contentnodes/{uuid}/fileresources"
-      },
+      value = {"/latest/subtopics/{uuid}/fileresources", "/v2/subtopics/{uuid}/fileresources"},
       produces = "application/json")
   @ApiResponseObject
   public List<FileResource> saveFileresources(
@@ -209,17 +199,17 @@ public class ContentNodeController {
 
   @ApiMethod(description = "Get parent content node of content node")
   @RequestMapping(
-      value = {"/latest/contentnodes/{uuid}/parent", "/v2/contentnodes/{uuid}/parent"},
+      value = {"/latest/subtopics/{uuid}/parent", "/v2/subtopics/{uuid}/parent"},
       produces = "application/json",
       method = RequestMethod.GET)
   @ApiResponseObject
-  ContentNode getParent(@PathVariable UUID uuid) {
+  Subtopic getParent(@PathVariable UUID uuid) {
     return service.getParent(uuid);
   }
 
   //  @ApiMethod(description = "add identifiable to content node")
-  //  @PostMapping(value = {"/latest/contentnodes/{uuid}/identifiables/{identifiableUuid}",
-  // "/v2/contentnodes/{uuid}/identifiables/{identifiableUuid}"})
+  //  @PostMapping(value = {"/latest/subtopics/{uuid}/identifiables/{identifiableUuid}",
+  // "/v2/subtopics/{uuid}/identifiables/{identifiableUuid}"})
   //  @ResponseStatus(value = HttpStatus.OK)
   //  @ApiResponseObject
   //  public void addIdentifiable(@PathVariable UUID uuid, @PathVariable UUID identifiableUuid) {
