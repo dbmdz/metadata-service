@@ -3,9 +3,9 @@ package de.digitalcollections.cudami.server.business.impl.service.identifiable.e
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.relation.EntityRelationRepository;
+import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.relation.EntityToEntityRelationRepository;
 import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.relation.EntityRelationService;
+import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
 import de.digitalcollections.cudami.server.business.impl.service.AbstractServiceImplTest;
 import de.digitalcollections.model.identifiable.entity.agent.Person;
 import de.digitalcollections.model.identifiable.entity.manifestation.Manifestation;
@@ -18,15 +18,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("The EntityRelation service")
-class EntityRelationServiceImplTest extends AbstractServiceImplTest {
+class EntityToEntityRelationServiceImplTest extends AbstractServiceImplTest {
 
-  private EntityRelationService entityRelationService;
-  private EntityRelationRepository entityRelationRepository;
+  private EntityToEntityRelationService entityRelationService;
+  private EntityToEntityRelationRepository entityRelationRepository;
 
   @BeforeEach
-  public void beforeEach() {
-    entityRelationRepository = mock(EntityRelationRepository.class);
-    entityRelationService = new EntityRelationServiceImpl(entityRelationRepository);
+  public void beforeEach() throws Exception {
+    super.beforeEach();
+    entityRelationRepository = mock(EntityToEntityRelationRepository.class);
+    entityRelationService = new EntityToEntityRelationServiceImpl(entityRelationRepository);
   }
 
   @DisplayName(
@@ -44,7 +45,7 @@ class EntityRelationServiceImplTest extends AbstractServiceImplTest {
     manifestation.setRelations(List.of(relation));
 
     List<EntityRelation> relations = manifestation.getRelations();
-    entityRelationService.persistEntityRelations(manifestation, relations, true);
+    entityRelationService.setEntityRelations(manifestation, relations, true);
     manifestation.setRelations(relations);
 
     Manifestation manifestionWithUUIDOnly = Manifestation.builder().uuid(uuid).build();

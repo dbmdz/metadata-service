@@ -21,10 +21,10 @@ import org.springframework.util.StringUtils;
  * If result does not fit your use case: implement it yourself and do not use these convenience
  * methods.
  */
-public abstract class AbstractPagingAndSortingRepositoryImpl {
+public abstract class AbstractPagingSortingFilteringRepositoryImpl {
 
   private static final Logger LOGGER =
-      LoggerFactory.getLogger(AbstractPagingAndSortingRepositoryImpl.class);
+      LoggerFactory.getLogger(AbstractPagingSortingFilteringRepositoryImpl.class);
   private static Pattern SELECT_STMT_SPLITTER;
   protected int offsetForAlternativePaging;
 
@@ -66,7 +66,7 @@ public abstract class AbstractPagingAndSortingRepositoryImpl {
    * @param pageRequest
    * @param sqlQuery
    */
-  public void addPageRequestParams(PageRequest pageRequest, StringBuilder sqlQuery) {
+  public void addPagingAndSorting(PageRequest pageRequest, StringBuilder sqlQuery) {
     if (pageRequest != null) {
       if (pageRequest.getOffset() < offsetForAlternativePaging) {
         // standard handling with LIMIT and OFFSET
@@ -219,12 +219,6 @@ public abstract class AbstractPagingAndSortingRepositoryImpl {
                   String formatString;
                   if (subSortField.isEmpty()) {
                     if (supportsCaseSensitivityForProperty(sortField) && o.isIgnoreCase()) {
-                      // FIXME: exception at showing/sorting empty person list:
-                      /*
-                                             * Got 500 for backend call GET /v6/persons?pageNumber=0&pageSize=10&sortBy=label.asc.ignorecase.
-                      ⤷ http://localhost:9000/v6/persons?pageNumber=0&pageSize=10&sortBy=label.asc.ignorecase
-                                             * ERROR: function lower(jsonb) does not exist; Hinweis: No function matches the given name and argument types. You might need to add explicit type casts.
-                                             */
                       formatString = "lower(%s) %s";
                     } else {
                       // case sensitive or not supported at all
