@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>de.digitalcollections.cudami</groupId>
-    <artifactId>dc-cudami</artifactId>
+    <groupId>io.github.dbmdz.metadata</groupId>
+    <artifactId>metasvc</artifactId>
     <version>9.0.0-SNAPSHOT</version>
   </parent>
 
-  <name>DigitalCollections: cudami Model</name>
-  <artifactId>dc-cudami-model</artifactId>
+  <name>Metadata-Service: Model</name>
+  <artifactId>metasvc-model</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
