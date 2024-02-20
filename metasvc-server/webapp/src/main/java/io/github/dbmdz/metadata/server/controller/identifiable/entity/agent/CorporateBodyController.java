@@ -1,15 +1,15 @@
 package io.github.dbmdz.metadata.server.controller.identifiable.entity.agent;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ConflictException;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.EntityService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.agent.CorporateBodyService;
 import de.digitalcollections.model.identifiable.entity.agent.CorporateBody;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.EntityService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.agent.CorporateBodyService;
 import io.github.dbmdz.metadata.server.controller.AbstractEntityController;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;

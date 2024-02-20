@@ -5,12 +5,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.agent.AgentService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.work.ItemService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.work.ManifestationService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.work.WorkService;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.work.Work;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.agent.AgentService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.ItemService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.ManifestationService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.WorkService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.DisplayName;

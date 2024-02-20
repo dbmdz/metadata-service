@@ -6,14 +6,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.LocaleService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.CollectionService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.agent.CorporateBodyService;
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Collection;
 import de.digitalcollections.model.identifiable.entity.agent.CorporateBody;
 import de.digitalcollections.model.list.filtering.Filtering;
+import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.CollectionService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.agent.CorporateBodyService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

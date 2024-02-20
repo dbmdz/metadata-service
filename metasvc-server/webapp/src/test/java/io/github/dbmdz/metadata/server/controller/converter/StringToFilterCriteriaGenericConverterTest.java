@@ -2,12 +2,12 @@ package io.github.dbmdz.metadata.server.controller.converter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import de.digitalcollections.cudami.server.business.api.service.identifiable.IdentifiableService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.alias.UrlAliasService;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.FilterLogicalOperator;
 import de.digitalcollections.model.list.filtering.FilterOperation;
 import de.digitalcollections.model.list.filtering.Filtering;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.alias.UrlAliasService;
 import io.github.dbmdz.metadata.server.controller.identifiable.IdentifiableController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

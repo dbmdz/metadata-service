@@ -1,8 +1,5 @@
 package io.github.dbmdz.metadata.server.controller.identifiable.entity;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.IdentifiableService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.WebsiteService;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.identifiable.web.Webpage;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
@@ -11,6 +8,9 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.WebsiteService;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.github.dbmdz.metadata.server.controller.identifiable.AbstractIdentifiableController;
 import io.swagger.v3.oas.annotations.Hidden;

@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.controller.identifiable;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.IdentifiableService;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
 import io.github.dbmdz.metadata.server.controller.AbstractUniqueObjectController;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import java.util.List;

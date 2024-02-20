@@ -1,8 +1,8 @@
 package io.github.dbmdz.metadata.server.controller.advice;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ConflictException;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ResourceNotFoundException;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ResourceNotFoundException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;

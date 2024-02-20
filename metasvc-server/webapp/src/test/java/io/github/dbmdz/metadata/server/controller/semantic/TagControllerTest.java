@@ -6,8 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.semantic.TagService;
 import de.digitalcollections.model.semantic.Tag;
+import io.github.dbmdz.metadata.server.business.api.service.semantic.TagService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.codec.binary.Base64;

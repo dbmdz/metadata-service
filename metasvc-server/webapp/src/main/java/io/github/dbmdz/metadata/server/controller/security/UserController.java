@@ -1,8 +1,5 @@
 package io.github.dbmdz.metadata.server.controller.security;
 
-import de.digitalcollections.cudami.server.business.api.service.UniqueObjectService;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.security.UserService;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageResponse;
@@ -10,6 +7,9 @@ import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.security.Role;
 import de.digitalcollections.model.security.User;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.UniqueObjectService;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.security.UserService;
 import io.github.dbmdz.metadata.server.controller.AbstractUniqueObjectController;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;

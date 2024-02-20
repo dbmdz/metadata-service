@@ -3,11 +3,11 @@ package io.github.dbmdz.metadata.server.controller.identifiable.entity.work;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.DigitalObjectService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.work.ItemService;
 import de.digitalcollections.model.identifiable.entity.item.Item;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.DigitalObjectService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.ItemService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,8 +1,8 @@
 package io.github.dbmdz.metadata.server.controller;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.EntityService;
 import de.digitalcollections.model.identifiable.entity.Entity;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.EntityService;
 import io.github.dbmdz.metadata.server.controller.identifiable.AbstractIdentifiableController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

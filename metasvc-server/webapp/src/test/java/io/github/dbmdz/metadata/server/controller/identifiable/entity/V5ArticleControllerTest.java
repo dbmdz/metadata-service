@@ -3,10 +3,10 @@ package io.github.dbmdz.metadata.server.controller.identifiable.entity;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.ArticleService;
 import de.digitalcollections.model.identifiable.entity.Article;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.ArticleService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.util.List;
 import java.util.Locale;

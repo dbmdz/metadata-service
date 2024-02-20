@@ -4,8 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-import de.digitalcollections.cudami.server.business.api.service.LocaleService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.EventService;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Event;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
@@ -13,6 +11,8 @@ import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.text.LocalizedText;
+import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.EventService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.util.List;
 import java.util.Locale;

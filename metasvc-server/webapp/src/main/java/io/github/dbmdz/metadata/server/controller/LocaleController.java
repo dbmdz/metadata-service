@@ -1,7 +1,7 @@
 package io.github.dbmdz.metadata.server.controller;
 
-import de.digitalcollections.cudami.server.business.api.service.LocaleService;
 import de.digitalcollections.model.exception.ResourceNotFoundException;
+import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;

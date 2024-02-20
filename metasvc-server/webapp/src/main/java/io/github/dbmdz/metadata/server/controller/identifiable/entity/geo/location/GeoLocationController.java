@@ -1,15 +1,15 @@
 package io.github.dbmdz.metadata.server.controller.identifiable.entity.geo.location;
 
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ConflictException;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.IdentifiableService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.geo.location.GeoLocationService;
 import de.digitalcollections.model.identifiable.entity.geo.location.GeoLocation;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.geo.location.GeoLocationService;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.github.dbmdz.metadata.server.controller.identifiable.AbstractIdentifiableController;
 import io.swagger.v3.oas.annotations.Operation;

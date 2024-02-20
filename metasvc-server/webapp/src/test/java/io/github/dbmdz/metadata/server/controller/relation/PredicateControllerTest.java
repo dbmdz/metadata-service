@@ -3,9 +3,9 @@ package io.github.dbmdz.metadata.server.controller.relation;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 
-import de.digitalcollections.cudami.server.business.api.service.relation.PredicateService;
 import de.digitalcollections.model.relation.Predicate;
 import de.digitalcollections.model.text.LocalizedText;
+import io.github.dbmdz.metadata.server.business.api.service.relation.PredicateService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.util.Locale;
 import java.util.UUID;

@@ -3,8 +3,8 @@ package io.github.dbmdz.metadata.server.controller.identifiable.web;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.identifiable.web.WebpageService;
 import de.digitalcollections.model.identifiable.web.Webpage;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.web.WebpageService;
 import java.util.Locale;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

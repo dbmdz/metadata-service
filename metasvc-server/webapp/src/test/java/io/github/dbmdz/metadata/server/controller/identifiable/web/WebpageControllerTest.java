@@ -3,10 +3,10 @@ package io.github.dbmdz.metadata.server.controller.identifiable.web;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.LocaleService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.web.WebpageService;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.identifiable.web.Webpage;
+import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.web.WebpageService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.util.Locale;
 import org.junit.jupiter.api.DisplayName;

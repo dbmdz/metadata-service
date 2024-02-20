@@ -2,8 +2,6 @@ package io.github.dbmdz.metadata.server.controller.identifiable.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.resource.FileResourceMetadataService;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
@@ -11,6 +9,8 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.resource.FileResourceMetadataService;
 import io.github.dbmdz.metadata.server.controller.CudamiControllerException;
 import io.github.dbmdz.metadata.server.controller.legacy.V5MigrationHelper;
 import io.github.dbmdz.metadata.server.controller.legacy.model.LegacyPageRequest;

@@ -1,9 +1,5 @@
 package io.github.dbmdz.metadata.server.controller.semantic;
 
-import de.digitalcollections.cudami.server.business.api.service.UniqueObjectService;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ConflictException;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.semantic.HeadwordService;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.list.buckets.Bucket;
@@ -19,6 +15,10 @@ import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.semantic.Headword;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.business.api.service.UniqueObjectService;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.semantic.HeadwordService;
 import io.github.dbmdz.metadata.server.controller.AbstractUniqueObjectController;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;

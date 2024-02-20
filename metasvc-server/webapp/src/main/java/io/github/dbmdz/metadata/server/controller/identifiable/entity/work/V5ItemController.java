@@ -2,15 +2,15 @@ package io.github.dbmdz.metadata.server.controller.identifiable.entity.work;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.DigitalObjectService;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.work.ItemService;
 import de.digitalcollections.model.identifiable.entity.digitalobject.DigitalObject;
 import de.digitalcollections.model.identifiable.entity.item.Item;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.DigitalObjectService;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.ItemService;
 import io.github.dbmdz.metadata.server.controller.CudamiControllerException;
 import io.github.dbmdz.metadata.server.controller.legacy.V5MigrationHelper;
 import io.github.dbmdz.metadata.server.controller.legacy.model.LegacyPageRequest;

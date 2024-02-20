@@ -2,13 +2,13 @@ package io.github.dbmdz.metadata.server.controller.identifiable.entity.geo.locat
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.cudami.server.business.api.service.exceptions.ServiceException;
-import de.digitalcollections.cudami.server.business.api.service.identifiable.entity.geo.location.HumanSettlementService;
 import de.digitalcollections.model.identifiable.entity.geo.location.HumanSettlement;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
+import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.geo.location.HumanSettlementService;
 import io.github.dbmdz.metadata.server.controller.CudamiControllerException;
 import io.github.dbmdz.metadata.server.controller.legacy.V5MigrationHelper;
 import io.swagger.v3.oas.annotations.Operation;

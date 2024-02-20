@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.condition.JRE.JAVA_11;
 import static org.junit.jupiter.api.condition.JRE.JAVA_14;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.LocaleService;
+import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import java.util.Arrays;
 import java.util.Locale;
 import org.junit.jupiter.api.DisplayName;

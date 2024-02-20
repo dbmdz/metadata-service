@@ -5,11 +5,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
-import de.digitalcollections.cudami.server.business.api.service.legal.LicenseService;
 import de.digitalcollections.model.legal.License;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.text.LocalizedText;
+import io.github.dbmdz.metadata.server.business.api.service.legal.LicenseService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
