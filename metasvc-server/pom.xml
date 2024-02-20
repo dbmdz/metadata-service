@@ -14,12 +14,12 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>metasvc-server-webapp</module>
-    <module>metasvc-server-business</module>
-    <module>metasvc-server-backend-api</module>
-    <module>metasvc-server-backend-inmemory</module>
-    <module>metasvc-server-backend-jdbi</module>
-    <module>metasvc-server-backend-file</module>
-    <module>metasvc-server-backend-lobid</module>
+    <module>webapp</module>
+    <module>business</module>
+    <module>backend-api</module>
+    <module>backend-inmemory</module>
+    <module>backend-jdbi</module>
+    <module>backend-file</module>
+    <module>backend-lobid</module>
   </modules>
 </project>
