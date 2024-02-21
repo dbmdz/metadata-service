@@ -8,29 +8,9 @@ variables:
   DOCKER_HOST: "tcp://docker:2375"
   DOCKER_TLS_CERTDIR: ""
   MAVEN_CLI_OPTS: "-Dmaven.repo.local=.m2/repository --batch-mode -Pcustom-nexus"
+  PLAYBOOK: "cudami/repository-server.yml"
 
 services:
   - name: "$BUILD_IMAGE_DOCKER_DIND"
     alias: docker
 
-###################
-### Stage build ###
-###################
-
-compile:
-  variables:
-    BUILD_PROFILE: production
-
-####################
-### Stage deploy ###
-####################
-
-deploy_dev:
-  parallel:
-    matrix:
-      - PLAYBOOK: [ "cudami/repository-server.yml", "cudami/admin-webapp.yml" ]
-
-deploy_version_to_environment:
-  parallel:
-    matrix:
-      - PLAYBOOK: [ "cudami/repository-server.yml", "cudami/admin-webapp.yml" ]
