@@ -2,7 +2,6 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.semantic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.semantic.Subject;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
@@ -14,6 +13,7 @@ import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractRepositoryImplTest;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.type.DbIdentifierMapper;
 import java.util.Locale;

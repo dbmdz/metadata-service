@@ -2,9 +2,9 @@ package io.github.dbmdz.metadata.server.backend.impl.lobid.identifiable.entity.a
 
 import de.digitalcollections.cudami.lobid.client.LobidClient;
 import de.digitalcollections.cudami.lobid.client.LobidCorporateBodiesClient;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.agent.ExternalCorporateBodyRepository;
 import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.identifiable.entity.agent.CorporateBody;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.agent.ExternalCorporateBodyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

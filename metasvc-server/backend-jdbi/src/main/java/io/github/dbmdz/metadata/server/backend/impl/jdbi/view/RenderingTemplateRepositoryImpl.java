@@ -1,9 +1,9 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.view;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.view.RenderingTemplateRepository;
 import de.digitalcollections.model.view.RenderingTemplate;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.view.RenderingTemplateRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
 import java.util.Arrays;
 import java.util.List;

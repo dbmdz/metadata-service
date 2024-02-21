@@ -2,13 +2,13 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.identifiable.IdentifierType;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractRepositoryImplTest;
 import java.util.List;
 import java.util.UUID;

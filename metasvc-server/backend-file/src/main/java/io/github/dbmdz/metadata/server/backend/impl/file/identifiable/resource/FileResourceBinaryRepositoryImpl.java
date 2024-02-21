@@ -1,13 +1,13 @@
 package io.github.dbmdz.metadata.server.backend.impl.file.identifiable.resource;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.FileResourceBinaryRepository;
 import de.digitalcollections.model.exception.ResourceNotFoundException;
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.identifiable.resource.ImageFileResource;
 import de.digitalcollections.model.identifiable.resource.VideoFileResource;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.FileResourceBinaryRepository;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

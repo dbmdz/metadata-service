@@ -1,12 +1,12 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.relation;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.relation.EntityToEntityRelationRepository;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.relation.EntityRelation;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.relation.EntityToEntityRelationRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.JdbiRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import java.util.ArrayList;

@@ -1,10 +1,6 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.web;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.web.WebpageRepository;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.identifiable.web.Webpage;
@@ -14,6 +10,10 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.view.BreadcrumbNavigation;
 import de.digitalcollections.model.view.BreadcrumbNode;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.web.WebpageRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.IdentifiableRepositoryImpl;
 import java.util.Arrays;
 import java.util.HashMap;

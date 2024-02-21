@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entity;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.ArticleRepository;
 import de.digitalcollections.model.identifiable.entity.Article;
 import de.digitalcollections.model.identifiable.entity.agent.Agent;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.ArticleRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifierService;

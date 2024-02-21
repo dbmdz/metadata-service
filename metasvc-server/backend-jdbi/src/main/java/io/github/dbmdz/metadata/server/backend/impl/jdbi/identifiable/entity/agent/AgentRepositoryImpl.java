@@ -1,16 +1,16 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.agent;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.agent.AgentRepository;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.agent.Agent;
 import de.digitalcollections.model.identifiable.entity.digitalobject.DigitalObject;
 import de.digitalcollections.model.identifiable.entity.work.Work;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.agent.AgentRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import java.util.Set;
 import java.util.UUID;

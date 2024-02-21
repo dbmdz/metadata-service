@@ -1,15 +1,11 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.alias;
 
-import static de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguage;
-import static de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLocalesByScript;
+import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguage;
+import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLocalesByScript;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifiableRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.WebsiteRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.web.WebpageRepository;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;
 import de.digitalcollections.model.identifiable.IdentifiableType;
@@ -22,6 +18,10 @@ import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifiableRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.WebsiteRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.web.WebpageRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractRepositoryImplTest;
 import java.net.MalformedURLException;
 import java.time.LocalDateTime;

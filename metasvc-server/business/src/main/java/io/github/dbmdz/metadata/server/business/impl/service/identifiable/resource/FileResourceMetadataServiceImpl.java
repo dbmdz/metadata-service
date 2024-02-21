@@ -1,8 +1,6 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.resource;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.FileResourceMetadataRepository;
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.resource.ApplicationFileResource;
@@ -14,6 +12,8 @@ import de.digitalcollections.model.identifiable.resource.TextFileResource;
 import de.digitalcollections.model.identifiable.resource.VideoFileResource;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.FileResourceMetadataRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;

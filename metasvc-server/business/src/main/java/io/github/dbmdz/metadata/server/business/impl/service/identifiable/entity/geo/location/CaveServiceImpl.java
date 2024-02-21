@@ -1,8 +1,8 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entity.geo.location;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.geo.location.CaveRepository;
 import de.digitalcollections.model.identifiable.entity.geo.location.Cave;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.geo.location.CaveRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifierService;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.alias.UrlAliasService;

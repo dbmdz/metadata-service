@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.resource;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.DigitalObjectRenderingFileResourceRepository;
 import de.digitalcollections.model.identifiable.entity.digitalobject.DigitalObject;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.DigitalObjectRenderingFileResourceRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.resource.ApplicationFileResourceService;

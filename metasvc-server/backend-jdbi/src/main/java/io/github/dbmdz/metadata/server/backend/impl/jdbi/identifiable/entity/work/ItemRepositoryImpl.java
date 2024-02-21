@@ -1,10 +1,6 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.work;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.work.ItemRepository;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.agent.Agent;
 import de.digitalcollections.model.identifiable.entity.agent.CorporateBody;
@@ -16,6 +12,10 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.ItemRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.DigitalObjectRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.agent.AgentRepositoryImpl;

@@ -1,9 +1,9 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.relation;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.EntityRepository;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.relation.EntityRelation;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.EntityRepository;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.UUID;

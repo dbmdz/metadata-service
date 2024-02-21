@@ -1,10 +1,8 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.alias;
 
-import static de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguage;
+import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguage;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;
 import de.digitalcollections.model.identifiable.IdentifiableType;
@@ -18,6 +16,8 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.WebsiteRepositoryImpl;
 import java.util.Arrays;

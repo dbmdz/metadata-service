@@ -1,11 +1,11 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.geo.location;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import de.digitalcollections.model.geo.CoordinateLocation;
 import de.digitalcollections.model.identifiable.entity.geo.location.Valley;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractIdentifiableRepositoryImplTest;
 import java.util.function.Function;
 import org.junit.jupiter.api.BeforeEach;

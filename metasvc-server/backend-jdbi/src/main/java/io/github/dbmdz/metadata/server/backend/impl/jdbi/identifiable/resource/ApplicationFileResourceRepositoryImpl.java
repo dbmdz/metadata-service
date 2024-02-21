@@ -1,11 +1,11 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.resource;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.ApplicationFileResourceRepository;
 import de.digitalcollections.model.identifiable.resource.ApplicationFileResource;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.ApplicationFileResourceRepository;
 import org.jdbi.v3.core.Jdbi;
 import org.springframework.stereotype.Repository;
 

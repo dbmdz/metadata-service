@@ -1,9 +1,9 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.semantic;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.semantic.TagRepository;
 import de.digitalcollections.model.semantic.Tag;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.semantic.TagRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
 import java.util.Arrays;
 import java.util.List;

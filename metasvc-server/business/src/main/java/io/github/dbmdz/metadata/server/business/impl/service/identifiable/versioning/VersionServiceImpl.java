@@ -1,13 +1,13 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.versioning;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.versioning.VersionRepository;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.versioning.Status;
 import de.digitalcollections.model.identifiable.versioning.TypeKey;
 import de.digitalcollections.model.identifiable.versioning.Version;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.versioning.VersionRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.versioning.VersionService;
 import java.util.UUID;

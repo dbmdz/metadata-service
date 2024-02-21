@@ -1,13 +1,13 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi;
 
-import de.digitalcollections.cudami.server.backend.api.repository.UniqueObjectRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.UniqueObject;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.UniqueObjectRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

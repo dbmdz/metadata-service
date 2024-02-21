@@ -1,12 +1,12 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.resource;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.resource.DigitalObjectRenderingFileResourceRepository;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.identifiable.resource.FileResourceType;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.DigitalObjectRenderingFileResourceRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.JdbiRepositoryImpl;
 import java.util.ArrayList;
 import java.util.Arrays;

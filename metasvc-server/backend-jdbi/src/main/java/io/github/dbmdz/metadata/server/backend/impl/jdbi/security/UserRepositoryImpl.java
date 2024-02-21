@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.security;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.security.UserRepository;
 import de.digitalcollections.model.security.Role;
 import de.digitalcollections.model.security.User;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.security.UserRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
 import java.util.Arrays;
 import java.util.List;

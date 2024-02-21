@@ -1,9 +1,9 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.versioning;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.versioning.VersionRepository;
 import de.digitalcollections.model.identifiable.versioning.Version;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.versioning.VersionRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.JdbiRepositoryImpl;
 import java.util.Date;
 import java.util.List;

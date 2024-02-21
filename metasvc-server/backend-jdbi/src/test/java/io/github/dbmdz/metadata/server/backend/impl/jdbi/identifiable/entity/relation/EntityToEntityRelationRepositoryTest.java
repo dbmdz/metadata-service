@@ -3,13 +3,13 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.re
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.relation.EntityRelation;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.relation.Predicate;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.relation.PredicateRepositoryImpl;

@@ -1,6 +1,6 @@
 package io.github.dbmdz.metadata.server.business.impl.service;
 
-import de.digitalcollections.cudami.server.backend.api.repository.LocaleRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.LocaleRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import java.util.List;
 import java.util.Locale;

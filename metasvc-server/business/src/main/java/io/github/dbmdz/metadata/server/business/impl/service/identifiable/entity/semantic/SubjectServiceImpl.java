@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entity.semantic;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.semantic.SubjectRepository;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.semantic.Subject;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.semantic.SubjectRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.semantic.SubjectService;

@@ -1,12 +1,12 @@
 package io.github.dbmdz.metadata.server.business.impl.service.relation;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.relation.PredicateRepository;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.sorting.Direction;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.relation.Predicate;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.relation.PredicateRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.relation.PredicateService;
 import io.github.dbmdz.metadata.server.business.impl.service.UniqueObjectServiceImpl;

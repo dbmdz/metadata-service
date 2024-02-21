@@ -1,10 +1,10 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.geo.location;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.geo.location.GeoLocationRepository;
 import de.digitalcollections.model.identifiable.entity.geo.location.GeoLocation;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.geo.location.GeoLocationRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;

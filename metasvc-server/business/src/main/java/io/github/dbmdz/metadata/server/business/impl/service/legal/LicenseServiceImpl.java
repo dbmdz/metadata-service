@@ -1,11 +1,11 @@
 package io.github.dbmdz.metadata.server.business.impl.service.legal;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.legal.LicenseRepository;
 import de.digitalcollections.model.legal.License;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.sorting.Direction;
 import de.digitalcollections.model.list.sorting.Sorting;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.legal.LicenseRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.legal.LicenseService;
 import io.github.dbmdz.metadata.server.business.impl.service.UniqueObjectServiceImpl;

@@ -1,15 +1,15 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable;
 
-import static de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguageLocale;
-import static de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLocalesByScript;
+import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguageLocale;
+import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLocalesByScript;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.alias.LocalizedUrlAliases;
 import de.digitalcollections.model.identifiable.alias.UrlAlias;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.identifiable.web.Webpage;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package io.github.dbmdz.metadata.server.business.impl.service.semantic;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.semantic.HeadwordRepository;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.list.buckets.BucketObjectsRequest;
@@ -13,6 +11,8 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Direction;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.semantic.Headword;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.semantic.HeadwordRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.semantic.HeadwordService;
 import io.github.dbmdz.metadata.server.business.impl.service.UniqueObjectServiceImpl;

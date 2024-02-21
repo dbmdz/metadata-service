@@ -1,8 +1,8 @@
 package io.github.dbmdz.metadata.server.business.impl.service.semantic;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.semantic.TagRepository;
 import de.digitalcollections.model.semantic.Tag;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.semantic.TagRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.semantic.TagService;
 import io.github.dbmdz.metadata.server.business.impl.service.UniqueObjectServiceImpl;

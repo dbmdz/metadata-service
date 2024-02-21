@@ -1,9 +1,6 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entity;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.NodeRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.CollectionRepository;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Collection;
 import de.digitalcollections.model.identifiable.entity.digitalobject.DigitalObject;
@@ -12,6 +9,9 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
 import de.digitalcollections.model.view.BreadcrumbNavigation;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.NodeRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.CollectionRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.content.ManagedContentService;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;

@@ -3,10 +3,10 @@ package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entit
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.relation.EntityToEntityRelationRepository;
 import de.digitalcollections.model.identifiable.entity.agent.Person;
 import de.digitalcollections.model.identifiable.entity.manifestation.Manifestation;
 import de.digitalcollections.model.identifiable.entity.relation.EntityRelation;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.relation.EntityToEntityRelationRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
 import io.github.dbmdz.metadata.server.business.impl.service.AbstractServiceImplTest;

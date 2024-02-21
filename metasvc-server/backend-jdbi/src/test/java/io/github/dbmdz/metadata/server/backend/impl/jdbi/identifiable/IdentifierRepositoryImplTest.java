@@ -3,11 +3,11 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.web.WebpageRepository;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.web.Webpage;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.web.WebpageRepository;
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
 import java.util.List;
 import java.util.Locale;

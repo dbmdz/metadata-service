@@ -1,10 +1,6 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.work;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.work.ManifestationRepository;
 import de.digitalcollections.model.RelationSpecification;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;
 import de.digitalcollections.model.identifiable.Identifier;
@@ -32,6 +28,10 @@ import de.digitalcollections.model.text.Title;
 import de.digitalcollections.model.time.LocalDateRange;
 import de.digitalcollections.model.validation.ValidationException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.ManifestationRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.agent.AgentRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.geo.location.HumanSettlementRepositoryImpl;

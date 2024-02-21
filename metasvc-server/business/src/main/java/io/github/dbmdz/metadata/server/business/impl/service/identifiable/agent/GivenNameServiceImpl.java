@@ -1,8 +1,8 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.agent;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.agent.GivenNameRepository;
 import de.digitalcollections.model.identifiable.agent.GivenName;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.agent.GivenNameRepository;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifierService;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.agent.GivenNameService;

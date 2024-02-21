@@ -1,10 +1,6 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.agent;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.entity.agent.PersonRepository;
 import de.digitalcollections.model.identifiable.agent.FamilyName;
 import de.digitalcollections.model.identifiable.agent.GivenName;
 import de.digitalcollections.model.identifiable.entity.agent.Person;
@@ -13,6 +9,10 @@ import de.digitalcollections.model.identifiable.entity.geo.location.GeoLocation;
 import de.digitalcollections.model.identifiable.entity.geo.location.GeoLocationType;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.agent.PersonRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.agent.FamilyNameRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.agent.GivenNameRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.DigitalObjectRepositoryImpl;

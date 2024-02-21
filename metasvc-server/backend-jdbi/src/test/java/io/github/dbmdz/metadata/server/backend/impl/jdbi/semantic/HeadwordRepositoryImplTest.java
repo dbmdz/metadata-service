@@ -4,12 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.list.buckets.Bucket;
 import de.digitalcollections.model.list.buckets.BucketsRequest;
 import de.digitalcollections.model.list.buckets.BucketsResponse;
 import de.digitalcollections.model.semantic.Headword;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;

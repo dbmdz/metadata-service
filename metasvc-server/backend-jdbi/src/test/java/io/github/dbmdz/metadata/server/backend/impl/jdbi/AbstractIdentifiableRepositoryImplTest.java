@@ -2,10 +2,10 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi;
 
 import static io.github.dbmdz.metadata.server.backend.impl.asserts.CudamiAssertions.assertThat;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifiableRepository;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifiableRepository;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.function.Function;

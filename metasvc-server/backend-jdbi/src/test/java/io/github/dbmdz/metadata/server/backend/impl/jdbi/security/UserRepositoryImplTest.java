@@ -3,7 +3,6 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.security;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
@@ -11,6 +10,7 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.security.Role;
 import de.digitalcollections.model.security.User;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
 import java.util.List;
 import java.util.UUID;

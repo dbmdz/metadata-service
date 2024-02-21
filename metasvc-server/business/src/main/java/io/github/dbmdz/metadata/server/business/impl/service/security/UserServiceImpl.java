@@ -1,13 +1,13 @@
 package io.github.dbmdz.metadata.server.business.impl.service.security;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.security.UserRepository;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.sorting.Direction;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.security.Role;
 import de.digitalcollections.model.security.User;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.security.UserRepository;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.security.UserService;
 import io.github.dbmdz.metadata.server.business.impl.service.UniqueObjectServiceImpl;

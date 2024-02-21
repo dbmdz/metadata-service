@@ -4,8 +4,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.UniqueObjectRepository;
 import de.digitalcollections.model.UniqueObject;
+import io.github.dbmdz.metadata.server.backend.api.repository.UniqueObjectRepository;
 import io.github.dbmdz.metadata.server.business.api.service.UniqueObjectService;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import org.junit.jupiter.api.BeforeEach;

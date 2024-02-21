@@ -1,7 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.inmemory;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.cudami.server.backend.api.repository.LocaleRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.LocaleRepository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;

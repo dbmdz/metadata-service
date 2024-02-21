@@ -2,15 +2,15 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import de.digitalcollections.cudami.server.backend.api.repository.exceptions.RepositoryException;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.IdentifierRepository;
-import de.digitalcollections.cudami.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.identifiable.web.Webpage;
 import de.digitalcollections.model.text.LocalizedStructuredContent;
 import de.digitalcollections.model.text.StructuredContent;
 import de.digitalcollections.model.text.contentblock.Text;
 import de.digitalcollections.model.validation.ValidationException;
+import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractIdentifiableRepositoryImplTest;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.web.WebpageRepositoryImpl;
 import java.util.List;
