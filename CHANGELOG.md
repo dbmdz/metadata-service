@@ -4,7 +4,62 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
+
+## 9.0.0
+
+This version changes both the `groupId` and `artifactId` of the contained maven modules as follows:
+
+<table>
+<thead>
+  <tr>
+    <th>OLD</th>
+    <th>NEW</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-client</td>
+    <td>io.github.dbmdz.metadata:metasvc-client</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-lobid-client</td>
+    <td>io.github.dbmdz.metadata:metasvc-lobid-client</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-model</td>
+    <td>io.github.dbmdz.metadata:metasvc-model</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-webapp</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-webapp</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-business</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-business</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-backend-api</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-backend-api</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-backend-inmemory</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-backend-inmemory</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-backend-jdbi</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-backend-jdbi</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-backend-file</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-backend-file</td>
+  </tr>
+  <tr>
+    <td>de.digitalcollections.cudami:dc-cudami-server-backend-lobid</td>
+    <td>io.github.dbmdz.metadata:metasvc-server-backend-lobid</td>
+  </tr>
+</tbody>
+</table>
 
 ### Changed
 

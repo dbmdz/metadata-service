@@ -9,19 +9,19 @@
     <version>2.7.17</version>
   </parent>
 
-  <groupId>de.digitalcollections.cudami</groupId>
-  <artifactId>dc-cudami</artifactId>
+  <groupId>io.github.dbmdz.metadata</groupId>
+  <artifactId>metasvc</artifactId>
   <version>9.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>DigitalCollections: cudami</name>
-  <description>Cudami is a Digital Asset Management System for management and editing of cultural objects.</description>
-  <url>https://github.com/dbmdz/cudami</url>
+  <name>Metadata-Service</name>
+  <description>The Service for managing and editing of cultural objects' metadata</description>
+  <url>https://github.com/dbmdz/metadata-service</url>
 
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>https://github.com/dbmdz/cudami/blob/main/LICENSE</url>
+      <url>https://github.com/dbmdz/metadata-service/blob/main/LICENSE</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -49,24 +49,23 @@
   </developers>
   <ciManagement>
     <system>GitHub Actions</system>
-    <url>https://github.com/dbmdz/cudami/actions</url>
+    <url>https://github.com/dbmdz/metadata-service/actions</url>
   </ciManagement>
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/dbmdz/cudami/issues</url>
+    <url>https://github.com/dbmdz/metadata-service/issues</url>
   </issueManagement>
   <scm>
-    <connection>https://github.com/dbmdz/cudami.git</connection>
-    <developerConnection>git@github.com:dbmdz/cudami.git</developerConnection>
-    <url>https://github.com/dbmdz/cudami</url>
+    <connection>https://github.com/dbmdz/metadata-service.git</connection>
+    <developerConnection>git@github.com:dbmdz/metadata-service.git</developerConnection>
+    <url>https://github.com/dbmdz/metadata-service</url>
   </scm>
 
   <modules>
-    <module>dc-cudami-admin</module>
-    <module>dc-cudami-client</module>
-    <module>dc-cudami-model</module>
-    <module>dc-cudami-server</module>
-    <module>dc-cudami-lobid-client</module>
+    <module>metasvc-client</module>
+    <module>metasvc-model</module>
+    <module>metasvc-server</module>
+    <module>metasvc-lobid-client</module>
   </modules>
 
   <properties>
@@ -100,63 +99,48 @@
         <version>1.9.4</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-admin-backend-api</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-admin-backend-rest</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-model</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-admin-business</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-lobid-client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-client</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-backend-api</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-model</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-backend-file</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-lobid-client</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-backend-inmemory</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-backend-api</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-backend-jdbi</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-backend-file</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-backend-lobid</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-backend-inmemory</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-backend-jdbi</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-backend-lobid</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections.cudami</groupId>
-        <artifactId>dc-cudami-server-business</artifactId>
+        <groupId>io.github.dbmdz.metadata</groupId>
+        <artifactId>metasvc-server-business</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
