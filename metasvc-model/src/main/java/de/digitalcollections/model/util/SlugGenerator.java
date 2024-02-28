@@ -101,14 +101,14 @@ public class SlugGenerator {
       return slug;
     }
 
-    // If no dashes are found, we must just cut it to <maxlength>
-    if (!slug.contains("-")) {
-      return slug.substring(0, maxLength);
-    }
-
     // otherwise first cut to <maxlength>, then go back to the last dash and strip everything from
     // there on
     while (slug.length() > maxLength) {
+      // If no dashes are found, we must just cut it to <maxlength>
+      if (!slug.contains("-")) {
+        slug = slug.substring(0, maxLength);
+        break;
+      }
       slug = slug.substring(0, slug.lastIndexOf("-"));
     }
 
