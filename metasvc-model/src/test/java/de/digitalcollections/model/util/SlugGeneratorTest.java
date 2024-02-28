@@ -128,7 +128,14 @@ class SlugGeneratorTest {
 
   @DisplayName("validates invalid slugs correctly with max length")
   @ParameterizedTest
-  @ValueSource(strings = {"äbc-567-0", "abc-567-0", "101-foo-bar", "foo-bar-123"})
+  @ValueSource(
+      strings = {
+        "äbc-567-0",
+        "abc-567-0",
+        "101-foo-bar",
+        "foo-bar-123",
+        "4JUdGzvrMFDWrUUwY3toJATSeNwjn54LkCnKBPRzDuhzi5vSepHfUckJNxRL2gjkNrSqtCoRUrEDAgRwsQvVCjZbRyFTLRNyDmT1a1boZValfadheat.php"
+      })
   public void isInvalidMaxLength(String input) {
     slugGenerator.setMaxLength(5);
     assertThat(slugGenerator.isValidSlug(input)).isFalse();
