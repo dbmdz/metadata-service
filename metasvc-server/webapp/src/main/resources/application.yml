@@ -1,6 +1,6 @@
 # local/default
 
-cudami:
+application:
   defaults:
     language: en
     locale: en_US
@@ -102,7 +102,7 @@ springdoc:
 ---
 
 # PROD
-cudami:
+application:
   repositoryFolderPath: '/local/cudami/fileResources'
 
 custom:
