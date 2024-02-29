@@ -5,11 +5,11 @@ import de.digitalcollections.cudami.model.config.TypeDeclarations;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConfigurationProperties(prefix = "cudami")
+@ConfigurationProperties(prefix = "application")
 @ConstructorBinding
-public class CudamiServerConfig extends CudamiConfig {
+public class ApplicationConfig extends CudamiConfig {
 
-  public CudamiServerConfig(
+  public ApplicationConfig(
       Defaults defaults,
       int offsetForAlternativePaging,
       String repositoryFolderPath,

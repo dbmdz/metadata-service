@@ -11,5 +11,5 @@ import org.springframework.context.annotation.Configuration;
       "de.digitalcollections.commons.springboot.contributor",
       "de.digitalcollections.commons.springboot.monitoring"
     })
-@EnableConfigurationProperties(CudamiServerConfig.class)
+@EnableConfigurationProperties(ApplicationConfig.class)
 public class SpringConfig {}
