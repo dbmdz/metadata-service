@@ -8,9 +8,8 @@ variables:
   DOCKER_HOST: "tcp://docker:2375"
   DOCKER_TLS_CERTDIR: ""
   MAVEN_CLI_OPTS: "-Dmaven.repo.local=.m2/repository --batch-mode -Pcustom-nexus"
-  PLAYBOOK: "cudami/repository-server.yml"
+  PLAYBOOK: "rest/metadata-service.yml"
 
 services:
   - name: "$BUILD_IMAGE_DOCKER_DIND"
     alias: docker
-
