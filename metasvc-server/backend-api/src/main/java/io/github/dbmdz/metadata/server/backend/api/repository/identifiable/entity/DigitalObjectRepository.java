@@ -154,4 +154,8 @@ public interface DigitalObjectRepository extends EntityRepository<DigitalObject>
 
   List<FileResource> setFileResources(UUID digitalObjectUuid, List<FileResource> fileResources)
       throws RepositoryException, ValidationException;
+
+  ManifestationWorkUuids getAllManifestationAndWorkUuids(UUID digitalObjectUuid);
+
+  public static record ManifestationWorkUuids(List<UUID> manifestations, List<UUID> works) {}
 }
