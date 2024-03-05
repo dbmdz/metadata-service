@@ -1,7 +1,9 @@
 package io.github.dbmdz.metadata.server.business.impl.service.identifiable.entity;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
+import de.digitalcollections.model.RelationSpecification;
 import de.digitalcollections.model.UniqueObject;
+import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Collection;
 import de.digitalcollections.model.identifiable.entity.Project;
@@ -18,6 +20,7 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.DigitalObjectRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.DigitalObjectRepository.ManifestationWorkUuids;
 import io.github.dbmdz.metadata.server.business.api.service.LocaleService;
 import io.github.dbmdz.metadata.server.business.api.service.content.ManagedContentService;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
@@ -34,9 +37,15 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.resourc
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.resource.DigitalObjectRenderingFileResourceService;
 import io.github.dbmdz.metadata.server.config.HookProperties;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -212,6 +221,127 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
     }
   }
 
+  /**
+   * Recursive method to check that the objects and their parents do not form an endless recursion.
+   *
+   * <p>Therefor the {@code testObjects} are a plain list of all related Identifiables whose parents
+   * can be got by applying the passed {@code getParents} function. The {@code prohibitedChildUuids}
+   * is the recursive parameter that must be null on initial call.
+   *
+   * @param <I> Identifiable subtype
+   * @param testObjects list of Identifiables that are checked
+   * @param prohibitedChildUuids recursive parameter, must be {@code null} on initial call
+   * @param getParents function to retrieve the testObjects' parents
+   * @throws ServiceException if an endless recursion is detected (e.g. the child is the parent's
+   *     parent)
+   */
+  private <I extends Identifiable> void preventStackOverflow(
+      List<I> testObjects, List<UUID> prohibitedChildUuids, Function<I, List<I>> getParents)
+      throws ServiceException {
+    if (getParents == null)
+      throw new IllegalArgumentException(
+          "A function to get the parents must be provided (getParents)!");
+    if (testObjects == null || testObjects.isEmpty()) return;
+    List<UUID> prohibitions = prohibitedChildUuids;
+    for (I t : testObjects) {
+      if (prohibitedChildUuids == null) {
+        // every "branch" gets a new list
+        prohibitions = new ArrayList<>();
+      }
+      if (prohibitions.contains(t.getUuid()))
+        throw new ServiceException(
+            "Endless recursion detected at object %s related with the objects %s"
+                .formatted(
+                    t.getUuid(),
+                    prohibitions.stream().map(UUID::toString).collect(Collectors.joining(", "))));
+      prohibitions.add(t.getUuid());
+      List<I> parents = getParents.apply(t);
+      if (parents == null || parents.isEmpty()) continue;
+      preventStackOverflow(parents, prohibitions, getParents);
+    }
+  }
+
+  /**
+   * Replaces the parents by full work objects.
+   *
+   * @param workUuids UUIDs of all related works
+   * @return plain list of by parents expanded works that were passed in as UUID list
+   * @throws ServiceException
+   */
+  private List<Work> expandWorkParents(List<UUID> workUuids) throws ServiceException {
+    if (workUuids.isEmpty()) return Collections.emptyList();
+    List<Work> works =
+        workService.getByExamples(
+            workUuids.stream().<Work>map(u -> Work.builder().uuid(u).build()).toList());
+    // loop through this plain list and set the parents
+    for (Work work : works) {
+      if (work.getParents() == null || work.getParents().isEmpty()) continue;
+      for (int i = 0; i < work.getParents().size(); i++) {
+        Work originalParent = work.getParents().get(i);
+        if (originalParent == null) continue;
+        Optional<Work> replacement =
+            works.stream()
+                .filter(w -> Objects.equals(w.getUuid(), originalParent.getUuid()))
+                .findFirst();
+        if (replacement.isPresent()) work.getParents().set(i, replacement.get());
+      }
+    }
+    preventStackOverflow(works, null, Work::getParents);
+    return works;
+  }
+
+  /**
+   * Replaces the parents by the full manifestation objects and adds the works.
+   *
+   * @param manifestationUuids UUIDs of all manifestations (children and parents) that are related
+   *     to each other
+   * @param works the works that belong to the manifestations
+   * @return plain list of the fully expanded manifestation objects passed as UUID list
+   * @throws ServiceException
+   */
+  private List<Manifestation> expandAndFillManifestations(
+      List<UUID> manifestationUuids, List<Work> works) throws ServiceException {
+    if (manifestationUuids.isEmpty()) return Collections.emptyList();
+    List<Manifestation> manifestations =
+        manifestationService.getByExamples(
+            manifestationUuids.stream()
+                .<Manifestation>map(u -> Manifestation.builder().uuid(u).build())
+                .toList());
+    for (Manifestation manifestation : manifestations) {
+      // first replace work by fully filled one
+      if (manifestation.getWork() != null && manifestation.getWork().getUuid() != null) {
+        manifestation.setWork(
+            works.parallelStream()
+                .filter(w -> Objects.equals(w.getUuid(), manifestation.getWork().getUuid()))
+                .findFirst()
+                .orElse(manifestation.getWork()));
+      }
+      // second replace parents
+      if (manifestation.getParents() == null || manifestation.getParents().isEmpty()) continue;
+      for (int i = 0; i < manifestation.getParents().size(); i++) {
+        Manifestation originalParent =
+            Optional.ofNullable(manifestation.getParents().get(i))
+                .map(RelationSpecification::getSubject)
+                .orElse(null);
+        if (originalParent == null) continue;
+        Optional<Manifestation> replacement =
+            manifestations.stream()
+                .filter(m -> Objects.equals(m.getUuid(), originalParent.getUuid()))
+                .findFirst();
+        if (replacement.isEmpty()) continue;
+        manifestation.getParents().get(i).setSubject(replacement.get());
+      }
+    }
+    preventStackOverflow(
+        manifestations,
+        null,
+        m ->
+            (m.getParents() != null)
+                ? m.getParents().stream().map(RelationSpecification::getSubject).toList()
+                : null);
+    return manifestations;
+  }
+
   private void expandByWemiObjects(DigitalObject digitalObject) throws ServiceException {
     if (digitalObject == null || digitalObject.getItem() == null) return;
     // local function to set lastModified of the DigitalObject to the newest of its enclosed WMI
@@ -228,14 +358,24 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
     setNewestLastModified.accept(digitalObject, item);
 
     if (item.getManifestation() == null) return;
-    Manifestation manifestation = manifestationService.getByExample(item.getManifestation());
+    // retrieve all manifestations and works
+    ManifestationWorkUuids manifestationWorkUuids =
+        ((DigitalObjectRepository) repository)
+            .getAllManifestationAndWorkUuids(digitalObject.getUuid());
+    List<Work> allWorksPlain = expandWorkParents(manifestationWorkUuids.works());
+    List<Manifestation> manifestationsWithWorks =
+        expandAndFillManifestations(manifestationWorkUuids.manifestations(), allWorksPlain);
+
+    Manifestation manifestation =
+        manifestationsWithWorks.parallelStream()
+            .filter(m -> Objects.equals(m.getUuid(), item.getManifestation().getUuid()))
+            .findFirst()
+            .get(); // must be there otherwise the SQL in getAllManifestationAndWorkUuids is wrong
     item.setManifestation(manifestation);
     setNewestLastModified.accept(digitalObject, manifestation);
 
     if (manifestation.getWork() == null) return;
-    Work work = workService.getByExample(manifestation.getWork());
-    manifestation.setWork(work);
-    setNewestLastModified.accept(digitalObject, work);
+    setNewestLastModified.accept(digitalObject, manifestation.getWork());
   }
 
   @Override

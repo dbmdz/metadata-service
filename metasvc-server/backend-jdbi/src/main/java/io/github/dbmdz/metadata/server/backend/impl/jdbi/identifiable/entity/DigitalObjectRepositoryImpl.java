@@ -53,6 +53,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -510,6 +511,61 @@ public class DigitalObjectRepositoryImpl extends EntityRepositoryImpl<DigitalObj
         return null;
     }
     // return null;
+  }
+
+  @Override
+  public ManifestationWorkUuids getAllManifestationAndWorkUuids(UUID digitalObjectUuid) {
+    if (digitalObjectUuid == null)
+      return new ManifestationWorkUuids(Collections.emptyList(), Collections.emptyList());
+    return dbi.withHandle(
+        h ->
+            h.createQuery(
+                    """
+      with recursive digobj_manifest (manifest, work) as (
+        -- start point: find the digitalObject's manifestation and work
+        select mf.uuid, mf.work from manifestations mf
+          inner join items i on i.manifestation = mf.uuid
+          inner join digitalobjects d on d.item_uuid = i.uuid
+        where d.uuid = :digitalObjectUuid
+      ),
+      -- lvl prevents an endless recursion
+      manifest_parents (lvl, tpe, manifest, work) as (
+        -- find all the ancestors of the manifestation and their works
+        select 0, 'manifestation', manifest, work from digobj_manifest
+        union
+        select lvl + 1, 'manifestation', mms.subject_uuid, mf.work from manifest_parents self,
+          -- subj = parent | obj = child
+          manifestation_manifestations mms
+          left join manifestations mf on mf.uuid = mms.subject_uuid
+          where self.manifest = mms.object_uuid and self.lvl < 9
+      ),
+      work_parents (lvl, tpe, work) as (
+        -- collect all the works we found earlier and search for all their ancestors
+        select 0, 'work', work from manifest_parents
+          where manifest_parents.work is not null
+        union
+        select lvl + 1, 'work', wws.subject_uuid from work_parents self,
+          -- subj = parent | obj = child
+          work_works wws
+          where self.work = wws.object_uuid and self.lvl < 9
+      )
+      select lvl, tpe, manifest as uuid from manifest_parents
+      union
+      select lvl, tpe, work from work_parents
+      order by tpe, lvl;
+      """)
+                .bind("digitalObjectUuid", digitalObjectUuid)
+                .reduceRows(
+                    new ManifestationWorkUuids(new ArrayList<UUID>(), new ArrayList<UUID>()),
+                    (mfsAndWorks, rowView) -> {
+                      UUID uuid = rowView.getColumn("uuid", UUID.class);
+                      if (Objects.equals("manifestation", rowView.getColumn("tpe", String.class))) {
+                        mfsAndWorks.manifestations().add(uuid);
+                      } else if (Objects.equals("work", rowView.getColumn("tpe", String.class))) {
+                        mfsAndWorks.works().add(uuid);
+                      }
+                      return mfsAndWorks;
+                    }));
   }
 
   @Override

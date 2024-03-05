@@ -9,6 +9,7 @@ import de.digitalcollections.model.identifiable.resource.ImageFileResource;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import java.util.List;
 import java.util.Locale;
@@ -154,4 +155,9 @@ public interface DigitalObjectRepository extends EntityRepository<DigitalObject>
 
   List<FileResource> setFileResources(UUID digitalObjectUuid, List<FileResource> fileResources)
       throws RepositoryException, ValidationException;
+
+  ManifestationWorkUuids getAllManifestationAndWorkUuids(UUID digitalObjectUuid);
+
+  @SuppressFBWarnings({"EI_EXPOSE_REP2", "EI_EXPOSE_REP"})
+  public static record ManifestationWorkUuids(List<UUID> manifestations, List<UUID> works) {}
 }
