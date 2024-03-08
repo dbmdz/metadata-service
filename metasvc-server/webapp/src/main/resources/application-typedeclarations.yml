@@ -172,6 +172,14 @@ application:
         subType: HANDMADE
       - mainType: IMAGE
         subType: PRINT
+      - mainType: TEXT
+        subType: HANDMADE
+      - mainType: TEXT
+        subType: PRINT
+      - mainType: SPATIAL
+        subType: HANDMADE
+      - mainType: SPATIAL
+        subType: PRINT
 
     titleTypes:
       - mainType: ABBR
