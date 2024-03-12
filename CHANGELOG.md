@@ -64,7 +64,7 @@ This version changes both the `groupId` and `artifactId` of the contained maven 
 ### Changed
 
 - **BREAKING**: Java version of `dc-cudami-client` & `dc-cudami-model` (thus former `dc-model` as well) upgraded to 17
-- Integrated previously independent [digitalcollections-model](https://github.com/dbmdz/digitalcollections-model)
+- Integrated previously independent [digitalcollections-model](https://github.com/dbmdz/digitalcollections-model) - the original changelog can be found [here](metasvc-model/CHANGELOG.md)
 - Integrated several former independent modules from `dc-commons`
 
 ### Fixed
