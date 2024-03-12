@@ -113,7 +113,8 @@ public class UserRepositoryImpl extends UniqueObjectRepositoryImpl<User> impleme
   @Override
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        + """
+        +
+            """
         , {{tableAlias}}.email {{mappingPrefix}}_email,
         {{tableAlias}}.enabled {{mappingPrefix}}_enabled,
         {{tableAlias}}.firstname {{mappingPrefix}}_firstname,

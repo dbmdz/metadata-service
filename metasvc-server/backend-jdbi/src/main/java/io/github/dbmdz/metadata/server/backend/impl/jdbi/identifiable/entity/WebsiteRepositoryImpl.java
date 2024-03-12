@@ -116,7 +116,7 @@ public class WebsiteRepositoryImpl extends EntityRepositoryImpl<Website>
 
     StringBuilder innerQuery =
         new StringBuilder(
-            """
+                """
             SELECT {{webpageAlias}}.*, ww.sortindex wpidx FROM {{webpage}} {{webpageAlias}}
                 INNER JOIN website_webpages ww ON {{webpageAlias}}.uuid = ww.webpage_uuid
             WHERE ww.website_uuid = :uuid

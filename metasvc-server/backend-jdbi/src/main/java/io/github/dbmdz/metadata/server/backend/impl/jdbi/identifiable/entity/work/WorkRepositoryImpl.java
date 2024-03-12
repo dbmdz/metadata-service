@@ -337,7 +337,8 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
   @Override
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        + """
+        +
+            """
             , %1$s.creation_daterange %2$s_creationDateRange
             , %1$s.creation_timevalue %2$s_creationTimeValue
             , %1$s.first_appeared_date %2$s_firstAppearedDate
@@ -347,13 +348,15 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
             """
             .formatted(tableAlias, mappingPrefix)
         // parents
-        + """
+        +
+        """
             parent.uuid parent_uuid, parent.label parent_label, parent.titles parent_titles,
             parent.refid parent_refId, parent.notes parent_notes, parent.created parent_created, parent.last_modified parent_lastModified,
             parent.identifiable_objecttype parent_identifiableObjectType, get_identifiers(parent.uuid) parent_identifiers,
             """
         // relations
-        + """
+        +
+            """
             {{entityRelationAlias}}.predicate {{entityRelationMap}}_predicate, {{entityRelationAlias}}.sortindex {{entityRelationMap}}_sortindex,
             {{entityRelationAlias}}.additional_predicates {{entityRelationMap}}_additionalPredicates,
             max({{entityRelationAlias}}.sortindex) OVER (PARTITION BY {{tableAlias}}.uuid) relation_max_sortindex,
@@ -370,7 +373,8 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
   @Override
   protected String getSqlSelectReducedFieldsJoins() {
     return super.getSqlSelectReducedFieldsJoins()
-        + """
+        +
+            """
       LEFT JOIN (
         work_works wws INNER JOIN works parent
         ON parent.uuid = wws.subject_uuid
