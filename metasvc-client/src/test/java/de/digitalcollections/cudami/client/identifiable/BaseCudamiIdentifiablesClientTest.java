@@ -65,7 +65,7 @@ public abstract class BaseCudamiIdentifiablesClientTest<
     Locale locale = Locale.GERMAN;
     client.getByUuidAndLocale(uuid, locale);
 
-    verifyHttpRequestByMethodAndRelativeURL("get", "/" + uuid + "?locale=" + locale);
+    verifyHttpRequestByMethodAndRelativeURL("get", "/" + uuid + "?pLocale=" + locale);
   }
 
   @Test
@@ -75,7 +75,7 @@ public abstract class BaseCudamiIdentifiablesClientTest<
     String locale = Locale.GERMAN.toString();
     client.getByUuidAndLocale(uuid, locale);
 
-    verifyHttpRequestByMethodAndRelativeURL("get", "/" + uuid + "?locale=" + locale);
+    verifyHttpRequestByMethodAndRelativeURL("get", "/" + uuid + "?pLocale=" + locale);
   }
 
   @Test

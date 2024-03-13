@@ -71,6 +71,7 @@ This version changes both the `groupId` and `artifactId` of the contained maven 
 
 - Several missing `equals` & `hashCode` methods are added to model classes
 - Order of a website's root webpages is retained
+- Renamed parameter `locale` to `pLocale` in the client
 
 ## [8.0.3](https://github.com/dbmdz/cudami/releases/tag/8.0.3) – 2024-01-19
 

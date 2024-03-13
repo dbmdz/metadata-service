@@ -121,7 +121,7 @@ public class CudamiIdentifiablesClient<I extends Identifiable> extends CudamiRes
 
   public I getByUuidAndLocale(UUID uuid, String locale) throws TechnicalException {
     try {
-      return doGetRequestForObject(String.format(baseEndpoint + "/%s?locale=%s", uuid, locale));
+      return doGetRequestForObject(String.format(baseEndpoint + "/%s?pLocale=%s", uuid, locale));
     } catch (ResourceNotFoundException e) {
       return null;
     }
