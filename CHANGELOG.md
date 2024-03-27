@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- More typedeclarations
+
 ## [9.0.0](https://github.com/dbmdz/metadata-service/releases/tag/9.0.0) – 2024-03-14
 
 This version changes both the `groupId` and `artifactId` of the contained maven modules as follows:
