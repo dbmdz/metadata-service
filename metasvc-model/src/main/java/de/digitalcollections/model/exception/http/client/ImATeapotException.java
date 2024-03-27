@@ -1,5 +1,7 @@
 package de.digitalcollections.model.exception.http.client;
 
+import org.zalando.problem.Problem;
+
 /**
  * HttpStatusCode 418 denoting the api is wrongfully using a teapot for making coffee as specified
  * in the Hyper Text Coffee Pot Control Protocol (see <a
@@ -7,7 +9,7 @@ package de.digitalcollections.model.exception.http.client;
  */
 public class ImATeapotException extends HttpClientException {
 
-  public ImATeapotException(String methodKey, int status, String request) {
-    super(methodKey, status, request);
+  public ImATeapotException(String methodKey, int status, String request, Problem problem) {
+    super(methodKey, status, request, problem);
   }
 }

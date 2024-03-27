@@ -47,6 +47,9 @@ media:
 server:
   port: 9000
   server-header: "@project.name@ v@project.version@"
+  servlet:
+    encoding:
+      force: true
 
 spring:
   datasource:
@@ -90,6 +93,11 @@ spring:
   thymeleaf:
     cache: false
     mode: HTML
+  web:
+    resources:
+      add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
 
 springdoc:
   swagger-ui:

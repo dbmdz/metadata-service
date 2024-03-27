@@ -147,12 +147,12 @@ class PredicateControllerTest extends BaseControllerTest {
       "throws an error (since there's no valid PUT endpoint), when update is called without uuid or value")
   @Test
   public void exceptionForEmptyPathOnUpdate() throws Exception {
-    testPutJsonWithState("/v6/predicates/", "{}", 500);
+    testPutJsonWithState("/v6/predicates/", "{}", 405);
   }
 
   @DisplayName("throws an error, when update is called without predicate")
   @Test
   public void exceptionForEmptyPredicateOnUpdate() throws Exception {
-    testPutJsonWithState("/v6/predicates/foo", null, 500);
+    testPutJsonWithState("/v6/predicates/foo", null, 400);
   }
 }
