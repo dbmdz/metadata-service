@@ -20,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.dialect.AbstractProcessorDialect;
+import org.zalando.problem.jackson.ProblemModule;
+import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
 @Configuration
 public class SpringConfigWeb implements WebMvcConfigurer {
@@ -27,7 +29,8 @@ public class SpringConfigWeb implements WebMvcConfigurer {
   @Bean
   @Primary
   public ObjectMapper objectMapper() {
-    return new DigitalCollectionsObjectMapper();
+    return new DigitalCollectionsObjectMapper()
+        .registerModules(new ProblemModule(), new ConstraintViolationProblemModule());
   }
 
   @Bean
