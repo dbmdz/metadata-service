@@ -122,6 +122,10 @@ application:
         subType: HANDMADE
       - mainType: PAPYRUS
         subType: PRINT
+      - mainType: PROCEEDING
+        subType: HANDMADE
+      - mainType: PROCEEDING
+        subType: PRINT
       - mainType: PROCEEDINGS
         subType: HANDMADE
       - mainType: PROCEEDINGS
@@ -179,6 +183,10 @@ application:
       - mainType: SPATIAL
         subType: HANDMADE
       - mainType: SPATIAL
+        subType: PRINT
+      - mainType: LIBRETTO
+        subType: HANDMADE
+      - mainType: LIBRETTO
         subType: PRINT
 
     titleTypes:
