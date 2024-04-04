@@ -266,10 +266,8 @@ public abstract class BaseRestClient<T extends Object> {
       String requestUrl, PageRequest pageRequest) throws TechnicalException {
     if (!requestUrl.contains("?")) {
       requestUrl = requestUrl + "?";
-    } else {
-      if (!requestUrl.endsWith("&")) {
-        requestUrl = requestUrl + "&";
-      }
+    } else if (!requestUrl.endsWith("&")) {
+      requestUrl = requestUrl + "&";
     }
     String findParams = getFindParamsAsString(pageRequest);
     requestUrl = requestUrl + findParams;

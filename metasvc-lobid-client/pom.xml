@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.github.dbmdz.metadata</groupId>
     <artifactId>metasvc</artifactId>
-    <version>9.0.1-SNAPSHOT</version>
+    <version>9.1.0-SNAPSHOT</version>
   </parent>
 
   <name>Metadata-Service: lobid.org Client</name>

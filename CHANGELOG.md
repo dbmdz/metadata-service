@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 
 - More typedeclarations
+- Improved error responses: the body contains a `Problem` (JSON) with details about the exception;
+  using the metasvc-client the `Problem`-object can be retrieved from the exception by calling `getProblem()`
 
 ## [9.0.0](https://github.com/dbmdz/metadata-service/releases/tag/9.0.0) – 2024-03-14
 
