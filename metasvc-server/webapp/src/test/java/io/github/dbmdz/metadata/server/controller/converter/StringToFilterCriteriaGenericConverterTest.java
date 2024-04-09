@@ -9,6 +9,8 @@ import de.digitalcollections.model.list.filtering.Filtering;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.alias.UrlAliasService;
 import io.github.dbmdz.metadata.server.controller.identifiable.IdentifiableController;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +57,9 @@ class StringToFilterCriteriaGenericConverterTest {
         "%7B$OR;label.de-Latn:like:some+%5C%7B+text+%5C%7D;description.de-Latn:like:some%5C%5C%3B+text%7D;%7BlastModified:gt:2020-01-01%7D";
     Object actual =
         converter.convert(
-            source, TypeDescriptor.forObject(source), TypeDescriptor.valueOf(Filtering.class));
+            URLDecoder.decode(source, StandardCharsets.UTF_8),
+            TypeDescriptor.forObject(source),
+            TypeDescriptor.valueOf(Filtering.class));
     assertThat(actual instanceof Filtering).isTrue();
     assertThat(actual).isEqualTo(expected);
   }
