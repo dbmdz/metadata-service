@@ -16,9 +16,10 @@ import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceEx
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public abstract class UniqueObjectServiceImpl<
         U extends UniqueObject, R extends UniqueObjectRepository<U>>
     implements UniqueObjectService<U> {
