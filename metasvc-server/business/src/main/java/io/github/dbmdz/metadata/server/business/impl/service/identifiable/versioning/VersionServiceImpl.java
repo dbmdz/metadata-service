@@ -13,10 +13,11 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.version
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(rollbackFor = {Exception.class})
+@Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class VersionServiceImpl implements VersionService {
 
   @Autowired private VersionRepository repository;

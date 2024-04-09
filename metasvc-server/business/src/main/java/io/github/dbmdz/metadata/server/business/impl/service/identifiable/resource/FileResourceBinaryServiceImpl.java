@@ -14,11 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 
 @Service
-@Transactional(rollbackFor = {Exception.class})
+@Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class FileResourceBinaryServiceImpl implements FileResourceBinaryService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FileResourceBinaryServiceImpl.class);

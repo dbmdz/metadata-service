@@ -66,6 +66,7 @@ spring:
         set random_page_cost = 2;
         set jit = false;
       keepalive-time: 300000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
   flyway:
     baseline-on-migrate: true
     enabled: true
