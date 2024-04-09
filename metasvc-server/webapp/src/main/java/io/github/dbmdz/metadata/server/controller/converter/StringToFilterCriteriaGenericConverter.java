@@ -4,8 +4,6 @@ import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.FilterLogicalOperator;
 import de.digitalcollections.model.list.filtering.FilterOperation;
 import de.digitalcollections.model.list.filtering.Filtering;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -52,7 +50,6 @@ public class StringToFilterCriteriaGenericConverter implements GenericConverter 
     }
     if (!(source instanceof String sourceString))
       throw new IllegalArgumentException("`source` parameter must be of type `String`.");
-    sourceString = URLDecoder.decode(sourceString, StandardCharsets.UTF_8);
     if (!StringUtils.hasText(sourceString)) {
       return null;
     } else if (!sourceString.contains(":")) {
