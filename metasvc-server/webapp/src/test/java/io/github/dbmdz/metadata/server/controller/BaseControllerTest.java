@@ -1,13 +1,17 @@
 package io.github.dbmdz.metadata.server.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -140,7 +144,7 @@ public abstract class BaseControllerTest {
    */
   protected void testJson(String path, String expectedJsonPath) throws Exception {
     mockMvc
-        .perform(get(path))
+        .perform(get(new URI(path)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(ContentType.APPLICATION_JSON.getMimeType()))
         .andExpect(content().json(getJsonFromFileResource(expectedJsonPath)));
