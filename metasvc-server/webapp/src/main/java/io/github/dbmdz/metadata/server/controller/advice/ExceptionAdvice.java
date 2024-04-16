@@ -1,5 +1,7 @@
 package io.github.dbmdz.metadata.server.controller.advice;
 
+import de.digitalcollections.model.exception.ProblemHinting;
+import de.digitalcollections.model.exception.ProblemHinting.ProblemHint;
 import de.digitalcollections.model.validation.ValidationException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ResourceNotFoundException;
@@ -33,12 +35,6 @@ public class ExceptionAdvice implements ProblemHandling {
         .toUri();
   }
 
-  @ExceptionHandler(UsernameNotFoundException.class)
-  public ResponseEntity<Problem> handleNotFound(
-      UsernameNotFoundException e, ServletWebRequest request) {
-    return create(Status.NOT_FOUND, e, request);
-  }
-
   private static Status statusFromExceptionClass(Throwable exc) {
     if (exc instanceof ResourceNotFoundException) {
       return Status.NOT_FOUND;
@@ -51,6 +47,23 @@ public class ExceptionAdvice implements ProblemHandling {
     } else {
       return Status.INTERNAL_SERVER_ERROR;
     }
+  }
+
+  private static ProblemHint hintFromException(Throwable exc) {
+    if (exc == null) return ProblemHint.NONE;
+    if (exc instanceof ProblemHinting hintedExc) {
+      return hintedExc.getHint();
+    } else if (exc.getCause() != null) {
+      return hintFromException(exc.getCause());
+    } else {
+      return ProblemHint.NONE;
+    }
+  }
+
+  @ExceptionHandler(UsernameNotFoundException.class)
+  public ResponseEntity<Problem> handleNotFound(
+      UsernameNotFoundException e, ServletWebRequest request) {
+    return create(Status.NOT_FOUND, e, request);
   }
 
   @ExceptionHandler(ValidationException.class)
@@ -69,6 +82,7 @@ public class ExceptionAdvice implements ProblemHandling {
             .withDetail(exception.getMessage())
             .with("errors", exception.getErrors())
             .with("timestamp", new Date())
+            .with("hint", exception.getHint())
             .build();
     return create(problem, request);
   }
@@ -90,6 +104,7 @@ public class ExceptionAdvice implements ProblemHandling {
             .withStatus(statusFromExceptionClass(cause))
             .withDetail(cause.getMessage())
             .withInstance(getRequestUri(request))
+            .with("hint", hintFromException(exception))
             .build();
     if (problem.getStatus() == Status.INTERNAL_SERVER_ERROR)
       LOGGER.error("Exception stack trace", exception);

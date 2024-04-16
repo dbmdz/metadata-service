@@ -1,6 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi;
 
 import de.digitalcollections.model.UniqueObject;
+import de.digitalcollections.model.exception.ProblemHinting.ProblemHint;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
@@ -113,12 +114,35 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
        * foreign_key_violation: 23503
        * unique_violation: 23505
        * check_violation: 23514
+       * not_null_violation: 23502
        */
-      return List.of("23503", "23505", "23514").contains(sqlexc.getSQLState());
+      return List.of("23503", "23505", "23514", "23502").contains(sqlexc.getSQLState());
     }
     return throwable.getCause() != null
         ? isConstraintViolationException(throwable.getCause(), useMessage)
         : false;
+  }
+
+  protected ProblemHint getHint(Throwable throwable) {
+    if (throwable == null) return ProblemHint.NONE;
+    if (throwable instanceof SQLException sqlexc) {
+      /*
+       * Codes see method `isConstraintViolationException`
+       * serialization_failure: 40001
+       */
+      return switch (sqlexc.getSQLState()) {
+        case "23503" -> ProblemHint.REFERENCED_OBJECT_NOT_EXISTS;
+        case "23505" -> ProblemHint.UNIQUE_VIOLATION;
+        case "23514" -> ProblemHint.MANDATORY_CHECK_FAILED;
+        case "23502" -> ProblemHint.PROPERTY_MUST_NOT_BE_NULL;
+        case "40001" -> ProblemHint.RETRY_RECOMMENDED;
+        default -> ProblemHint.NONE;
+      };
+    } else if (throwable.getCause() != null) {
+      return getHint(throwable.getCause());
+    } else {
+      return ProblemHint.NONE;
+    }
   }
 
   private void execInsertUpdate(
@@ -150,13 +174,14 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
     } catch (StatementException e) {
       AtomicReference<String> constraintMessage = new AtomicReference<>();
       if (isConstraintViolationException(e, constraintMessage::set)) {
-        throw new ValidationException(constraintMessage.get());
+        throw new ValidationException(constraintMessage.get(), getHint(e));
       }
+
       String detailMessage = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
       throw new RepositoryException(
-          String.format("The SQL statement is defective: %s", detailMessage), e);
+          String.format("SQL exception: %s", detailMessage), e, getHint(e));
     } catch (JdbiException e) {
-      throw new RepositoryException(e);
+      throw new RepositoryException(e, getHint(e));
     }
   }
 
