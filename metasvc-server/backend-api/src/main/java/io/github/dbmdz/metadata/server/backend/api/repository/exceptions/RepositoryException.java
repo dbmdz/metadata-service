@@ -1,6 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.api.repository.exceptions;
 
-import de.digitalcollections.model.exception.ProblemHinting;
+import de.digitalcollections.model.exception.problem.ProblemHint;
+import de.digitalcollections.model.exception.problem.ProblemHinting;
 
 public class RepositoryException extends Exception implements ProblemHinting {
 

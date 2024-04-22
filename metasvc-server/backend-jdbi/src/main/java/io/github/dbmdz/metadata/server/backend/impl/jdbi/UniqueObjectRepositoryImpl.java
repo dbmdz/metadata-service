@@ -1,7 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi;
 
 import de.digitalcollections.model.UniqueObject;
-import de.digitalcollections.model.exception.ProblemHinting.ProblemHint;
+import de.digitalcollections.model.exception.problem.ProblemHint;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;

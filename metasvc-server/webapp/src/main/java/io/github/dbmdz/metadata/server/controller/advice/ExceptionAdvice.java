@@ -1,7 +1,8 @@
 package io.github.dbmdz.metadata.server.controller.advice;
 
-import de.digitalcollections.model.exception.ProblemHinting;
-import de.digitalcollections.model.exception.ProblemHinting.ProblemHint;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
+import de.digitalcollections.model.exception.problem.ProblemHint;
+import de.digitalcollections.model.exception.problem.ProblemHinting;
 import de.digitalcollections.model.validation.ValidationException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ResourceNotFoundException;
@@ -70,7 +71,7 @@ public class ExceptionAdvice implements ProblemHandling {
   public ResponseEntity<Problem> handleValidationException(
       ValidationException exception, ServletWebRequest request) {
     ThrowableProblem problem =
-        Problem.builder()
+        MetasvcProblem.builder()
             .withType(
                 UriComponentsBuilder.fromPath("/errors/")
                     .path(exception.getClass().getSimpleName())
@@ -80,9 +81,9 @@ public class ExceptionAdvice implements ProblemHandling {
             .withStatus(statusFromExceptionClass(exception))
             .withInstance(getRequestUri(request))
             .withDetail(exception.getMessage())
-            .with("errors", exception.getErrors())
-            .with("timestamp", new Date())
-            .with("hint", exception.getHint())
+            .withErrors(exception.getErrors())
+            .withTimestamp(new Date())
+            .withHint(exception.getHint())
             .build();
     return create(problem, request);
   }
@@ -94,7 +95,7 @@ public class ExceptionAdvice implements ProblemHandling {
       cause = cause.getCause();
     }
     ThrowableProblem problem =
-        Problem.builder()
+        MetasvcProblem.builder()
             .withType(
                 UriComponentsBuilder.fromPath("/errors/")
                     .path(cause.getClass().getSimpleName())
@@ -104,7 +105,8 @@ public class ExceptionAdvice implements ProblemHandling {
             .withStatus(statusFromExceptionClass(cause))
             .withDetail(cause.getMessage())
             .withInstance(getRequestUri(request))
-            .with("hint", hintFromException(exception))
+            .withHint(hintFromException(exception))
+            .withTimestamp(new Date())
             .build();
     if (problem.getStatus() == Status.INTERNAL_SERVER_ERROR)
       LOGGER.error("Exception stack trace", exception);
