@@ -1,6 +1,7 @@
 package de.digitalcollections.model.validation;
 
-import de.digitalcollections.model.exception.ProblemHinting;
+import de.digitalcollections.model.exception.problem.ProblemHint;
+import de.digitalcollections.model.exception.problem.ProblemHinting;
 import java.util.ArrayList;
 import java.util.List;
 

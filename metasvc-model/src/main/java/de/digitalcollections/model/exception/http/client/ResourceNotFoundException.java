@@ -1,10 +1,11 @@
 package de.digitalcollections.model.exception.http.client;
 
-import org.zalando.problem.Problem;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
 
 public class ResourceNotFoundException extends HttpClientException {
 
-  public ResourceNotFoundException(String methodKey, int status, String request, Problem problem) {
+  public ResourceNotFoundException(
+      String methodKey, int status, String request, MetasvcProblem problem) {
     super(methodKey, status, request, problem);
   }
 

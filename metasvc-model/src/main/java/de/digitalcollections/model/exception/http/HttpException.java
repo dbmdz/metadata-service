@@ -1,13 +1,13 @@
 package de.digitalcollections.model.exception.http;
 
-import org.zalando.problem.Problem;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
 
 public class HttpException extends RuntimeException {
 
   private final String methodKey;
   private final String request;
   private final Integer statuscode;
-  private final Problem problem;
+  private final MetasvcProblem problem;
 
   public HttpException(String methodKey, Exception ex) {
     super(String.format("Got exception for backend call %s.", methodKey), ex);
@@ -25,7 +25,7 @@ public class HttpException extends RuntimeException {
     this.problem = null;
   }
 
-  public HttpException(String methodKey, int statuscode, String request, Problem problem) {
+  public HttpException(String methodKey, int statuscode, String request, MetasvcProblem problem) {
     super(String.format("Got %d for backend call %s.%n⤷ %s", statuscode, methodKey, request));
     this.methodKey = methodKey;
     this.request = request;
@@ -45,7 +45,7 @@ public class HttpException extends RuntimeException {
     return statuscode;
   }
 
-  public Problem getProblem() {
+  public MetasvcProblem getProblem() {
     return problem;
   }
 }

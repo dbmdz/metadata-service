@@ -1,10 +1,11 @@
 package de.digitalcollections.model.exception.http.server;
 
-import org.zalando.problem.Problem;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
 
 public class GatewayTimeOutException extends HttpServerException {
 
-  public GatewayTimeOutException(String methodKey, int status, String request, Problem problem) {
+  public GatewayTimeOutException(
+      String methodKey, int status, String request, MetasvcProblem problem) {
     super(methodKey, status, request, problem);
   }
 }
