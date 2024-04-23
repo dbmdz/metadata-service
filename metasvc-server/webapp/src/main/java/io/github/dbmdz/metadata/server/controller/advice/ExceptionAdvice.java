@@ -1,5 +1,8 @@
 package io.github.dbmdz.metadata.server.controller.advice;
 
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
+import de.digitalcollections.model.exception.problem.ProblemHint;
+import de.digitalcollections.model.exception.problem.ProblemHinting;
 import de.digitalcollections.model.validation.ValidationException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ResourceNotFoundException;
@@ -33,12 +36,6 @@ public class ExceptionAdvice implements ProblemHandling {
         .toUri();
   }
 
-  @ExceptionHandler(UsernameNotFoundException.class)
-  public ResponseEntity<Problem> handleNotFound(
-      UsernameNotFoundException e, ServletWebRequest request) {
-    return create(Status.NOT_FOUND, e, request);
-  }
-
   private static Status statusFromExceptionClass(Throwable exc) {
     if (exc instanceof ResourceNotFoundException) {
       return Status.NOT_FOUND;
@@ -53,11 +50,28 @@ public class ExceptionAdvice implements ProblemHandling {
     }
   }
 
+  private static ProblemHint hintFromException(Throwable exc) {
+    if (exc == null) return ProblemHint.NONE;
+    if (exc instanceof ProblemHinting hintedExc) {
+      return hintedExc.getHint();
+    } else if (exc.getCause() != null) {
+      return hintFromException(exc.getCause());
+    } else {
+      return ProblemHint.NONE;
+    }
+  }
+
+  @ExceptionHandler(UsernameNotFoundException.class)
+  public ResponseEntity<Problem> handleNotFound(
+      UsernameNotFoundException e, ServletWebRequest request) {
+    return create(Status.NOT_FOUND, e, request);
+  }
+
   @ExceptionHandler(ValidationException.class)
   public ResponseEntity<Problem> handleValidationException(
       ValidationException exception, ServletWebRequest request) {
     ThrowableProblem problem =
-        Problem.builder()
+        MetasvcProblem.builder()
             .withType(
                 UriComponentsBuilder.fromPath("/errors/")
                     .path(exception.getClass().getSimpleName())
@@ -67,8 +81,9 @@ public class ExceptionAdvice implements ProblemHandling {
             .withStatus(statusFromExceptionClass(exception))
             .withInstance(getRequestUri(request))
             .withDetail(exception.getMessage())
-            .with("errors", exception.getErrors())
-            .with("timestamp", new Date())
+            .withErrors(exception.getErrors())
+            .withTimestamp(new Date())
+            .withHint(exception.getHint())
             .build();
     return create(problem, request);
   }
@@ -80,7 +95,7 @@ public class ExceptionAdvice implements ProblemHandling {
       cause = cause.getCause();
     }
     ThrowableProblem problem =
-        Problem.builder()
+        MetasvcProblem.builder()
             .withType(
                 UriComponentsBuilder.fromPath("/errors/")
                     .path(cause.getClass().getSimpleName())
@@ -90,6 +105,8 @@ public class ExceptionAdvice implements ProblemHandling {
             .withStatus(statusFromExceptionClass(cause))
             .withDetail(cause.getMessage())
             .withInstance(getRequestUri(request))
+            .withHint(hintFromException(exception))
+            .withTimestamp(new Date())
             .build();
     if (problem.getStatus() == Status.INTERNAL_SERVER_ERROR)
       LOGGER.error("Exception stack trace", exception);

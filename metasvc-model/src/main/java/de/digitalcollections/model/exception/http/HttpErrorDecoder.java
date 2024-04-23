@@ -14,6 +14,7 @@ import de.digitalcollections.model.exception.http.server.HttpServerException;
 import de.digitalcollections.model.exception.http.server.HttpVersionNotSupportedException;
 import de.digitalcollections.model.exception.http.server.NotImplementedException;
 import de.digitalcollections.model.exception.http.server.ServiceUnavailableException;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
 import de.digitalcollections.model.jackson.DigitalCollectionsObjectMapper;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.zalando.problem.Problem;
 import org.zalando.problem.jackson.ProblemModule;
 
 public class HttpErrorDecoder {
@@ -36,7 +36,7 @@ public class HttpErrorDecoder {
   }
 
   private static HttpException clientException(
-      String methodKey, int statusCode, String requestUrl, Problem problem) {
+      String methodKey, int statusCode, String requestUrl, MetasvcProblem problem) {
     switch (statusCode) {
       case 401:
         return new UnauthorizedException(methodKey, statusCode, requestUrl, problem);
@@ -57,7 +57,7 @@ public class HttpErrorDecoder {
 
   public static HttpException decode(String methodKey, int statusCode, HttpResponse response) {
     String requestUrl = null;
-    Problem problem = null;
+    MetasvcProblem problem = null;
     if (response != null) {
       requestUrl =
           Optional.ofNullable(response.request())
@@ -77,7 +77,7 @@ public class HttpErrorDecoder {
       final byte[] body = (byte[]) response.body();
       if (body != null && body.length > 0) {
         try {
-          problem = mapper.readerFor(Problem.class).readValue(body);
+          problem = mapper.readerFor(MetasvcProblem.class).readValue(body);
         } catch (Exception e) {
           LOGGER.error(
               "Got response="
@@ -99,12 +99,12 @@ public class HttpErrorDecoder {
   }
 
   private static HttpException genericHttpException(
-      String methodKey, int statusCode, String requestUrl, Problem problem) {
+      String methodKey, int statusCode, String requestUrl, MetasvcProblem problem) {
     return new HttpException(methodKey, statusCode, requestUrl, problem);
   }
 
   private static HttpServerException serverException(
-      String methodKey, int statusCode, String requestUrl, Problem problem) {
+      String methodKey, int statusCode, String requestUrl, MetasvcProblem problem) {
     switch (statusCode) {
       case 501:
         return new NotImplementedException(methodKey, statusCode, requestUrl, problem);

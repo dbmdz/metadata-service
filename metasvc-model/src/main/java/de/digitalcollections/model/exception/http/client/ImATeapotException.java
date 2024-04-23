@@ -1,6 +1,6 @@
 package de.digitalcollections.model.exception.http.client;
 
-import org.zalando.problem.Problem;
+import de.digitalcollections.model.exception.problem.MetasvcProblem;
 
 /**
  * HttpStatusCode 418 denoting the api is wrongfully using a teapot for making coffee as specified
@@ -9,7 +9,7 @@ import org.zalando.problem.Problem;
  */
 public class ImATeapotException extends HttpClientException {
 
-  public ImATeapotException(String methodKey, int status, String request, Problem problem) {
+  public ImATeapotException(String methodKey, int status, String request, MetasvcProblem problem) {
     super(methodKey, status, request, problem);
   }
 }
