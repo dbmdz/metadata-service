@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -154,13 +155,19 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
                       && Objects.equals(entityUuid, relation.getSubject().getUuid())
                       && Objects.equals(relationPredicate, relation.getPredicate()))) {
         Entity relatedEntity = rowView.getRow(Entity.class);
+        Entity namedEntity =
+            addNameToNamedEntity(
+                relatedEntity,
+                rowView.getColumn("entity_name", LocalizedText.class),
+                rowView.getColumn(
+                    "entity_nameLocalesOfOriginalScripts", new GenericType<Set<Locale>>() {}));
         work.getRelations()
             .set(
                 rowView.getColumn(
                     EntityToEntityRelationRepositoryImpl.MAPPING_PREFIX + "_sortindex",
                     Integer.class),
                 EntityRelation.builder()
-                    .subject(relatedEntity)
+                    .subject(namedEntity != null ? namedEntity : relatedEntity)
                     .predicate(relationPredicate)
                     .additionalPredicates(
                         rowView.getColumn(
@@ -361,6 +368,8 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
             {{entityRelationAlias}}.additional_predicates {{entityRelationMap}}_additionalPredicates,
             max({{entityRelationAlias}}.sortindex) OVER (PARTITION BY {{tableAlias}}.uuid) relation_max_sortindex,
             get_identifiers({{entityAlias}}.uuid) {{entityMapping}}_identifiers,
+            -- entity's name, if any
+            ename.name entity_name, ename.name_locales_original_scripts entity_nameLocalesOfOriginalScripts,
             """
             .replace("{{tableAlias}}", tableAlias)
             .replace("{{entityRelationAlias}}", EntityToEntityRelationRepositoryImpl.TABLE_ALIAS)
@@ -382,6 +391,8 @@ public class WorkRepositoryImpl extends EntityRepositoryImpl<Work> implements Wo
       LEFT JOIN (
         %2$s %3$s INNER JOIN %4$s %5$s ON %3$s.subject_uuid = %5$s.uuid
       ) ON %3$s.object_uuid = %1$s.uuid
+      -- select the entity's name, if any
+      LEFT JOIN named_entities ename ON ename.uuid = %5$s.uuid
       """
             .formatted(
                 tableAlias,

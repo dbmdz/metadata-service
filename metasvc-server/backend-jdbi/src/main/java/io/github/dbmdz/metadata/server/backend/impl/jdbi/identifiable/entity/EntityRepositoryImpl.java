@@ -1,6 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
+import de.digitalcollections.model.identifiable.DerivedIdentifiableBuildHelper;
 import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.NamedEntity;
 import de.digitalcollections.model.identifiable.resource.FileResource;
@@ -11,6 +12,7 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Direction;
 import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
+import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
@@ -21,8 +23,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -78,6 +82,21 @@ public class EntityRepositoryImpl<E extends Entity> extends IdentifiableReposito
         offsetForAlternativePaging,
         identifierRepository,
         urlAliasRepository);
+  }
+
+  @SuppressWarnings("unchecked")
+  // because the checks are done by the if stmts
+  protected static <E extends Entity & NamedEntity> E addNameToNamedEntity(
+      Entity entity, LocalizedText name, Set<Locale> originalScripts) {
+    if (entity == null || name == null || name.isEmpty()) return null;
+    Class<?> namedEntityClass = entity.getIdentifiableObjectType().getObjectClass();
+    if (!Entity.class.isAssignableFrom(namedEntityClass)) return null;
+    if (!NamedEntity.class.isAssignableFrom(namedEntityClass)) return null;
+    E resultEntity = DerivedIdentifiableBuildHelper.build(entity, (Class<E>) namedEntityClass);
+    resultEntity.setName(name);
+    if (originalScripts != null && !originalScripts.isEmpty())
+      resultEntity.setNameLocalesOfOriginalScripts(originalScripts);
+    return resultEntity;
   }
 
   @Override
@@ -202,11 +221,6 @@ public class EntityRepositoryImpl<E extends Entity> extends IdentifiableReposito
     var fields = super.getReturnedFieldsOnInsertUpdate();
     fields.add("refid");
     return fields;
-  }
-
-  @Override
-  public String getSqlSelectAllFields(String tableAlias, String mappingPrefix) {
-    return getSqlSelectReducedFields(tableAlias, mappingPrefix);
   }
 
   @Override

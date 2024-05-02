@@ -579,7 +579,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
    * Override super.retrieveMultiple because of always joining identifiers, preview image, url
    * aliases, tags and subjects for {@Identifiable}.
    */
-  public List<I> retrieveMultiple(
+  protected List<I> retrieveMultiple(
       String fieldsSql,
       Filtering filtering,
       String sqlAdditionalJoins,
