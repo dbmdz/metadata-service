@@ -1,6 +1,5 @@
-package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.work;
+package de.digitalcollections.model.identifiable;
 
-import de.digitalcollections.model.identifiable.entity.agent.Agent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -10,36 +9,37 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// FIXME: move to AgentRepositoryImpl, no "helper/util" classes, please
-final class DerivedAgentBuildHelper {
+public final class DerivedIdentifiableBuildHelper {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DerivedAgentBuildHelper.class);
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(DerivedIdentifiableBuildHelper.class);
 
-  private DerivedAgentBuildHelper() {}
+  private DerivedIdentifiableBuildHelper() {}
 
   /**
-   * Build an instance of a class derived from {@code Agent} and set the properties accordingly.
+   * Build an instance of a class derived from {@code Identifiable} and set the properties
+   * accordingly.
    *
    * <p>The properties are <b>not</b> deeply copied. Instead only references are assigned.
    *
-   * @param <A> {@link Agent} extending class
-   * @param agent original object of type {@link Agent}
+   * @param <D> {@link Identifiable} extending class
+   * @param identifiable original object
    * @param derivedClazz {@link Class} that will be instantiated and returned
-   * @return an instance of {@code derivedClazz} with its properties set to {@code agent}
+   * @return an instance of {@code derivedClazz} with its properties set to {@code identifiable}
    */
-  public static <A extends Agent> A build(Agent agent, Class<A> derivedClazz) {
-    if (agent == null || derivedClazz == null) return null;
+  public static <D extends Identifiable> D build(Identifiable identifiable, Class<D> derivedClazz) {
+    if (identifiable == null || derivedClazz == null) return null;
     try {
-      A derivedInst = derivedClazz.getConstructor().newInstance();
+      D derivedInst = derivedClazz.getConstructor().newInstance();
       // collect all the public setters of the new instance
       List<Method> derivedInstSetters =
           Stream.of(derivedInst.getClass().getMethods())
               .filter(m -> m.getName().startsWith("set"))
               .collect(Collectors.toList());
-      // go through all the public getters of the passed Agent...
-      for (Method agentGetter : agent.getClass().getMethods()) {
-        if (!agentGetter.getName().startsWith("get")) continue;
-        Type returnType = agentGetter.getGenericReturnType();
+      // go through all the public getters of the passed Identifiable...
+      for (Method identifiableGetter : identifiable.getClass().getMethods()) {
+        if (!identifiableGetter.getName().startsWith("get")) continue;
+        Type returnType = identifiableGetter.getGenericReturnType();
         // ...find the corresponding setter of the new object...
         Method[] setters =
             derivedInstSetters.stream()
@@ -47,7 +47,7 @@ final class DerivedAgentBuildHelper {
                     derivSetter ->
                         derivSetter
                                 .getName()
-                                .equals(agentGetter.getName().replaceFirst("^get", "set"))
+                                .equals(identifiableGetter.getName().replaceFirst("^get", "set"))
                             && derivSetter.getParameterCount() == 1
                             && derivSetter
                                 .getParameters()[0]
@@ -56,7 +56,7 @@ final class DerivedAgentBuildHelper {
                 .toArray(i -> new Method[i]);
         if (setters.length != 1) continue;
         // ...and invoke this setter with the getter's returned value
-        setters[0].invoke(derivedInst, agentGetter.invoke(agent));
+        setters[0].invoke(derivedInst, identifiableGetter.invoke(identifiable));
       }
       return derivedInst;
     } catch (InstantiationException
@@ -66,7 +66,8 @@ final class DerivedAgentBuildHelper {
         | NoSuchMethodException
         | SecurityException e) {
       LOGGER.error(
-          "Error while building the derived agent instance, reflection threw an exception", e);
+          "Error while building the derived Identifiable instance, reflection threw an exception",
+          e);
       return null;
     }
   }

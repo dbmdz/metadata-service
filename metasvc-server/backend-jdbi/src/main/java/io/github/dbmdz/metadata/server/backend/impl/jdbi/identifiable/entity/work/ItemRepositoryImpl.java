@@ -1,6 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.work;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
+import de.digitalcollections.model.identifiable.DerivedIdentifiableBuildHelper;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.agent.Agent;
 import de.digitalcollections.model.identifiable.entity.agent.CorporateBody;
@@ -110,9 +111,10 @@ public class ItemRepositoryImpl extends EntityRepositoryImpl<Item> implements It
       holder = rowView.getRow(Agent.class);
       Agent exactholder =
           switch (holder.getIdentifiableObjectType()) {
-            case CORPORATE_BODY -> DerivedAgentBuildHelper.build(holder, CorporateBody.class);
-            case PERSON -> DerivedAgentBuildHelper.build(holder, Person.class);
-            case FAMILY -> DerivedAgentBuildHelper.build(holder, Family.class);
+            case CORPORATE_BODY ->
+                DerivedIdentifiableBuildHelper.build(holder, CorporateBody.class);
+            case PERSON -> DerivedIdentifiableBuildHelper.build(holder, Person.class);
+            case FAMILY -> DerivedIdentifiableBuildHelper.build(holder, Family.class);
             default -> null;
           };
       if (exactholder != null) {

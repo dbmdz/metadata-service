@@ -2,6 +2,7 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.wo
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
 import de.digitalcollections.model.RelationSpecification;
+import de.digitalcollections.model.identifiable.DerivedIdentifiableBuildHelper;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Entity;
@@ -539,9 +540,9 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
       Agent ag = rowView.getRow(Agent.class);
       publAgent =
           switch (ag.getIdentifiableObjectType()) {
-            case CORPORATE_BODY -> DerivedAgentBuildHelper.build(ag, CorporateBody.class);
-            case PERSON -> DerivedAgentBuildHelper.build(ag, Person.class);
-            case FAMILY -> DerivedAgentBuildHelper.build(ag, Family.class);
+            case CORPORATE_BODY -> DerivedIdentifiableBuildHelper.build(ag, CorporateBody.class);
+            case PERSON -> DerivedIdentifiableBuildHelper.build(ag, Person.class);
+            case FAMILY -> DerivedIdentifiableBuildHelper.build(ag, Family.class);
             default -> ag;
           };
     }
