@@ -1,5 +1,6 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.work;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import de.digitalcollections.model.identifiable.Identifier;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -299,5 +301,11 @@ class WorkRepositoryImplTest extends AbstractIdentifiableRepositoryImplTest<Work
     Set<Work> actual = repo.getByPerson(person.getUuid());
 
     assertThat(actual).containsExactly(work);
+    assertThat(actual)
+        .element(0)
+        .extracting(Work::getRelations, as(InstanceOfAssertFactories.LIST))
+        .element(0)
+        .extracting("subject.name")
+        .isEqualTo(LocalizedText.builder().text(Locale.GERMAN, "Karl Ranseier").build());
   }
 }

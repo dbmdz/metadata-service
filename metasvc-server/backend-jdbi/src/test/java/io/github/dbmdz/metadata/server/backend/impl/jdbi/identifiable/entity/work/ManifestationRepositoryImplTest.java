@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -159,6 +160,11 @@ class ManifestationRepositoryImplTest
     assertThat(actual.getRelations()).size().isEqualTo(2);
     assertThat(actual.getRelations().get(0))
         .isEqualTo(new EntityRelation(editor, "is_editor_of", null));
+    assertThat(actual)
+        .extracting(Manifestation::getRelations, InstanceOfAssertFactories.LIST)
+        .element(0)
+        .extracting("subject.name")
+        .isEqualTo(LocalizedText.builder().text(Locale.ROOT, "Editor").build());
     assertThat(actual.getRelations().get(1))
         .isEqualTo(
             EntityRelation.builder()
@@ -166,6 +172,11 @@ class ManifestationRepositoryImplTest
                 .predicate("is_somethingelse_of")
                 .additionalPredicate("additional predicate")
                 .build());
+    assertThat(actual)
+        .extracting(Manifestation::getRelations, InstanceOfAssertFactories.LIST)
+        .element(1)
+        .extracting("subject.name")
+        .isEqualTo(LocalizedText.builder().text(Locale.ROOT, "Someone else").build());
 
     assertThat(actual.getSubjects()).containsExactlyInAnyOrder(subject);
     assertThat(actual.getParents())
