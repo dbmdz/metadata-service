@@ -13,6 +13,7 @@ application:
       - ISSUE
       - MICROSCOPE_IMAGES
       - NEWSPAPER
+      - OBJECT
       - PART
       - SERIAL
       - SPECTRALLYOPTIMIZED_IMAGES
