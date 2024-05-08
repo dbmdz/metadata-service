@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 
 - The `Problem` (of error responses) is expanded by a hint that gives clearer information about the actual error
+- User-friendly Problem's `toString()`
 - The related entities of Manifestations and Works contain their name if they are `NamedEntity`s and are an instance
   of the proper derived `Entity` class
 - Add allowed media type "Object"

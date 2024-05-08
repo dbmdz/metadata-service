@@ -20,4 +20,9 @@ public class ValidationError implements Serializable {
   public String getMessageKey() {
     return messageKey;
   }
+
+  @Override
+  public String toString() {
+    return "ValidationError {fieldName=" + fieldName + ", messageKey=" + messageKey + "}";
+  }
 }

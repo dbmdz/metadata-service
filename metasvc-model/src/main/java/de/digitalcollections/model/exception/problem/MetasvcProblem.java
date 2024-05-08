@@ -4,6 +4,7 @@ import de.digitalcollections.model.validation.ValidationError;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Singular;
 import org.zalando.problem.AbstractThrowableProblem;
@@ -64,5 +65,37 @@ public final class MetasvcProblem extends AbstractThrowableProblem {
 
   public ProblemHint getHint() {
     return hint;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder
+        .append("MetasvcProblem {")
+        .append("title=")
+        .append(getTitle())
+        .append(", type=")
+        .append(getType())
+        .append(", status=")
+        .append(getStatus())
+        .append(", instance=")
+        .append(getInstance())
+        .append(", hint=")
+        .append(getHint())
+        .append(", detail=")
+        .append(getDetail())
+        .append(", timestamp=")
+        .append(getTimestamp())
+        .append(", errors=")
+        .append(
+            getErrors() != null
+                ? getErrors().stream()
+                    .map(ValidationError::toString)
+                    .collect(Collectors.joining(", ", "[", "]"))
+                : null)
+        .append(", parameters=")
+        .append(getParameters())
+        .append("}");
+    return builder.toString();
   }
 }
