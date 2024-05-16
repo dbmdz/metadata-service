@@ -1,4 +1,4 @@
-name: cudami-repository
+name: metasvc
 services:
   database:
     build:
