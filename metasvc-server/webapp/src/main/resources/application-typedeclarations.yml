@@ -215,6 +215,8 @@ application:
         subType: PART
       - mainType: MAIN
         subType: SUB
+      - mainType: MAIN
+        subType: SUPPL
       - mainType: PAR
         subType: MAIN
       - mainType: PAR
