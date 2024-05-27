@@ -48,8 +48,12 @@ public class CudamiWebpagesClient extends CudamiIdentifiablesClient<Webpage> {
   }
 
   public Webpage getActiveByUuid(UUID uuid, Locale locale) throws TechnicalException {
-    return doGetRequestForObject(
-        String.format("%s/%s?active=true&pLocale=%s", baseEndpoint, uuid, locale));
+    try {
+      return doGetRequestForObject(
+          String.format("%s/%s?active=true&pLocale=%s", baseEndpoint, uuid, locale));
+    } catch (ResourceNotFoundException e) {
+      return null;
+    }
   }
 
   public List<Webpage> getActiveChildrenTree(UUID uuid) throws TechnicalException {
