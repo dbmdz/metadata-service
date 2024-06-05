@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -41,22 +42,22 @@ public final class DerivedIdentifiableBuildHelper {
         if (!identifiableGetter.getName().startsWith("get")) continue;
         Type returnType = identifiableGetter.getGenericReturnType();
         // ...find the corresponding setter of the new object...
-        Method[] setters =
+        Optional<Method> setter =
             derivedInstSetters.stream()
                 .filter(
                     derivSetter ->
                         derivSetter
                                 .getName()
-                                .equals(identifiableGetter.getName().replaceFirst("^get", "set"))
+                                .equals("set" + identifiableGetter.getName().substring(3))
                             && derivSetter.getParameterCount() == 1
                             && derivSetter
                                 .getParameters()[0]
                                 .getParameterizedType()
                                 .equals(returnType))
-                .toArray(i -> new Method[i]);
-        if (setters.length != 1) continue;
+                .findFirst();
+        if (setter.isEmpty()) continue;
         // ...and invoke this setter with the getter's returned value
-        setters[0].invoke(derivedInst, identifiableGetter.invoke(identifiable));
+        setter.get().invoke(derivedInst, identifiableGetter.invoke(identifiable));
       }
       return derivedInst;
     } catch (InstantiationException
