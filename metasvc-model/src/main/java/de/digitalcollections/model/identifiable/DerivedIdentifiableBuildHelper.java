@@ -42,13 +42,12 @@ public final class DerivedIdentifiableBuildHelper {
         if (!identifiableGetter.getName().startsWith("get")) continue;
         Type returnType = identifiableGetter.getGenericReturnType();
         // ...find the corresponding setter of the new object...
+        String searchedSetter = "set" + identifiableGetter.getName().substring(3);
         Optional<Method> setter =
             derivedInstSetters.stream()
                 .filter(
                     derivSetter ->
-                        derivSetter
-                                .getName()
-                                .equals("set" + identifiableGetter.getName().substring(3))
+                        derivSetter.getName().equals(searchedSetter)
                             && derivSetter.getParameterCount() == 1
                             && derivSetter
                                 .getParameters()[0]
