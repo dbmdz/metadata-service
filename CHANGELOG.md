@@ -6,9 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [9.2.1](https://github.com/dbmdz/metadata-service/releases/tag/9.2.1) - 2024-06-07
+
 ### Fixed
 
-- Increased performance of reflection by 32.8%
+- Increased performance of reflection by 39.96%
 
 ## [9.2.0](https://github.com/dbmdz/metadata-service/releases/tag/9.2.0) - 2024-06-03
 
