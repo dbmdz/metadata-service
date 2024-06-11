@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
-## [9.2.1](https://github.com/dbmdz/metadata-service/releases/tag/9.2.1) - 2024-06-07
+## [9.2.1](https://github.com/dbmdz/metadata-service/releases/tag/9.2.1) - 2024-06-11
 
 ### Fixed
 
