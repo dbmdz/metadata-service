@@ -46,20 +46,20 @@ public abstract class AbstractPagingSortingFilteringRepositoryImpl {
     }
   }
 
-  protected void addOrderBy(PageRequest pageRequest, StringBuilder sqlQuery) {
-    if (pageRequest != null) {
-      // Sorting
-      Sorting sorting = pageRequest.getSorting();
-      String orderBy = getOrderBy(sorting);
-      if (StringUtils.hasText(orderBy)) {
-        if (!sqlQuery.toString().matches("(?i).* order by .*")) {
-          sqlQuery.append(" ORDER BY ");
-        } else {
-          sqlQuery.append(", ");
-        }
-        sqlQuery.append(orderBy);
-      }
+  protected void addOrderBy(Sorting sorting, StringBuilder sqlQuery) {
+    Optional<String> orderBy =
+        Optional.ofNullable(sorting).map(this::getOrderBy).filter(StringUtils::hasText);
+    if (orderBy.isEmpty()) return;
+    if (!sqlQuery.toString().matches("(?i).* order by .*")) {
+      sqlQuery.append(" ORDER BY ");
+    } else {
+      sqlQuery.append(", ");
     }
+    sqlQuery.append(orderBy.get());
+  }
+
+  protected void addOrderBy(PageRequest pageRequest, StringBuilder sqlQuery) {
+    if (pageRequest != null) addOrderBy(pageRequest.getSorting(), sqlQuery);
   }
 
   /*
