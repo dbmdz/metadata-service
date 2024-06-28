@@ -9,6 +9,7 @@ import de.digitalcollections.model.list.ListRequest;
 import de.digitalcollections.model.list.ListResponse;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 public class CudamiManifestationsClient extends CudamiEntitiesClient<Manifestation> {
 
+  @SuppressFBWarnings(value = "SS_SHOULD_BE_STATIC", justification = "non-static is fine, though")
   private final String digiPressBaseEndpoint = API_VERSION_PREFIX + "/digipress";
 
   public CudamiManifestationsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
