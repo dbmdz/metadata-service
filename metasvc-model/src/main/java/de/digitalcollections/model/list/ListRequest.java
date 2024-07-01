@@ -40,6 +40,10 @@ public class ListRequest implements Serializable {
     this(sorting, null, null);
   }
 
+  public ListRequest(Filtering filtering) {
+    this(null, filtering, null);
+  }
+
   /**
    * Creates a new {@link ListRequest} with sorting parameters applied.
    *

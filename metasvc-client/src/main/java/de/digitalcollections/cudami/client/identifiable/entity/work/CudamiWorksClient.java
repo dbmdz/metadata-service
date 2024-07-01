@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.cudami.client.identifiable.entity.CudamiEntitiesClient;
 import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.identifiable.entity.agent.Agent;
-import de.digitalcollections.model.identifiable.entity.digitalobject.DigitalObject;
 import de.digitalcollections.model.identifiable.entity.manifestation.Manifestation;
 import de.digitalcollections.model.identifiable.entity.work.Work;
 import de.digitalcollections.model.list.paging.PageRequest;
@@ -23,8 +22,7 @@ public class CudamiWorksClient extends CudamiEntitiesClient<Work> {
 
   public Set<Agent> getCreators(UUID uuid) throws TechnicalException {
     return (Set<Agent>)
-        doGetRequestForObjectList(
-            String.format("%s/%s/creators", baseEndpoint, uuid), DigitalObject.class);
+        doGetRequestForObjectList(String.format("%s/%s/creators", baseEndpoint, uuid), Agent.class);
   }
 
   public PageResponse<Work> findChildren(UUID uuid, PageRequest pageRequest)
