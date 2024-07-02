@@ -9,7 +9,7 @@ import de.digitalcollections.model.list.ListResponse;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
-import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.DigipressRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.DigipressManifestationRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.EntityRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.agent.AgentRepositoryImpl;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity.geo.location.HumanSettlementRepositoryImpl;
@@ -26,10 +26,10 @@ import org.jdbi.v3.core.statement.StatementException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DigipressRepositoryImpl extends ManifestationRepositoryImpl
-    implements DigipressRepository {
+public class DigipressManifestationRepositoryImpl extends ManifestationRepositoryImpl
+    implements DigipressManifestationRepository {
 
-  public DigipressRepositoryImpl(
+  public DigipressManifestationRepositoryImpl(
       Jdbi jdbi,
       CudamiConfig cudamiConfig,
       IdentifierRepository identifierRepository,

@@ -4,16 +4,16 @@ import de.digitalcollections.model.identifiable.entity.manifestation.Manifestati
 import de.digitalcollections.model.list.ListRequest;
 import de.digitalcollections.model.list.ListResponse;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
-import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.DigipressRepository;
+import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.work.DigipressManifestationRepository;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.DigipressService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DigipressServiceImpl implements DigipressService {
 
-  private DigipressRepository repository;
+  private DigipressManifestationRepository repository;
 
-  public DigipressServiceImpl(DigipressRepository repository) {
+  public DigipressServiceImpl(DigipressManifestationRepository repository) {
     this.repository = repository;
   }
 

@@ -5,7 +5,7 @@ import de.digitalcollections.model.list.ListRequest;
 import de.digitalcollections.model.list.ListResponse;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 
-public interface DigipressRepository {
+public interface DigipressManifestationRepository {
 
   void refreshTable();
 
