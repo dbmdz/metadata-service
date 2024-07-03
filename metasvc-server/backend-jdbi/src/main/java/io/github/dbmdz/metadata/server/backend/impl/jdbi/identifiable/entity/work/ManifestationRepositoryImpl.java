@@ -59,12 +59,14 @@ import org.jdbi.v3.core.generic.GenericType;
 import org.jdbi.v3.core.result.RowView;
 import org.jdbi.v3.core.statement.PreparedBatch;
 import org.jdbi.v3.core.statement.StatementException;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 @SuppressFBWarnings(
     value = "VA_FORMAT_STRING_USES_NEWLINE",
     justification = "Newline is OK in multiline strings")
 @Repository
+@Primary
 public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestation>
     implements ManifestationRepository {
 
@@ -255,13 +257,13 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
       case "titles":
       case "version":
       case "work":
-        return modelProperty;
+        return tableAlias + "." + modelProperty;
       case "expressionTypes":
       case "manifestationType":
       case "manufacturingType":
       case "mediaTypes":
       case "otherLanguages":
-        return modelProperty.toLowerCase();
+        return tableAlias + "." + modelProperty.toLowerCase();
       default:
         return super.getColumnName(modelProperty);
     }

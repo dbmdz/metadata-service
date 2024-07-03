@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- New endpoint `/v6/digipress` for faster retrieval of the newspaper list (manifestations):
+  supports both filtering and sorting
+
 ### Fixed
 
 - Fixed Nullpointer in `Manifestation.dumpShortenedRelations`
