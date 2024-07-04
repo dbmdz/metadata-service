@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.google.common.base.Strings;
 import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.exception.http.HttpErrorDecoder;
 import de.digitalcollections.model.list.ListRequest;
@@ -36,6 +37,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2")
 public abstract class BaseRestClient<T extends Object> {
@@ -78,15 +80,13 @@ public abstract class BaseRestClient<T extends Object> {
   private HttpRequest createDeleteRequest(String requestUrl) {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("DELETE " + url);
-    HttpRequest req =
-        HttpRequest.newBuilder()
-            .DELETE()
-            .uri(url)
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+    HttpRequest.Builder req =
+        HttpRequest.newBuilder().DELETE().uri(url).header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   public URI createFullUri(String requestUrl) {
@@ -96,93 +96,96 @@ public abstract class BaseRestClient<T extends Object> {
   private HttpRequest createGetRequest(String requestUrl) {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("GET " + url);
-    HttpRequest req =
-        HttpRequest.newBuilder()
-            .GET()
-            .uri(url)
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+    HttpRequest.Builder req =
+        HttpRequest.newBuilder().GET().uri(url).header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   private HttpRequest createPatchRequest(String requestUrl) {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("PATCH " + url);
-    HttpRequest req =
+    HttpRequest.Builder req =
         HttpRequest.newBuilder()
             .method("PATCH", HttpRequest.BodyPublishers.noBody())
             .uri(url)
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+            .header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   private HttpRequest createPatchRequest(String requestUrl, Object bodyObject)
       throws JsonProcessingException {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("PATCH " + url + " with body");
-    HttpRequest req =
+    HttpRequest.Builder req =
         HttpRequest.newBuilder()
             .method(
                 "PATCH", HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(bodyObject)))
             .uri(url)
             .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+            .header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   private HttpRequest createPostRequest(String requestUrl) throws JsonProcessingException {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("POST " + url);
-    HttpRequest req =
+    HttpRequest.Builder req =
         HttpRequest.newBuilder()
             .POST(HttpRequest.BodyPublishers.noBody())
             .uri(url)
             .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+            .header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   private HttpRequest createPostRequest(String requestUrl, Object bodyObject)
       throws JsonProcessingException {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("POST " + url + " with body");
-    HttpRequest req =
+    HttpRequest.Builder req =
         HttpRequest.newBuilder()
             .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(bodyObject)))
             .uri(url)
             .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+            .header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   private HttpRequest createPutRequest(String requestUrl, Object bodyObject)
       throws JsonProcessingException {
     final URI url = createFullUri(requestUrl);
     LOGGER.debug("PUT " + url + " with body");
-    HttpRequest req =
+    HttpRequest.Builder req =
         HttpRequest.newBuilder()
             .PUT(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(bodyObject)))
             .uri(url)
             .header("Content-Type", "application/json")
-            .header("Accept", "application/json")
-            // TODO add creation of a request id if needed
-            // .header("X-Request-Id", request.getRequestId())
-            .build();
-    return req;
+            .header("Accept", "application/json");
+    String requestId = MDC.get("request_id");
+    if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
+      req.header("X-Request-Id", requestId);
+    }
+    return req.build();
   }
 
   protected String doDeleteRequestForString(String requestUrl) throws TechnicalException {
@@ -284,8 +287,6 @@ public abstract class BaseRestClient<T extends Object> {
         requestUrl += (requestUrl.contains("?") ? "&" : "?") + getSortParams(listRequest);
     }
     HttpRequest req = createGetRequest(requestUrl);
-    // TODO add creation of a request id if needed
-    // .header("X-Request-Id", request.getRequestId())
     try {
       HttpResponse<byte[]> response = http.send(req, HttpResponse.BodyHandlers.ofByteArray());
       Integer statusCode = response.statusCode();
