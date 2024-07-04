@@ -10,10 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - New endpoint `/v6/digipress` for faster retrieval of the newspaper list (manifestations):
   supports both filtering and sorting
+- Client: Added header containing the request id if available
 
 ### Fixed
 
 - Fixed Nullpointer in `Manifestation.dumpShortenedRelations`
+- Fixed clearing of request id
 
 ## [9.2.1](https://github.com/dbmdz/metadata-service/releases/tag/9.2.1) - 2024-06-11
 
