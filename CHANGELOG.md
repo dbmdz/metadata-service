@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [9.3.0](https://github.com/dbmdz/metadata-service/releases/tag/9.3.0) - 2024-07-09
+
 ### Added
 
 - New endpoint `/v6/digipress` for faster retrieval of the newspaper list (manifestations):
