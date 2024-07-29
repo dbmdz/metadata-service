@@ -46,6 +46,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -242,22 +243,24 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
       throw new IllegalArgumentException(
           "A function to get the parents must be provided (getParents)!");
     if (testObjects == null || testObjects.isEmpty()) return;
-    List<UUID> prohibitions = prohibitedChildUuids;
+    if (prohibitedChildUuids == null) {
+      prohibitedChildUuids = Collections.emptyList();
+    }
     for (I t : testObjects) {
-      if (prohibitedChildUuids == null) {
-        // every "branch" gets a new list
-        prohibitions = new ArrayList<>();
-      }
-      if (prohibitions.contains(t.getUuid()))
+      if (prohibitedChildUuids.contains(t.getUuid()))
         throw new ServiceException(
             "Endless recursion detected at object %s related with the objects %s"
                 .formatted(
                     t.getUuid(),
-                    prohibitions.stream().map(UUID::toString).collect(Collectors.joining(", "))));
-      prohibitions.add(t.getUuid());
+                    prohibitedChildUuids.stream()
+                        .map(UUID::toString)
+                        .collect(Collectors.joining(", "))));
       List<I> parents = getParents.apply(t);
       if (parents == null || parents.isEmpty()) continue;
-      preventStackOverflow(parents, prohibitions, getParents);
+      preventStackOverflow(
+          parents,
+          Stream.concat(prohibitedChildUuids.stream(), Stream.of(t.getUuid())).toList(),
+          getParents);
     }
   }
 
