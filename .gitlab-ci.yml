@@ -10,6 +10,7 @@ variables:
   MAVEN_CLI_OPTS: "-Dmaven.repo.local=.m2/repository --batch-mode -Pcustom-nexus"
   PLAYBOOK: "rest/metadata-service.yml"
 
-services:
-  - name: "$BUILD_IMAGE_DOCKER_DIND"
-    alias: docker
+verify:
+  services:
+    - name: "$BUILD_IMAGE_DOCKER_DIND"
+      alias: docker
