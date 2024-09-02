@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Fixed
+
+- Fixed Nullpointer in `Manifestation.toString()`
+
 ## [9.3.2](https://github.com/dbmdz/metadata-service/releases/tag/9.3.2) - 2024-08-09
 
 ### Added
