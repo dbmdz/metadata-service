@@ -229,7 +229,7 @@ public class ManifestationTest extends BaseJsonSerializationTest {
   @Test
   public void shortenedStringsForWeirdManifestations() {
     List<EntityRelation> relations = new ArrayList<>();
-    relations.add(null);    // yes, that's an actual real-world example!
+    relations.add(null); // yes, that's an actual real-world example!
     String actual = Manifestation.dumpShortenedRelations(relations);
     assertThat(actual).isEqualTo("[]");
   }
