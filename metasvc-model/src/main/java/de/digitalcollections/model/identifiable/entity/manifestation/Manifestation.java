@@ -409,7 +409,7 @@ public class Manifestation extends Entity {
    * @param relations a list of EntityRelations
    * @return A texual representation of the list with subject uuid, predicate and object uuid
    */
-  public static String dumpShortenedRelations(List<EntityRelation> relations) {
+  protected static String dumpShortenedRelations(List<EntityRelation> relations) {
     return "["
         + (relations == null
             ? "null"
