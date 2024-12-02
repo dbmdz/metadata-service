@@ -30,4 +30,20 @@ public class CudamiEntityRelationsClient extends BaseRestClient<EntityRelation> 
     return doPutRequestForObjectList(
         API_VERSION_PREFIX + "/entities/relations", relations, EntityRelation.class);
   }
+
+  public void delete(EntityRelation relation) throws TechnicalException {
+    if (relation.getSubject() == null
+        || relation.getPredicate() == null
+        || relation.getObject() == null) {
+      throw new TechnicalException("Cannot delete incomplete entity relation");
+    }
+
+    doDeleteRequestForString(
+        String.format(
+            "%s/entities/relations/%s/%s/%s",
+            API_VERSION_PREFIX,
+            relation.getSubject().getUuid(),
+            relation.getPredicate(),
+            relation.getObject().getUuid()));
+  }
 }

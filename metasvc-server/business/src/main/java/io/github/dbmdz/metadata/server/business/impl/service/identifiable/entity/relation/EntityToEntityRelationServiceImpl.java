@@ -10,11 +10,13 @@ import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceEx
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class EntityToEntityRelationServiceImpl implements EntityToEntityRelationService {
@@ -120,5 +122,14 @@ public class EntityToEntityRelationServiceImpl implements EntityToEntityRelation
     // save all entity relations and set the UUID of the object
     relations.stream().forEach(r -> r.setObject(extractEntityWithUuidOnly(entity)));
     save(relations);
+  }
+
+  @Override
+  public int delete(EntityRelation relation) throws ServiceException {
+    try {
+      return repository.delete(relation);
+    } catch (Exception e) {
+      throw new ServiceException("Cannot delete EntityRelation " + relation + ": " + e, e);
+    }
   }
 }

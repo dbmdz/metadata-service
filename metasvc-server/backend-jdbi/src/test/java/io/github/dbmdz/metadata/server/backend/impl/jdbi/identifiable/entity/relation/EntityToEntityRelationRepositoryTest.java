@@ -239,4 +239,56 @@ public class EntityToEntityRelationRepositoryTest {
     assertThat(content).hasSize(10);
     assertThat(content).containsExactlyElementsOf(relations.subList(0, 10));
   }
+
+  @DisplayName("throws no error when trying to delete an nonexistant entity relation")
+  @Test
+  public void deleteNonexistant()
+      throws InvocationTargetException,
+          InstantiationException,
+          IllegalAccessException,
+          NoSuchMethodException,
+          RepositoryException {
+    EntityRelation nonexistant =
+        TestModelFixture.createEntityRelation(
+            Map.of(Locale.ENGLISH, "subject label"),
+            Map.of(Locale.ENGLISH, "object label"),
+            "predicate");
+    int actual = repository.delete(nonexistant);
+    assertThat(actual).isEqualTo(0);
+  }
+
+  @DisplayName("can delete an existing entity relation")
+  @Test
+  public void delete()
+      throws InvocationTargetException,
+          InstantiationException,
+          IllegalAccessException,
+          NoSuchMethodException,
+          RepositoryException,
+          ValidationException {
+    PageRequest pageRequest = new PageRequest(0, 10);
+
+    Predicate predicate = new Predicate();
+    predicate.setValue("is_test");
+    EntityRelation entityRelation =
+        TestModelFixture.createEntityRelation(
+            Map.of(Locale.ENGLISH, "subject label"),
+            Map.of(Locale.ENGLISH, "object label"),
+            predicate.getValue());
+    entityRepository.save(entityRelation.getSubject());
+    entityRepository.save(entityRelation.getObject());
+    predicateRepository.save(predicate);
+    repository.save(entityRelation);
+
+    PageResponse<EntityRelation> existingResponse =
+        repository.findBySubject(entityRelation.getSubject(), pageRequest);
+    assertThat(existingResponse.getNumberOfElements()).isEqualTo(1);
+
+    int actual = repository.delete(entityRelation);
+    assertThat(actual).isEqualTo(1);
+
+    PageResponse<EntityRelation> actualResponse =
+        repository.findBySubject(entityRelation.getSubject(), pageRequest);
+    assertThat(actualResponse.getNumberOfElements()).isEqualTo(0);
+  }
 }

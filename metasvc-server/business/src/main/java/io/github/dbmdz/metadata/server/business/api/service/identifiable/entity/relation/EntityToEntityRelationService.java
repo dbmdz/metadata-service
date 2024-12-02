@@ -17,6 +17,8 @@ public interface EntityToEntityRelationService {
 
   void deleteBySubject(Entity subjectEntity) throws ServiceException;
 
+  int delete(EntityRelation relation) throws ServiceException;
+
   /**
    * Get paged, sorted, filtered relations
    *

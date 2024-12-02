@@ -1,18 +1,27 @@
 package io.github.dbmdz.metadata.server.controller.identifiable.entity.relation;
 
+import de.digitalcollections.model.identifiable.entity.Entity;
 import de.digitalcollections.model.identifiable.entity.relation.EntityRelation;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
+import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
+import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Entity relation controller")
 public class EntityRelationController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(EntityRelationController.class);
   private final EntityToEntityRelationService service;
 
   public EntityRelationController(EntityToEntityRelationService entityRelationservice) {
@@ -93,5 +103,38 @@ public class EntityRelationController {
     }
     service.save(entityRelations);
     return entityRelations;
+  }
+
+  @Operation(summary = "Delete an entity relation")
+  @DeleteMapping(
+      value =
+          "/v6/entities/{subjectuuid: "
+              + ParameterHelper.UUID_PATTERN
+              + "}/{predicate}/{objectuuid: "
+              + ParameterHelper.UUID_PATTERN
+              + "}",
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> deleteByUuid(
+      @Parameter(description = "UUID of the subject") @PathVariable("subjectuuid") UUID subjectUuid,
+      @Parameter(description = "predicate") @PathVariable("predicate") String predicate,
+      @Parameter(description = "UUID of the object") @PathVariable("objectuuid") UUID objectUuid)
+      throws ConflictException, ServiceException {
+    EntityRelation example =
+        EntityRelation.builder()
+            .subject(Entity.builder().uuid(subjectUuid).build())
+            .predicate(predicate)
+            .object(Entity.builder().uuid(objectUuid).build())
+            .build();
+
+    boolean successful;
+    try {
+      successful = service.delete(example) == 1;
+    } catch (ServiceException e) {
+      LOGGER.error("Cannot delete EntityRelation " + example + ": " + e, e);
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return successful
+        ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 }
