@@ -16,8 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.JdbiException;
 import org.jdbi.v3.core.generic.GenericType;
 import org.jdbi.v3.core.statement.PreparedBatch;
+import org.jdbi.v3.core.statement.StatementException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -68,18 +70,26 @@ public class EntityToEntityRelationRepositoryImpl extends JdbiRepositoryImpl
 
   @Override
   public int delete(EntityRelation entityRelation) throws RepositoryException {
-    return dbi.withHandle(
-        h ->
-            h.createUpdate(
-                    "DELETE FROM "
-                        + tableName
-                        + " WHERE subject_uuid = :subjectUuid "
-                        + "AND predicate = :predicate "
-                        + "AND object_uuid = :objectUuid")
-                .bind("subjectUuid", entityRelation.getSubject().getUuid())
-                .bind("predicate", entityRelation.getPredicate())
-                .bind("objectUuid", entityRelation.getObject().getUuid())
-                .execute());
+    try {
+      return dbi.withHandle(
+          h ->
+              h.createUpdate(
+                      "DELETE FROM "
+                          + tableName
+                          + " WHERE subject_uuid = :subjectUuid "
+                          + "AND predicate = :predicate "
+                          + "AND object_uuid = :objectUuid")
+                  .bind("subjectUuid", entityRelation.getSubject().getUuid())
+                  .bind("predicate", entityRelation.getPredicate())
+                  .bind("objectUuid", entityRelation.getObject().getUuid())
+                  .execute());
+    } catch (StatementException e) {
+      String detailMessage = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
+      throw new RepositoryException(
+          String.format("The SQL statement is defective: %s", detailMessage), e);
+    } catch (JdbiException e) {
+      throw new RepositoryException(e);
+    }
   }
 
   @Override
