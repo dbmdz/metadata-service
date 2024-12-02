@@ -67,6 +67,22 @@ public class EntityToEntityRelationRepositoryImpl extends JdbiRepositoryImpl
   }
 
   @Override
+  public int delete(EntityRelation entityRelation) throws RepositoryException {
+    return dbi.withHandle(
+        h ->
+            h.createUpdate(
+                    "DELETE FROM "
+                        + tableName
+                        + " WHERE subject_uuid = :subjectUuid "
+                        + "AND predicate = :predicate "
+                        + "AND object_uuid = :objectUuid")
+                .bind("subjectUuid", entityRelation.getSubject().getUuid())
+                .bind("predicate", entityRelation.getPredicate())
+                .bind("objectUuid", entityRelation.getObject().getUuid())
+                .execute());
+  }
+
+  @Override
   public PageResponse<EntityRelation> find(PageRequest pageRequest) {
     StringBuilder commonSql = new StringBuilder(" FROM " + tableName + " AS " + tableAlias);
     Map<String, Object> argumentMappings = new HashMap<>(0);

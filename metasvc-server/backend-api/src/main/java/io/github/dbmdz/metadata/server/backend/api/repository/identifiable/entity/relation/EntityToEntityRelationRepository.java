@@ -60,4 +60,13 @@ public interface EntityToEntityRelationRepository
 
   void save(UUID subjectEntityUuid, String predicate, UUID objectEntityUuid)
       throws RepositoryException;
+
+  /**
+   * Delete a single EntityRelation
+   *
+   * @param entityRelation the entity relation with subject uuid, predicate and object uuid
+   * @return number of deleted entityRelations
+   * @throws RepositoryException in case of an error
+   */
+  int delete(EntityRelation entityRelation) throws RepositoryException;
 }
