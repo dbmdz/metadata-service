@@ -10,13 +10,11 @@ import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceEx
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class EntityToEntityRelationServiceImpl implements EntityToEntityRelationService {
