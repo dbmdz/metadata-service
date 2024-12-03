@@ -121,4 +121,13 @@ public class EntityToEntityRelationServiceImpl implements EntityToEntityRelation
     relations.stream().forEach(r -> r.setObject(extractEntityWithUuidOnly(entity)));
     save(relations);
   }
+
+  @Override
+  public int delete(EntityRelation relation) throws ServiceException {
+    try {
+      return repository.delete(relation);
+    } catch (Exception e) {
+      throw new ServiceException("Cannot delete EntityRelation " + relation + ": " + e, e);
+    }
+  }
 }
