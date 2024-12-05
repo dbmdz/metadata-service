@@ -6,10 +6,8 @@ import de.digitalcollections.model.list.filtering.FilterCriterion;
 import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
-import io.github.dbmdz.metadata.server.business.api.service.exceptions.ConflictException;
 import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceException;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.relation.EntityToEntityRelationService;
-import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -107,18 +105,12 @@ public class EntityRelationController {
 
   @Operation(summary = "Delete an entity relation")
   @DeleteMapping(
-      value =
-          "/v6/entities/{subjectuuid: "
-              + ParameterHelper.UUID_PATTERN
-              + "}/{predicate}/{objectuuid: "
-              + ParameterHelper.UUID_PATTERN
-              + "}",
+      value = "/v6/entities/relations/{subjectuuid}/{predicate}/{objectuuid}",
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> deleteByUuid(
+  public ResponseEntity<Void> deleteByUuidsAndPredicate(
       @Parameter(description = "UUID of the subject") @PathVariable("subjectuuid") UUID subjectUuid,
       @Parameter(description = "predicate") @PathVariable("predicate") String predicate,
-      @Parameter(description = "UUID of the object") @PathVariable("objectuuid") UUID objectUuid)
-      throws ConflictException, ServiceException {
+      @Parameter(description = "UUID of the object") @PathVariable("objectuuid") UUID objectUuid) {
     EntityRelation example =
         EntityRelation.builder()
             .subject(Entity.builder().uuid(subjectUuid).build())
