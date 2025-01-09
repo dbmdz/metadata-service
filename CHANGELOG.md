@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Fixed
+
+- A deletion of a nonexistant resource no longer leads to a client error
+
 ## [9.4.0](https://github.com/dbmdz/metadata-service/releases/tag/9.4.0) - 2024-12-06
 
 ### Added

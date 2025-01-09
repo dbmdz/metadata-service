@@ -191,13 +191,14 @@ public abstract class BaseRestClient<T extends Object> {
   protected String doDeleteRequestForString(String requestUrl) throws TechnicalException {
     HttpRequest req = createDeleteRequest(requestUrl);
     try {
-      HttpResponse<String> response = http.send(req, HttpResponse.BodyHandlers.ofString());
+      HttpResponse<byte[]> response = http.send(req, HttpResponse.BodyHandlers.ofByteArray());
       Integer statusCode = response.statusCode();
       if (statusCode >= 400) {
         throw HttpErrorDecoder.decode("DELETE " + requestUrl, statusCode, response);
       }
-      String body = response.body();
-      if (body == null || body.isBlank()) {
+      // This is the most performant approach for Jackson
+      final byte[] body = response.body();
+      if (body == null || body.length == 0) {
         return null;
       }
       String result = mapper.readerFor(String.class).readValue(body);
