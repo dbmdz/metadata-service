@@ -107,7 +107,7 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
       Throwable throwable, Consumer<String> useMessage) {
     if (throwable == null) return false;
     if (throwable instanceof SQLException sqlexc) {
-      useMessage.accept(sqlexc.getMessage());
+      useMessage.accept("SQL State: %s. %s".formatted(sqlexc.getSQLState(), sqlexc.getMessage()));
       /*
        * Postgres error codes: https://www.postgresql.org/docs/13/errcodes-appendix.html
        *
@@ -123,7 +123,7 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
         : false;
   }
 
-  protected ProblemHint getHint(Throwable throwable) {
+  protected ProblemHint getHint(Throwable throwable, Consumer<String> passSqlState) {
     if (throwable == null) return ProblemHint.NONE;
     if (throwable instanceof SQLException sqlexc) {
       /*
@@ -135,11 +135,14 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
         case "23505" -> ProblemHint.UNIQUE_VIOLATION;
         case "23514" -> ProblemHint.MANDATORY_CHECK_FAILED;
         case "23502" -> ProblemHint.PROPERTY_MUST_NOT_BE_NULL;
-        case "40001" -> ProblemHint.RETRY_RECOMMENDED;
-        default -> ProblemHint.NONE;
+        case "40000", "40001", "40002", "40003", "40P01" -> ProblemHint.RETRY_RECOMMENDED;
+        default -> {
+          if (passSqlState != null) passSqlState.accept(sqlexc.getSQLState());
+          yield ProblemHint.NONE;
+        }
       };
     } else if (throwable.getCause() != null) {
-      return getHint(throwable.getCause());
+      return getHint(throwable.getCause(), passSqlState);
     } else {
       return ProblemHint.NONE;
     }
@@ -174,14 +177,18 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
     } catch (StatementException e) {
       AtomicReference<String> constraintMessage = new AtomicReference<>();
       if (isConstraintViolationException(e, constraintMessage::set)) {
-        throw new ValidationException(constraintMessage.get(), getHint(e));
+        throw new ValidationException(constraintMessage.get(), getHint(e, null));
       }
 
       String detailMessage = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
+      AtomicReference<String> sqlState = new AtomicReference<>("None");
+      ProblemHint hint = getHint(e, sqlState::set);
       throw new RepositoryException(
-          String.format("SQL exception: %s", detailMessage), e, getHint(e));
+          String.format("SQL State: %s; exception: %s", sqlState.get(), detailMessage), e, hint);
     } catch (JdbiException e) {
-      throw new RepositoryException(e, getHint(e));
+      AtomicReference<String> sqlState = new AtomicReference<>("None");
+      ProblemHint hint = getHint(e, sqlState::set);
+      throw new RepositoryException("SQL State: %s".formatted(sqlState.get()), e, hint);
     }
   }
 
