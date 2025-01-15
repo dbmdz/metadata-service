@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- SQL status code in error message
+- All transactional errors cause setting of `ProblemHint.RETRY_RECOMMENDED`
+
+### Fixed
+
+- Check constraint on table `subjects` obeys empty `identifiers`:
+  If there are no identifiers then type and label must be unique
+  among those entries without identifiers. Therefore entries are allowed
+  that have the same type and label but one is with and one w/o
+  identifiers.
+
 ## [9.4.1](https://github.com/dbmdz/metadata-service/releases/tag/9.4.1) - 2025-01-09
 
 ### Fixed
