@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [9.5.0](https://github.com/dbmdz/metadata-service/releases/tag/9.5.0) - 2025-01-17
+
 ### Added
 
 - SQL status code in error message
