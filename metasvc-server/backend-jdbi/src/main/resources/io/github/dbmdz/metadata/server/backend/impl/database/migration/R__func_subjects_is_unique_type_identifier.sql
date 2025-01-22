@@ -14,7 +14,7 @@ declare
 	tuple_exists boolean;
 begin
 	if ids is null or cardinality(ids) = 0 then
-		execute 'select exists(select 1 from public.subjects where $1 = type and $2 = label and coalesce(identifiers, array[]::dbidentifier[]) = array[]::dbidentifier[] and $3 <> uuid)'
+		execute 'select exists(select 1 from public.subjects where $1 = type and $2 = label and coalesce(identifiers, array[]::public.dbidentifier[]) = array[]::public.dbidentifier[] and $3 <> uuid)'
 		  into tuple_exists
 		  using ptype, plabel, puuid;
 		if tuple_exists then
