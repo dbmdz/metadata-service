@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- More detailed error message to WEMI filling procedure
+
 ## [9.5.1](https://github.com/dbmdz/metadata-service/releases/tag/9.5.1) - 2025-01-22
 
 ### Fixed

@@ -373,7 +373,23 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
         manifestationsWithWorks.parallelStream()
             .filter(m -> Objects.equals(m.getUuid(), item.getManifestation().getUuid()))
             .findFirst()
-            .get(); // must be there otherwise the SQL in getAllManifestationAndWorkUuids is wrong
+            // must be there otherwise the SQL in getAllManifestationAndWorkUuids is wrong
+            .orElseThrow(
+                () ->
+                    new ServiceException(
+                            """
+                  The item's manifestation could not be found although there must be one!
+                  Item: %s;
+                  Manifestation acc. to item: %s;
+                  DigitalObject: %s
+                  """
+                            .formatted(
+                                item.getUuid().toString(),
+                                Optional.ofNullable(item.getManifestation())
+                                    .map(Manifestation::getUuid)
+                                    .map(UUID::toString)
+                                    .orElse("<no UUID in manifestation>"),
+                                digitalObject.getUuid().toString())));
     item.setManifestation(manifestation);
     setNewestLastModified.accept(digitalObject, manifestation);
 
