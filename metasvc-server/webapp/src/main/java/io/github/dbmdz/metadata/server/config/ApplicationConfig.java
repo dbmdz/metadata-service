@@ -14,7 +14,14 @@ public class ApplicationConfig extends CudamiConfig {
       int offsetForAlternativePaging,
       String repositoryFolderPath,
       TypeDeclarations typeDeclarations,
-      UrlAlias urlAlias) {
-    super(defaults, offsetForAlternativePaging, repositoryFolderPath, typeDeclarations, urlAlias);
+      UrlAlias urlAlias,
+      String lobidUrl) {
+    super(
+        defaults,
+        offsetForAlternativePaging,
+        repositoryFolderPath,
+        typeDeclarations,
+        urlAlias,
+        lobidUrl);
   }
 }
