@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.StringUtils;
 
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
@@ -67,6 +68,8 @@ public class CudamiConfig {
     }
   }
 
+  @Getter
+  @Setter
   public static class UrlAlias {
 
     private static final int DB_MAX_LENGTH = 256;
@@ -97,22 +100,6 @@ public class CudamiConfig {
     public UrlAlias(UrlAlias other) {
       this.generationExcludes = other.generationExcludes;
       this.maxLength = other.maxLength;
-    }
-
-    public List<String> getGenerationExcludes() {
-      return List.copyOf(generationExcludes);
-    }
-
-    public void setGenerationExcludes(List<String> generationExcludes) {
-      this.generationExcludes = generationExcludes != null ? List.copyOf(generationExcludes) : null;
-    }
-
-    public int getMaxLength() {
-      return maxLength;
-    }
-
-    public void setMaxLength(int maxLength) {
-      this.maxLength = maxLength;
     }
   }
 }
