@@ -2,6 +2,7 @@ package de.digitalcollections.cudami.lobid.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import de.digitalcollections.lobid.model.LobidEntity;
 import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.exception.http.HttpErrorDecoder;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LobidBaseClient<T extends Object> {
+public class LobidBaseClient<T extends LobidEntity> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LobidBaseClient.class);
 
@@ -51,10 +52,10 @@ public class LobidBaseClient<T extends Object> {
   }
 
   protected T doGetRequestForObject(String requestUrl) throws TechnicalException {
-    return (T) doGetRequestForObject(requestUrl, targetType);
+    return doGetRequestForObject(requestUrl, targetType);
   }
 
-  protected Object doGetRequestForObject(String requestUrl, Class<?> targetType)
+  protected <U> U doGetRequestForObject(String requestUrl, Class<U> targetType)
       throws TechnicalException {
     HttpRequest req = createGetRequest(requestUrl);
     try {
@@ -68,7 +69,7 @@ public class LobidBaseClient<T extends Object> {
       if (body == null || body.length == 0) {
         return null;
       }
-      T result = mapper.readerFor(targetType).readValue(body);
+      U result = mapper.readerFor(targetType).readValue(body);
       return result;
     } catch (IOException | InterruptedException e) {
       LOGGER.warn("Failed to retrieve response due to connection error", e);
@@ -76,7 +77,7 @@ public class LobidBaseClient<T extends Object> {
     }
   }
 
-  protected List doGetRequestForObjectList(String requestUrl, Class<?> targetType)
+  protected <U> List<U> doGetRequestForObjectList(String requestUrl, Class<U> targetType)
       throws TechnicalException {
     HttpRequest req = createGetRequest(requestUrl);
     // TODO add creation of a request id if needed
@@ -92,7 +93,7 @@ public class LobidBaseClient<T extends Object> {
       if (body == null || body.length == 0) {
         return null;
       }
-      List result = mapper.readerForListOf(targetType).readValue(body);
+      List<U> result = mapper.readerForListOf(targetType).readValue(body);
       return result;
     } catch (IOException | InterruptedException e) {
       LOGGER.warn("Failed to retrieve response due to connection error", e);

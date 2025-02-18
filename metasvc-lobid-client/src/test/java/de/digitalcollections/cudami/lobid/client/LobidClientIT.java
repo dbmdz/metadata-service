@@ -12,7 +12,8 @@ public class LobidClientIT {
 
   @Test
   public void getCorporateBodyByGndId() throws TechnicalException {
-    CorporateBody corporateBody = new LobidClient().forCorporateBodies().getByGndId("2007744-0");
+    CorporateBody corporateBody =
+        new LobidClient("https://lobid.org").forCorporateBodies().getByGndId("2007744-0");
     assertEquals("Deutsche Forschungsgemeinschaft (DFG)", corporateBody.getLabel().getText());
     assertEquals("https://www.dfg.de", corporateBody.getHomepageUrl().toString());
     assertEquals("2007744-0", corporateBody.getIdentifierByNamespace("gnd").getId());

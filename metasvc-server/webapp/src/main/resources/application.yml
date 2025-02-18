@@ -9,6 +9,7 @@ application:
   urlalias:
     generationExcludes: []
     maxlength: 64
+  lobidUrl: https://lobid.org
 
 iiif:
   identifier:

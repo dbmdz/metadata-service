@@ -38,7 +38,8 @@ public class SpringConfigBackendTestDatabase {
           5000,
           "/tmp/cudami/fileResources",
           null,
-          new UrlAlias(new ArrayList<>(), 64));
+          new UrlAlias(new ArrayList<>(), 64),
+          "");
 
   private static PostgreSQLContainer postgreSQLContainer;
 
