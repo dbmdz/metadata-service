@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- Property to application.yml: `application.lobidUrl`
+
+### Fixed
+
+- Use generics in Lobid clients properly
+
+### Changed
+
+- **Breaking**: Removed default constructor of `LobidClient`; URL must be provided as parameter
+
 ## [9.5.2](https://github.com/dbmdz/metadata-service/releases/tag/9.5.2) - 2025-02-10
 
 ### Added

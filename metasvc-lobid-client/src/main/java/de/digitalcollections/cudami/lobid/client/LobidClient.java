@@ -3,6 +3,7 @@ package de.digitalcollections.cudami.lobid.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.lobid.jackson.LobidObjectMapper;
 import java.net.http.HttpClient;
+import java.net.http.HttpClient.Version;
 import java.time.Duration;
 
 public class LobidClient {
@@ -15,10 +16,6 @@ public class LobidClient {
   private final LobidPersonsClient lobidPersonsClient;
   private final LobidSubjectsClient lobidSubjectsClient;
   private final LobidWorksClient lobidWorksClient;
-
-  public LobidClient() {
-    this("https://lobid.org", new LobidObjectMapper());
-  }
 
   public LobidClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
     this.http = http;
@@ -36,9 +33,14 @@ public class LobidClient {
         HttpClient.newBuilder()
             .followRedirects(HttpClient.Redirect.ALWAYS)
             .connectTimeout(Duration.ofSeconds(10))
+            .version(Version.HTTP_1_1)
             .build(),
         serverUrl,
         mapper);
+  }
+
+  public LobidClient(String serverUrl) {
+    this(serverUrl, new LobidObjectMapper());
   }
 
   public LobidCorporateBodiesClient forCorporateBodies() {

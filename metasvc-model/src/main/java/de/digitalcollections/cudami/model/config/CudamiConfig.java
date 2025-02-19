@@ -7,8 +7,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.StringUtils;
 
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@Getter
 public class CudamiConfig {
 
   private Defaults defaults;
@@ -16,17 +20,16 @@ public class CudamiConfig {
   private String repositoryFolderPath;
   private TypeDeclarations typeDeclarations;
   private UrlAlias urlAlias;
+  private String lobidUrl;
 
-  @SuppressFBWarnings(
-      value = "EI_EXPOSE_REP2",
-      justification = "typeDeclarations are partially filled at runtime")
   @JsonCreator(mode = Mode.PROPERTIES)
   public CudamiConfig(
       @JsonProperty(value = "defaults") Defaults defaults,
       @JsonProperty(value = "offsetForAlternativePaging") int offsetForAlternativePaging,
       @JsonProperty(value = "repositoryFolderPath") String repositoryFolderPath,
       @JsonProperty(value = "typeDeclarations") TypeDeclarations typeDeclarations,
-      @JsonProperty(value = "urlAlias") UrlAlias urlAlias) {
+      @JsonProperty(value = "urlAlias") UrlAlias urlAlias,
+      @JsonProperty(value = "lobidUrl") String lobidUrl) {
     if (defaults == null) {
       throw new IllegalStateException("Required `cudami.defaults` configuration missing.");
     }
@@ -40,29 +43,10 @@ public class CudamiConfig {
         repositoryFolderPath.replace("~/", System.getProperty("user.home") + "/");
     this.typeDeclarations = typeDeclarations;
     this.urlAlias = urlAlias;
+    this.lobidUrl = lobidUrl;
   }
 
-  public Defaults getDefaults() {
-    return defaults;
-  }
-
-  public int getOffsetForAlternativePaging() {
-    return offsetForAlternativePaging;
-  }
-
-  public String getRepositoryFolderPath() {
-    return repositoryFolderPath;
-  }
-
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "partially filled at runtime")
-  public TypeDeclarations getTypeDeclarations() {
-    return typeDeclarations;
-  }
-
-  public UrlAlias getUrlAlias() {
-    return new UrlAlias(urlAlias);
-  }
-
+  @Getter
   public static class Defaults {
 
     private String language;
@@ -82,16 +66,10 @@ public class CudamiConfig {
       }
       this.locale = locale;
     }
-
-    public String getLanguage() {
-      return language;
-    }
-
-    public Locale getLocale() {
-      return locale;
-    }
   }
 
+  @Getter
+  @Setter
   public static class UrlAlias {
 
     private static final int DB_MAX_LENGTH = 256;
@@ -109,7 +87,7 @@ public class CudamiConfig {
         @JsonProperty(value = "generationExcludes") List<String> generationExcludes,
         @JsonProperty(value = "maxLength") int maxLength) {
       this.generationExcludes =
-          generationExcludes != null ? List.copyOf(generationExcludes) : Collections.EMPTY_LIST;
+          generationExcludes != null ? List.copyOf(generationExcludes) : Collections.emptyList();
       if (maxLength > DB_MAX_LENGTH) {
         throw new RuntimeException(
             "The maxLength you configured is invalid, because it is greater than "
@@ -122,22 +100,6 @@ public class CudamiConfig {
     public UrlAlias(UrlAlias other) {
       this.generationExcludes = other.generationExcludes;
       this.maxLength = other.maxLength;
-    }
-
-    public List<String> getGenerationExcludes() {
-      return List.copyOf(generationExcludes);
-    }
-
-    public void setGenerationExcludes(List<String> generationExcludes) {
-      this.generationExcludes = generationExcludes != null ? List.copyOf(generationExcludes) : null;
-    }
-
-    public int getMaxLength() {
-      return maxLength;
-    }
-
-    public void setMaxLength(int maxLength) {
-      this.maxLength = maxLength;
     }
   }
 }
