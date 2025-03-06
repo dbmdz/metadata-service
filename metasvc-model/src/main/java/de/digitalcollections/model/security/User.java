@@ -1,6 +1,7 @@
 package de.digitalcollections.model.security;
 
 import de.digitalcollections.model.UniqueObject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.Email;
@@ -9,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 /** An user of the system. */
 @SuperBuilder(buildMethodName = "prebuild")
-public class User extends UniqueObject {
+public class User extends UniqueObject implements Serializable {
 
   @NotBlank @Email private String email;
 
