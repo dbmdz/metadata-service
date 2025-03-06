@@ -42,6 +42,7 @@ import de.digitalcollections.model.identifiable.entity.manifestation.Manifestati
 import de.digitalcollections.model.identifiable.entity.work.Work;
 import de.digitalcollections.model.identifiable.resource.ApplicationFileResource;
 import de.digitalcollections.model.identifiable.resource.AudioFileResource;
+import de.digitalcollections.model.identifiable.resource.FileResource;
 import de.digitalcollections.model.identifiable.resource.ImageFileResource;
 import de.digitalcollections.model.identifiable.resource.LinkedDataFileResource;
 import de.digitalcollections.model.identifiable.resource.TextFileResource;
@@ -66,6 +67,7 @@ import java.util.Set;
   @JsonSubTypes.Type(value = ApplicationFileResource.class, name = "APPLICATION_FILE_RESOURCE"),
   @JsonSubTypes.Type(value = AudioFileResource.class, name = "AUDIO_FILE_RESOURCE"),
   @JsonSubTypes.Type(value = FamilyName.class, name = "FAMILY_NAME"),
+  @JsonSubTypes.Type(value = FileResource.class, name = "FILE_RESOURCE"),
   @JsonSubTypes.Type(value = GivenName.class, name = "GIVEN_NAME"),
   @JsonSubTypes.Type(value = Identifiable.class, name = "IDENTIFIABLE"),
   @JsonSubTypes.Type(value = ImageFileResource.class, name = "IMAGE_FILE_RESOURCE"),

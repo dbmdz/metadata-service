@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.github.dbmdz.metadata</groupId>
     <artifactId>metasvc</artifactId>
-    <version>10.0.1-SNAPSHOT</version>
+    <version>11.0.0-SNAPSHOT</version>
   </parent>
 
   <name>Metadata-Service: Model</name>
@@ -91,11 +91,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>5.8.11</version>
     </dependency>
     <dependency>
       <groupId>org.wikidata.wdtk</groupId>

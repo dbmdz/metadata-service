@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.StringUtils;
 
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 @Getter
@@ -35,7 +34,7 @@ public class CudamiConfig {
     }
     this.defaults = defaults;
     this.offsetForAlternativePaging = offsetForAlternativePaging;
-    if (!StringUtils.hasText(repositoryFolderPath)) {
+    if (repositoryFolderPath == null || repositoryFolderPath.isBlank()) {
       throw new IllegalStateException(
           "Required `cudami.repositoryFolderPath` configuration missing.");
     }
@@ -56,12 +55,12 @@ public class CudamiConfig {
     public Defaults(
         @JsonProperty(value = "language") String language,
         @JsonProperty(value = "locale") Locale locale) {
-      if (!StringUtils.hasText(language)) {
+      if (language == null || language.isBlank()) {
         throw new IllegalStateException(
             "Required `cudami.defaults.language` configuration missing.");
       }
       this.language = language;
-      if (!StringUtils.hasText(locale.getLanguage())) {
+      if (locale.getLanguage() == null || locale.getLanguage().isBlank()) {
         throw new IllegalStateException("Required `cudami.defaults.locale` configuration missing.");
       }
       this.locale = locale;

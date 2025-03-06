@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Changed
+
+- **Breaking**: Removed Spring Security dependency from model
+
 ## [10.0.0](https://github.com/dbmdz/metadata-service/releases/tag/10.0.0) - 2025-02-25
 
 ### Added
