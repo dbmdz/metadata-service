@@ -1,16 +1,16 @@
 package de.digitalcollections.model.security;
 
 import de.digitalcollections.model.UniqueObject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.experimental.SuperBuilder;
-import org.springframework.util.ObjectUtils;
 
 /** An user of the system. */
 @SuperBuilder(buildMethodName = "prebuild")
-public class User extends UniqueObject {
+public class User extends UniqueObject implements Serializable {
 
   @NotBlank @Email private String email;
 
@@ -82,7 +82,7 @@ public class User extends UniqueObject {
    * @param passwordHash new hashed password
    */
   public void setPasswordHash(String passwordHash) {
-    if (!ObjectUtils.isEmpty(passwordHash)) {
+    if (passwordHash != null && !passwordHash.isEmpty()) {
       this.passwordHash = passwordHash;
     }
   }

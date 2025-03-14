@@ -25,7 +25,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.experimental.SuperBuilder;
-import org.springframework.util.StringUtils;
 
 /**
  * An Identifiable is an uniquely identifiable {@link Entity} or {@link FileResource}, having one or
@@ -320,7 +319,8 @@ public class Identifiable extends UniqueObject {
       if (localizedDescription == null) {
         localizedDescription = new StructuredContent();
       }
-      ContentBlock paragraph = StringUtils.hasText(text) ? new Paragraph(text) : new Paragraph();
+      ContentBlock paragraph =
+          (text != null && !text.isBlank()) ? new Paragraph(text) : new Paragraph();
       localizedDescription.addContentBlock(paragraph);
       description.put(locale, localizedDescription);
       return self();
