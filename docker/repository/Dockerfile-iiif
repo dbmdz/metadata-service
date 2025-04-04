@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre-jammy
+FROM eclipse-temurin:11.0.26_4-jre-jammy
 
 RUN apt-get update && apt-get install -y libopenjp2-7 libturbojpeg
 
