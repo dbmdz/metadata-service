@@ -5,6 +5,7 @@ import java.util.Map;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -19,7 +20,8 @@ public class V1_6_5__DML_Change_imagefileresource_iiifBaseUrl extends BaseJavaMi
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
 
     String selectQuery = "SELECT uuid, uri, iiif_base_url FROM fileresources_image";
     String updateQuery = "UPDATE fileresources_image SET iiif_base_url=? WHERE uuid=?::uuid";

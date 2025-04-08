@@ -3,12 +3,12 @@ package io.github.dbmdz.metadata.server.config;
 import de.digitalcollections.cudami.model.config.CudamiConfig;
 import de.digitalcollections.cudami.model.config.TypeDeclarations;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
 @ConfigurationProperties(prefix = "application")
-@ConstructorBinding
 public class ApplicationConfig extends CudamiConfig {
 
+  @ConstructorBinding
   public ApplicationConfig(
       Defaults defaults,
       int offsetForAlternativePaging,

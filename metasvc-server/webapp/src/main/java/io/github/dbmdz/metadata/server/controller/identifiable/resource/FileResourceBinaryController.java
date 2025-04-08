@@ -8,15 +8,15 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.resourc
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.resource.FileResourceMetadataService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InvalidObjectException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.http.fileupload.FileItemIterator;
-import org.apache.tomcat.util.http.fileupload.FileItemStream;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.FileItemInput;
+import org.apache.commons.fileupload2.core.FileItemInputIterator;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,21 +47,17 @@ public class FileResourceBinaryController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public FileResource upload(HttpServletRequest request) throws IOException, ValidationException {
     FileResource fileResource = null;
-
-    InputStream stream = null;
     try {
-      boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-      if (!isMultipart) {
+      if (!JakartaServletFileUpload.isMultipartContent(request)) {
         throw new InvalidObjectException("no multipart content");
       }
 
-      ServletFileUpload upload = new ServletFileUpload();
-
-      FileItemIterator iter = upload.getItemIterator(request);
+      JakartaServletFileUpload upload = new JakartaServletFileUpload();
+      FileItemInputIterator iter = upload.getItemIterator(request);
       while (iter.hasNext()) {
-        FileItemStream item = iter.next();
-        if (!item.isFormField()) {
-          stream = item.openStream();
+        FileItemInput item = iter.next();
+        if (item.isFormField()) continue;
+        try (InputStream stream = item.getInputStream()) {
           String originalFilename = item.getName();
           originalFilename = URLDecoder.decode(originalFilename, StandardCharsets.UTF_8.toString());
           String contentType = item.getContentType();
@@ -77,18 +73,11 @@ public class FileResourceBinaryController {
                   + "' ("
                   + fileResource.getSizeInBytes()
                   + " bytes)");
-
-          stream.close();
         }
       }
     } catch (IOException | ServiceException ex) {
       LOGGER.error("Error getting binary data from uploaded file", ex);
-    } finally {
-      if (stream != null) {
-        stream.close();
-      }
     }
-
     return fileResource;
   }
 }

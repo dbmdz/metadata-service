@@ -12,6 +12,7 @@ import java.util.Map;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -26,7 +27,8 @@ public class V1_6_3__DML_Change_fileresource_filename_to_resource extends BaseJa
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
 
     String selectQuery = "SELECT uuid, uri FROM fileresources";
     String updateQuery = "UPDATE fileresources SET uri=? WHERE uuid=?::uuid";

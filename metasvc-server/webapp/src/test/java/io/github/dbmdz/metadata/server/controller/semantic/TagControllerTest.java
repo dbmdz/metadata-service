@@ -10,7 +10,7 @@ import de.digitalcollections.model.semantic.Tag;
 import io.github.dbmdz.metadata.server.business.api.service.semantic.TagService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,7 +37,9 @@ class TagControllerTest extends BaseControllerTest {
   @Test
   public void findByEncodedValue() throws Exception {
     final String encodedValue =
-        Base64.encodeBase64URLSafeString("foobar".getBytes(StandardCharsets.UTF_8));
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString("foobar".getBytes(StandardCharsets.UTF_8));
 
     when(tagService.getByValue(eq(encodedValue))).thenReturn(null);
     when(tagService.getByValue(eq("foobar"))).thenReturn(Tag.builder().build());

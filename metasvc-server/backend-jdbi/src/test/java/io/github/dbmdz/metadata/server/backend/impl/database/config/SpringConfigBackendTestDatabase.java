@@ -14,18 +14,16 @@ import io.github.dbmdz.metadata.server.config.SpringConfigBackendDatabase;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.sql.DataSource;
-import org.jdbi.v3.testing.junit5.JdbiExtension;
-import org.jdbi.v3.testing.junit5.tc.JdbiTestcontainersExtension;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-@Configuration
+@TestConfiguration(proxyBeanMethods = false)
 @ComponentScan(
     basePackages = {"io.github.dbmdz.metadata.server.backend.impl.jdbi"},
     basePackageClasses = SpringConfigBackendDatabase.class)
@@ -41,15 +39,17 @@ public class SpringConfigBackendTestDatabase {
           new UrlAlias(new ArrayList<>(), 64),
           "");
 
-  private static PostgreSQLContainer postgreSQLContainer;
-
-  @RegisterExtension
-  JdbiExtension extension = JdbiTestcontainersExtension.instance(postgreSQLContainer);
-
-  static {
-    postgreSQLContainer = new PostgreSQLContainer(DockerImageName.parse("postgres:12"));
-    postgreSQLContainer.start();
+  @ServiceConnection
+  @Bean
+  PostgreSQLContainer postgreSQLContainer() {
+    return new PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
   }
+
+  /*
+   * static { postgreSQLContainer = new
+   * PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
+   * postgreSQLContainer.start(); }
+   */
 
   @Bean
   @Primary
@@ -59,14 +59,13 @@ public class SpringConfigBackendTestDatabase {
 
   @Bean
   @Primary
-  public DataSource testDataSource() {
+  public DataSource testDataSource(PostgreSQLContainer container) {
     if (CONNECTION_POOL == null) {
-      assert postgreSQLContainer.isRunning();
       HikariConfig config = new HikariConfig();
-      config.setJdbcUrl(postgreSQLContainer.getJdbcUrl());
+      config.setJdbcUrl(container.getJdbcUrl());
       config.setUsername("test");
       config.setPassword("test");
-      config.setDriverClassName(postgreSQLContainer.getDriverClassName());
+      config.setDriverClassName(container.getDriverClassName());
       config.setMaximumPoolSize(100);
       config.setMinimumIdle(10);
       CONNECTION_POOL = new HikariPool(config);

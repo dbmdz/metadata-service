@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 public class V9_05_01__DDL_Add_missing_column_to_predicates extends BaseJavaMigration {
@@ -14,7 +15,8 @@ public class V9_05_01__DDL_Add_missing_column_to_predicates extends BaseJavaMigr
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
 
     // Add new column "uuid"
     jdbcTemplate.executeStatement("ALTER TABLE predicates ADD COLUMN IF NOT EXISTS uuid UUID");

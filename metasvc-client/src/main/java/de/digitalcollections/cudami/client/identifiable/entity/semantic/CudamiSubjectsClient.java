@@ -7,9 +7,9 @@ import de.digitalcollections.model.exception.http.client.ResourceNotFoundExcepti
 import de.digitalcollections.model.identifiable.semantic.Subject;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
-import org.apache.commons.codec.binary.Base64;
 
 public class CudamiSubjectsClient extends CudamiIdentifiablesClient<Subject> {
 
@@ -31,7 +31,9 @@ public class CudamiSubjectsClient extends CudamiIdentifiablesClient<Subject> {
     String typeAndNamespaceAndId = type + ":" + namespace + ":" + id;
 
     String encodedTypeAndNamespaceAndId =
-        Base64.encodeBase64URLSafeString(typeAndNamespaceAndId.getBytes(StandardCharsets.UTF_8));
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString(typeAndNamespaceAndId.getBytes(StandardCharsets.UTF_8));
 
     try {
       return doGetRequestForObject(

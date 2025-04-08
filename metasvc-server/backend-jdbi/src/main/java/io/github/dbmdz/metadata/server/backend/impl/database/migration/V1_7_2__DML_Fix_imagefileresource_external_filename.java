@@ -5,6 +5,7 @@ import java.util.Map;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 @SuppressWarnings("checkstyle:typename")
@@ -14,7 +15,8 @@ public class V1_7_2__DML_Fix_imagefileresource_external_filename extends BaseJav
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
 
     String selectQuery = "SELECT filename, uuid FROM fileresources_image";
     String updateQuery = "UPDATE fileresources_image SET filename=? WHERE uuid=?::uuid";

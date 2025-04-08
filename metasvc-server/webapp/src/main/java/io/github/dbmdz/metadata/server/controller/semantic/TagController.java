@@ -13,9 +13,9 @@ import io.github.dbmdz.metadata.server.controller.AbstractUniqueObjectController
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +72,7 @@ public class TagController extends AbstractUniqueObjectController<Tag> {
       tag =
           service.getByValue(
               new String(
-                  Base64.decodeBase64(value.getBytes(StandardCharsets.UTF_8)),
+                  Base64.getDecoder().decode(value.getBytes(StandardCharsets.UTF_8)),
                   StandardCharsets.UTF_8));
     }
 

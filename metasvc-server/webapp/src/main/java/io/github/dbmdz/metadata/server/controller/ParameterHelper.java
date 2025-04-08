@@ -2,7 +2,7 @@ package io.github.dbmdz.metadata.server.controller;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
@@ -33,7 +33,7 @@ public class ParameterHelper {
     String paramString = requestUri.replaceFirst(leadingPathRegex, "").replaceFirst("\\.json$", "");
 
     if (!paramString.contains(":")) {
-      paramString = new String(Base64.decodeBase64(paramString), StandardCharsets.UTF_8);
+      paramString = new String(Base64.getUrlDecoder().decode(paramString), StandardCharsets.UTF_8);
     }
 
     return extractPairOfStrings(paramString);
@@ -69,7 +69,7 @@ public class ParameterHelper {
     String paramString = requestUri.replaceFirst(leadingPathRegex, "").replaceFirst("\\.json$", "");
 
     if (!paramString.contains(":")) {
-      paramString = new String(Base64.decodeBase64(paramString), StandardCharsets.UTF_8);
+      paramString = new String(Base64.getDecoder().decode(paramString), StandardCharsets.UTF_8);
     }
 
     return extractTripleOfStrings(paramString);

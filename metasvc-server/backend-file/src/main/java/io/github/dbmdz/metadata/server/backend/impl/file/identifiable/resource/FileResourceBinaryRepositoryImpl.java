@@ -8,6 +8,7 @@ import de.digitalcollections.model.identifiable.resource.ImageFileResource;
 import de.digitalcollections.model.identifiable.resource.VideoFileResource;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.resource.FileResourceBinaryRepository;
+import jakarta.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,14 +45,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 @Repository
+@Validated
 public class FileResourceBinaryRepositoryImpl implements FileResourceBinaryRepository {
 
   private static final Logger LOGGER =
@@ -87,7 +88,7 @@ public class FileResourceBinaryRepositoryImpl implements FileResourceBinaryRepos
     }
   }
 
-  protected URI createUri(@NonNull UUID uuid, MimeType mimeType) {
+  protected URI createUri(@NotNull UUID uuid, MimeType mimeType) {
     Objects.requireNonNull(uuid, "uuid must not be null");
 
     String extension = "undefined";
@@ -267,10 +268,8 @@ public class FileResourceBinaryRepositoryImpl implements FileResourceBinaryRepos
   }
 
   @Override
-  public void save(FileResource fileResource, InputStream binaryData) throws RepositoryException {
-    Assert.notNull(fileResource, "fileResource must not be null");
-    Assert.notNull(binaryData, "binaryData must not be null");
-
+  public void save(@NotNull FileResource fileResource, @NotNull InputStream binaryData)
+      throws RepositoryException {
     try {
       if (fileResource.isReadonly()) {
         throw new RepositoryException(

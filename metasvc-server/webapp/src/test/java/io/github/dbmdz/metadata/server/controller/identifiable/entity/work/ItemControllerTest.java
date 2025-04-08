@@ -19,9 +19,9 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.work.WorkService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
-import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -80,7 +80,7 @@ class ItemControllerTest extends BaseControllerTest {
   public void getByIdentifierWithBase64EncodedSlashesAsIdentifier() throws Exception {
     String path =
         "/v6/items/identifier/"
-            + Base64.encodeBase64String("foo:bar/baz".getBytes(StandardCharsets.UTF_8));
+            + Base64.getEncoder().encodeToString("foo:bar/baz".getBytes(StandardCharsets.UTF_8));
 
     when(itemService.getByIdentifier(any(Identifier.class))).thenReturn(Item.builder().build());
 

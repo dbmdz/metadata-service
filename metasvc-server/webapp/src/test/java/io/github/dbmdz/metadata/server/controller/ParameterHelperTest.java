@@ -3,7 +3,7 @@ package io.github.dbmdz.metadata.server.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.DisplayName;
@@ -45,7 +45,7 @@ class ParameterHelperTest {
   @Test
   public void testEncodedStandard() {
     String encodedArgument =
-        Base64.encodeBase64String("bla:fasel/blubb:baz:".getBytes(StandardCharsets.UTF_8));
+        Base64.getEncoder().encodeToString("bla:fasel/blubb:baz:".getBytes(StandardCharsets.UTF_8));
     Pair<String, String> actual =
         ParameterHelper.extractPairOfStringsFromUri(
             "https://foo.bar/identifier/" + encodedArgument, "^.*?/identifier/");
@@ -58,7 +58,9 @@ class ParameterHelperTest {
   @Test
   public void testEncodedUrlSafe() {
     String encodedArgument =
-        Base64.encodeBase64URLSafeString("bla:fasel/blubb:baz:".getBytes(StandardCharsets.UTF_8));
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString("bla:fasel/blubb:baz:".getBytes(StandardCharsets.UTF_8));
     Pair<String, String> actual =
         ParameterHelper.extractPairOfStringsFromUri(
             "https://foo.bar/identifier/" + encodedArgument, "^.*?/identifier/");
@@ -111,8 +113,9 @@ class ParameterHelperTest {
   @Test
   public void testEncodedUrlSafeForTriple() {
     String encodedArgument =
-        Base64.encodeBase64URLSafeString(
-            "bla:fasel/blubb:baz:test".getBytes(StandardCharsets.UTF_8));
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString("bla:fasel/blubb:baz:test".getBytes(StandardCharsets.UTF_8));
     Triple<String, String, String> actual =
         ParameterHelper.extractTripleOfStringsFromUri(
             "https://foo.bar/identifier/" + encodedArgument, "^.*?/identifier/");

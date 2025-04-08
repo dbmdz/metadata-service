@@ -36,6 +36,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -104,7 +105,8 @@ public class V9_02_02__DML_Fill_urlaliases extends BaseJavaMigration {
         new SingleConnectionDataSource(context.getConnection(), true);
     slugGenerator.setMaxLength(cudamiConfig.getUrlAlias().getMaxLength());
 
-    JdbcTemplate jdbcTemplate = new JdbcTemplate(connectionDataSource.getConnection());
+    JdbcTemplate jdbcTemplate =
+        new JdbcTemplate(connectionDataSource.getConnection(), new PostgreSQLDatabaseType());
 
     if (jdbcTemplate.queryForInt("SELECT count(*) from url_aliases") > 0) {
       LOGGER.info("UrlAliases already existing, so nothing to do...");

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -22,7 +23,8 @@ public class V1_4_0__DML_Refactor_localized_content extends BaseJavaMigration {
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
     migrateLocalizedStructuredContent(jdbcTemplate, "description", "identifiables");
     migrateLocalizedStructuredContent(jdbcTemplate, "text", "articles");
     migrateLocalizedStructuredContent(jdbcTemplate, "text", "webpages");

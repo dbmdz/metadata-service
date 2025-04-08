@@ -7,6 +7,7 @@ import java.util.Map;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.flywaydb.database.postgresql.PostgreSQLDatabaseType;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 @SuppressWarnings("checkstyle:typename")
@@ -16,7 +17,8 @@ public class V1_4_2__DML_Change_locales_to_languages extends BaseJavaMigration {
   public void migrate(Context context) throws Exception {
     JdbcTemplate jdbcTemplate =
         new JdbcTemplate(
-            new SingleConnectionDataSource(context.getConnection(), true).getConnection());
+            new SingleConnectionDataSource(context.getConnection(), true).getConnection(),
+            new PostgreSQLDatabaseType());
     migrateJson(jdbcTemplate, "description", "identifiables");
     migrateJson(jdbcTemplate, "label", "identifiables");
     migrateJson(jdbcTemplate, "text", "articles");

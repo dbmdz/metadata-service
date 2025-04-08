@@ -13,7 +13,7 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.semantic.SubjectService;
 import io.github.dbmdz.metadata.server.controller.BaseControllerTest;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,7 +32,8 @@ class SubjectControllerTest extends BaseControllerTest {
   public void returnByTypeNamespaceId() throws Exception {
     String path =
         "/v6/subjects/identifier/"
-            + Base64.encodeBase64String("type:namespace:id".getBytes(StandardCharsets.UTF_8));
+            + Base64.getEncoder()
+                .encodeToString("type:namespace:id".getBytes(StandardCharsets.UTF_8));
     Subject expected =
         Subject.builder()
             .identifier(Identifier.builder().namespace("namespace").id("id").build())
@@ -51,7 +52,8 @@ class SubjectControllerTest extends BaseControllerTest {
   public void notFound() throws Exception {
     String path =
         "/v6/subjects/identifier/"
-            + Base64.encodeBase64String("type:namespace:id".getBytes(StandardCharsets.UTF_8));
+            + Base64.getEncoder()
+                .encodeToString("type:namespace:id".getBytes(StandardCharsets.UTF_8));
     when(subjectService.getByTypeAndIdentifier(
             eq("type"), eq(Identifier.builder().namespace("namespace").id("id").build())))
         .thenReturn(null);

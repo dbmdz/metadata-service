@@ -7,9 +7,9 @@ import io.github.dbmdz.metadata.server.business.api.service.exceptions.ServiceEx
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.IdentifiableService;
 import io.github.dbmdz.metadata.server.controller.AbstractUniqueObjectController;
 import io.github.dbmdz.metadata.server.controller.ParameterHelper;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
