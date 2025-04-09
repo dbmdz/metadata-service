@@ -53,11 +53,6 @@
     </dependency>
     <dependency>
       <groupId>io.github.dbmdz.metadata</groupId>
-      <artifactId>metasvc-server-backend-inmemory</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.dbmdz.metadata</groupId>
       <artifactId>metasvc-server-backend-lobid</artifactId>
       <scope>runtime</scope>
     </dependency>
@@ -121,6 +116,10 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
