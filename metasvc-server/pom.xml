@@ -15,8 +15,6 @@
 
   <modules>
     <module>webapp</module>
-    <module>business</module>
-    <module>backend-api</module>
     <module>backend-inmemory</module>
     <module>backend-file</module>
     <module>backend-lobid</module>
