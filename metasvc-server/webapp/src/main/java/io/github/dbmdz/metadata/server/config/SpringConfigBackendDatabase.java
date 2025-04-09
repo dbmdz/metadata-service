@@ -21,13 +21,10 @@ import org.jdbi.v3.spring5.JdbiFactoryBean;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /** Database configuration. */
@@ -37,14 +34,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class SpringConfigBackendDatabase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackendDatabase.class);
-
-  @Bean
-  @Qualifier(value = "pds")
-  public PersistentTokenRepository persistentTokenRepository(DataSource pds) {
-    JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-    tokenRepository.setDataSource(pds);
-    return tokenRepository;
-  }
 
   @Bean
   @SuppressFBWarnings(

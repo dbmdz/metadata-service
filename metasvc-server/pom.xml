@@ -18,7 +18,6 @@
     <module>business</module>
     <module>backend-api</module>
     <module>backend-inmemory</module>
-    <module>backend-jdbi</module>
     <module>backend-file</module>
     <module>backend-lobid</module>
   </modules>

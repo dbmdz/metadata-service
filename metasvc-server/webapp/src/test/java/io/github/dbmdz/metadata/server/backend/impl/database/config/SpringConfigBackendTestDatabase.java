@@ -1,6 +1,5 @@
 package io.github.dbmdz.metadata.server.backend.impl.database.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.pool.HikariPool;
 import de.digitalcollections.cudami.model.config.CudamiConfig;
@@ -9,7 +8,6 @@ import de.digitalcollections.cudami.model.config.CudamiConfig.UrlAlias;
 import de.digitalcollections.cudami.model.config.IiifServerConfig.Identifier;
 import de.digitalcollections.cudami.model.config.IiifServerConfig.Image;
 import de.digitalcollections.cudami.model.config.IiifServerConfig.Presentation;
-import de.digitalcollections.model.jackson.DigitalCollectionsObjectMapper;
 import io.github.dbmdz.metadata.server.config.SpringConfigBackendDatabase;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -50,12 +48,6 @@ public class SpringConfigBackendTestDatabase {
    * PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
    * postgreSQLContainer.start(); }
    */
-
-  @Bean
-  @Primary
-  public ObjectMapper testObjectMapper() {
-    return new DigitalCollectionsObjectMapper();
-  }
 
   @Bean
   @Primary
