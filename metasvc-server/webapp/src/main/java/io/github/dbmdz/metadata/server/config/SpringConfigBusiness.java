@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(
     basePackages = {
       "de.digitalcollections.cudami.model",
-      "io.github.dbmdz.metadata.server.business.impl.service",
-      "io.github.dbmdz.metadata.server.business.impl.validator"
+      "io.github.dbmdz.metadata.server.business.impl"
     })
 @EnableTransactionManagement
 public class SpringConfigBusiness {
