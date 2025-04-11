@@ -71,7 +71,7 @@ public class V2CollectionControllerTest extends BaseControllerTest {
 
   @DisplayName("shall filter out inactive collections from the collection list")
   @ParameterizedTest
-  @ValueSource(strings = {"/v2/collections/?pageNumber=0&pageSize=1&active=true"})
+  @ValueSource(strings = {"/v2/collections?pageNumber=0&pageSize=1&active=true"})
   public void collectionListForInactive(String path) throws Exception {
     PageResponse<Collection> expected =
         PageResponse.builder()

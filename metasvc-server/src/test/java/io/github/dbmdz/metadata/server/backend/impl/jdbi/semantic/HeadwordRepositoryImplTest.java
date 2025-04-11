@@ -31,7 +31,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     classes = {HeadwordRepositoryImpl.class})
 @ContextConfiguration(classes = SpringConfigBackendTestDatabase.class)
 @Sql(scripts = "classpath:cleanup_database.sql")
-@DisplayName("The Website Repository")
+@DisplayName("The Headword Repository")
 class HeadwordRepositoryImplTest {
 
   HeadwordRepositoryImpl repo;

@@ -14,7 +14,6 @@ import java.util.Locale;
 import javax.sql.DataSource;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
@@ -37,7 +36,6 @@ public class SpringConfigBackendTestDatabase {
           new UrlAlias(new ArrayList<>(), 64),
           "");
 
-  @ServiceConnection
   @Bean
   PostgreSQLContainer postgreSQLContainer() {
     return new PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
@@ -52,7 +50,7 @@ public class SpringConfigBackendTestDatabase {
       config.setUsername("test");
       config.setPassword("test");
       config.setDriverClassName(container.getDriverClassName());
-      config.setMaximumPoolSize(100);
+      config.setMaximumPoolSize(200);
       config.setMinimumIdle(10);
       CONNECTION_POOL = new HikariPool(config);
     }

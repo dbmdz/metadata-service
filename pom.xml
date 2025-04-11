@@ -146,6 +146,11 @@
         <version>3.48.0</version>
       </dependency>
       <dependency>
+        <groupId>org.zalando</groupId>
+        <artifactId>problem-spring-web-starter</artifactId>
+        <version>0.29.1</version>
+      </dependency>
+      <dependency>
         <groupId>io.github.dbmdz.metadata</groupId>
         <artifactId>metasvc-client</artifactId>
         <version>${project.version}</version>

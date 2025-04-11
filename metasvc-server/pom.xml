@@ -22,6 +22,17 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.jscience</groupId>
+      <artifactId>jscience</artifactId>
+      <version>4.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.15.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.github.openjson</groupId>
       <artifactId>openjson</artifactId>
     </dependency>
@@ -44,13 +55,7 @@
     </dependency>
     <dependency>
       <groupId>io.github.dbmdz.metadata</groupId>
-      <artifactId>metasvc-server-backend-file</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.dbmdz.metadata</groupId>
-      <artifactId>metasvc-server-backend-lobid</artifactId>
-      <scope>runtime</scope>
+      <artifactId>metasvc-lobid-client</artifactId>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
@@ -92,19 +97,8 @@
       <artifactId>jdom2</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jscience</groupId>
-      <artifactId>jscience</artifactId>
-      <version>4.3.1</version>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>1.15.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -173,7 +167,6 @@
     <dependency>
       <groupId>org.zalando</groupId>
       <artifactId>problem-spring-web-starter</artifactId>
-      <version>0.27.0</version>
     </dependency>
     <dependency>
       <groupId>com.zaxxer</groupId>

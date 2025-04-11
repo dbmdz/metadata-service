@@ -17,6 +17,7 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
@@ -37,7 +38,7 @@ public class ExceptionAdvice implements ProblemHandling {
   }
 
   private static Status statusFromExceptionClass(Throwable exc) {
-    if (exc instanceof ResourceNotFoundException) {
+    if (exc instanceof ResourceNotFoundException || exc instanceof NoResourceFoundException) {
       return Status.NOT_FOUND;
     } else if (exc instanceof ConflictException) {
       return Status.CONFLICT;
