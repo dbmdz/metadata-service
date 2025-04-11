@@ -24,30 +24,29 @@ public class V2ProjectControllerTest extends BaseControllerTest {
 
   @DisplayName("shall return a pages project list")
   @ParameterizedTest
-  @ValueSource(strings = {"/v2/projects/?pageNumber=0&pageSize=1"})
+  @ValueSource(strings = {"/v2/projects?pageNumber=0&pageSize=1"})
   public void projectList(String path) throws Exception {
     PageResponse<Project> expected =
-        (PageResponse)
-            PageResponse.builder()
-                .forPageSize(1)
-                .withTotalElements(395)
-                .withContent(
-                    Project.builder()
-                        .created("2020-09-30T16:25:10.609465")
-                        .identifier(
-                            Identifier.builder()
-                                .namespace("mdz-proj")
-                                .id("1467037957")
-                                .uuid("898947e9-0d61-4572-b87e-05a01868001d")
-                                .build())
-                        .label(Locale.GERMAN, "100(0) Dokumente")
-                        .lastModified("2021-04-13T04:15:01.274821")
-                        .uuid("ae2a0a61-5255-46d4-8acf-cfddd3527338")
-                        .refId(1300623)
-                        .build())
-                .forAscendingOrderedField("label", "de")
-                .forAscendingOrderedField("label")
-                .build();
+        PageResponse.builder()
+            .forPageSize(1)
+            .withTotalElements(395)
+            .withContent(
+                Project.builder()
+                    .created("2020-09-30T16:25:10.609465")
+                    .identifier(
+                        Identifier.builder()
+                            .namespace("mdz-proj")
+                            .id("1467037957")
+                            .uuid("898947e9-0d61-4572-b87e-05a01868001d")
+                            .build())
+                    .label(Locale.GERMAN, "100(0) Dokumente")
+                    .lastModified("2021-04-13T04:15:01.274821")
+                    .uuid("ae2a0a61-5255-46d4-8acf-cfddd3527338")
+                    .refId(1300623)
+                    .build())
+            .forAscendingOrderedField("label", "de")
+            .forAscendingOrderedField("label")
+            .build();
 
     when(projectService.find(any(PageRequest.class))).thenReturn(expected);
 

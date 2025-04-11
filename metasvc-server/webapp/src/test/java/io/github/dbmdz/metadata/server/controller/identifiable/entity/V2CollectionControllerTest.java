@@ -28,8 +28,8 @@ public class V2CollectionControllerTest extends BaseControllerTest {
   @ParameterizedTest
   @ValueSource(
       strings = {
-        "/v2/collections/?pageNumber=0&pageSize=1",
-        "/v2/collections/?pageNumber=0&pageSize=1&active=true"
+        "/v2/collections?pageNumber=0&pageSize=1",
+        "/v2/collections?pageNumber=0&pageSize=1&active=true"
       })
   public void collectionList(String path) throws Exception {
     PageResponse<Collection> expected =

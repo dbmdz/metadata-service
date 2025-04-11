@@ -69,7 +69,13 @@ public class ParameterHelper {
     String paramString = requestUri.replaceFirst(leadingPathRegex, "").replaceFirst("\\.json$", "");
 
     if (!paramString.contains(":")) {
-      paramString = new String(Base64.getDecoder().decode(paramString), StandardCharsets.UTF_8);
+      try {
+        paramString =
+            new String(Base64.getUrlDecoder().decode(paramString), StandardCharsets.UTF_8);
+      } catch (IllegalArgumentException iae) {
+        // happens if string is not valid base64;
+        // ignore it and go on with original string
+      }
     }
 
     return extractTripleOfStrings(paramString);

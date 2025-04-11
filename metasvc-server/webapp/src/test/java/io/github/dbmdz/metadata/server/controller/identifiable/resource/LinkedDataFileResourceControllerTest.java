@@ -2,7 +2,10 @@ package io.github.dbmdz.metadata.server.controller.identifiable.resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.resource.LinkedDataFileResource;
@@ -53,7 +56,7 @@ class LinkedDataFileResourceControllerTest extends BaseControllerTest {
 
   @DisplayName("can return a paged list of LinkedDataFileResources")
   @ParameterizedTest
-  @ValueSource(strings = {"/v6/linkeddatafileresources/?pageNumber=0&pageSize=1"})
+  @ValueSource(strings = {"/v6/linkeddatafileresources?pageNumber=0&pageSize=1"})
   public void pagedList(String path) throws Exception {
     PageResponse<LinkedDataFileResource> expected =
         PageResponse.builder()
@@ -85,22 +88,21 @@ class LinkedDataFileResourceControllerTest extends BaseControllerTest {
       })
   public void find(String path) throws Exception {
     PageResponse<LinkedDataFileResource> expected =
-        (PageResponse)
-            PageResponse.builder()
-                .forPageSize(1)
-                .forAscendingOrderedField("label", "de")
-                .forAscendingOrderedField("label")
-                .withTotalElements(1)
-                .withContent(
-                    LinkedDataFileResource.builder()
-                        .uuid("12345678-abcd-1234-abcd-123456789012")
-                        .context("Test-context")
-                        .objectType("LINKED_DATA")
-                        .label(Locale.GERMAN, "Test-Label")
-                        .mimeType(MimeType.MIME_APPLICATION_XML)
-                        .uri("http://foo.bar/bla.xml")
-                        .build())
-                .build();
+        PageResponse.builder()
+            .forPageSize(1)
+            .forAscendingOrderedField("label", "de")
+            .forAscendingOrderedField("label")
+            .withTotalElements(1)
+            .withContent(
+                LinkedDataFileResource.builder()
+                    .uuid("12345678-abcd-1234-abcd-123456789012")
+                    .context("Test-context")
+                    .objectType("LINKED_DATA")
+                    .label(Locale.GERMAN, "Test-Label")
+                    .mimeType(MimeType.MIME_APPLICATION_XML)
+                    .uri("http://foo.bar/bla.xml")
+                    .build())
+            .build();
 
     when(linkedDataFileResourceService.find(any(PageRequest.class))).thenReturn(expected);
 

@@ -26,22 +26,21 @@ class V5WebpageControllerTest extends BaseControllerTest {
   @ParameterizedTest
   @ValueSource(
       strings = {
-        "/v5/webpages/?pageSize=1&pageNumber=0",
-        "/v2/webpages/?pageSize=1&pageNumber=0",
-        "/latest/webpages/?pageSize=1&pageNumber=0"
+        "/v5/webpages?pageSize=1&pageNumber=0",
+        "/v2/webpages?pageSize=1&pageNumber=0",
+        "/latest/webpages?pageSize=1&pageNumber=0"
       })
   void testFindAll(String path) throws Exception {
     PageResponse<Webpage> expected =
-        (PageResponse<Webpage>)
-            PageResponse.builder()
-                .forRequestPage(0)
-                .forPageSize(1)
-                .withTotalElements(0)
-                .forAscendingOrderedField("label", "de")
-                .forAscendingOrderedField("label")
-                .forAscendingOrderedField("uuid")
-                .withoutContent()
-                .build();
+        PageResponse.builder()
+            .forRequestPage(0)
+            .forPageSize(1)
+            .withTotalElements(0)
+            .forAscendingOrderedField("label", "de")
+            .forAscendingOrderedField("label")
+            .forAscendingOrderedField("uuid")
+            .withoutContent()
+            .build();
 
     when(webpageService.find(any(PageRequest.class))).thenReturn(expected);
 
@@ -56,15 +55,14 @@ class V5WebpageControllerTest extends BaseControllerTest {
       })
   void testFind(String path) throws Exception {
     PageResponse<Webpage> expected =
-        (PageResponse<Webpage>)
-            PageResponse.builder()
-                .forRequestPage(0)
-                .forPageSize(1)
-                .withTotalElements(0)
-                .forAscendingOrderedField("label", "de")
-                .forAscendingOrderedField("label")
-                .withoutContent()
-                .build();
+        PageResponse.builder()
+            .forRequestPage(0)
+            .forPageSize(1)
+            .withTotalElements(0)
+            .forAscendingOrderedField("label", "de")
+            .forAscendingOrderedField("label")
+            .withoutContent()
+            .build();
 
     when(webpageService.findChildren(any(Webpage.class), any(PageRequest.class)))
         .thenReturn(expected);

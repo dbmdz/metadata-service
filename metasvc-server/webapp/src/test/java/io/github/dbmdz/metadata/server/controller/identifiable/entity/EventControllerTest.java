@@ -2,7 +2,9 @@ package io.github.dbmdz.metadata.server.controller.identifiable.entity;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.identifiable.entity.Event;
@@ -182,7 +184,7 @@ class EventControllerTest extends BaseControllerTest {
 
   @DisplayName("shall find a filtered list of events")
   @ParameterizedTest
-  @ValueSource(strings = {"/v6/events/?pageNumber=0&pageSize=10&filter=label:like:foo"})
+  @ValueSource(strings = {"/v6/events?pageNumber=0&pageSize=10&filter=label:like:foo"})
   public void relatedByPredicate(String path) throws Exception {
     List<Event> events =
         List.of(

@@ -3,7 +3,10 @@ package io.github.dbmdz.metadata.server.controller.identifiable.resource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.Identifier;
@@ -55,7 +58,7 @@ class ImageFileResourceControllerTest extends BaseControllerTest {
 
   @DisplayName("can return a paged list of ImageFileResources")
   @ParameterizedTest
-  @ValueSource(strings = {"/v6/imagefileresources/?pageNumber=0&pageSize=1"})
+  @ValueSource(strings = {"/v6/imagefileresources?pageNumber=0&pageSize=1"})
   public void pagedList(String path) throws Exception {
     PageResponse<ImageFileResource> expected =
         PageResponse.builder()
@@ -88,22 +91,21 @@ class ImageFileResourceControllerTest extends BaseControllerTest {
       })
   public void find(String path) throws Exception {
     PageResponse<ImageFileResource> expected =
-        (PageResponse)
-            PageResponse.builder()
-                .forPageSize(1)
-                .forAscendingOrderedField("label", "de")
-                .forAscendingOrderedField("label")
-                .withTotalElements(1)
-                .withContent(
-                    ImageFileResource.builder()
-                        .uuid("12345678-abcd-1234-abcd-123456789012")
-                        .altText(Locale.GERMAN, "Vorschaubild")
-                        .label(Locale.GERMAN, "Test-Label")
-                        .mimeType(MimeType.MIME_IMAGE_JPEG)
-                        .uri("http://foo.bar/baz.jpg")
-                        .filename("baz.jpg")
-                        .build())
-                .build();
+        PageResponse.builder()
+            .forPageSize(1)
+            .forAscendingOrderedField("label", "de")
+            .forAscendingOrderedField("label")
+            .withTotalElements(1)
+            .withContent(
+                ImageFileResource.builder()
+                    .uuid("12345678-abcd-1234-abcd-123456789012")
+                    .altText(Locale.GERMAN, "Vorschaubild")
+                    .label(Locale.GERMAN, "Test-Label")
+                    .mimeType(MimeType.MIME_IMAGE_JPEG)
+                    .uri("http://foo.bar/baz.jpg")
+                    .filename("baz.jpg")
+                    .build())
+            .build();
 
     when(imageFileResourceService.find(any(PageRequest.class))).thenReturn(expected);
 
