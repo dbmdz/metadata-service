@@ -1,4 +1,4 @@
-package io.github.dbmdz.metadata.server.backend.inmemory;
+package io.github.dbmdz.metadata.server.backend.impl.inmemory;
 
 import de.digitalcollections.cudami.model.config.CudamiConfig;
 import io.github.dbmdz.metadata.server.backend.api.repository.LocaleRepository;

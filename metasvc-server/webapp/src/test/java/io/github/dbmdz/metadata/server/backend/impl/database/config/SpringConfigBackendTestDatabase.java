@@ -21,9 +21,9 @@ import org.springframework.context.annotation.Primary;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-@TestConfiguration(proxyBeanMethods = false)
+@TestConfiguration
 @ComponentScan(
-    basePackages = {"io.github.dbmdz.metadata.server.backend.impl.jdbi"},
+    basePackages = {"io.github.dbmdz.metadata.server"},
     basePackageClasses = SpringConfigBackendDatabase.class)
 public class SpringConfigBackendTestDatabase {
 
@@ -42,12 +42,6 @@ public class SpringConfigBackendTestDatabase {
   PostgreSQLContainer postgreSQLContainer() {
     return new PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
   }
-
-  /*
-   * static { postgreSQLContainer = new
-   * PostgreSQLContainer(DockerImageName.parse("postgres:15-bookworm"));
-   * postgreSQLContainer.start(); }
-   */
 
   @Bean
   @Primary

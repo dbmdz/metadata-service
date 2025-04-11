@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /** Database configuration. */
 @Configuration
-@ComponentScan(basePackages = {"io.github.dbmdz.metadata.server.backend.impl.jdbi"})
+@ComponentScan(basePackages = {"io.github.dbmdz.metadata.server.backend.impl"})
 @EnableTransactionManagement
 public class SpringConfigBackendDatabase {
 
