@@ -10,14 +10,13 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpStatus;
 
 public class CudamiFileResourcesBinaryClient {
 
@@ -33,15 +32,21 @@ public class CudamiFileResourcesBinaryClient {
     try {
       HttpPost post = new HttpPost(serverUri + API_VERSION_PREFIX + "/files");
       post.setEntity(entity);
-      HttpClient client = HttpClientBuilder.create().build();
-      HttpResponse response = client.execute(post);
-
-      if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-        FileResource fileResource =
-            mapper.readValue(response.getEntity().getContent(), FileResource.class);
-        return fileResource;
+      try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+        FileResource result =
+            client.execute(
+                post,
+                response -> {
+                  if (response.getCode() == HttpStatus.SC_OK) {
+                    FileResource fileResource =
+                        mapper.readValue(response.getEntity().getContent(), FileResource.class);
+                    return fileResource;
+                  }
+                  return null;
+                });
+        if (result == null) throw new TechnicalException("Error saving uploaded file data");
+        return result;
       }
-      throw new TechnicalException("Error saving uploaded file data");
     } catch (IOException ex) {
       throw new TechnicalException("Error posting data to server", ex);
     }

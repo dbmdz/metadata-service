@@ -14,12 +14,12 @@ import de.digitalcollections.model.list.sorting.Order;
 import de.digitalcollections.model.list.sorting.Sorting;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import org.apache.commons.codec.binary.Base64;
 
 public class CudamiIdentifiablesClient<I extends Identifiable> extends CudamiRestClient<I> {
 
@@ -81,7 +81,9 @@ public class CudamiIdentifiablesClient<I extends Identifiable> extends CudamiRes
     String namespaceAndId = namespace + ":" + id;
 
     String encodedNamespaceAndId =
-        Base64.encodeBase64URLSafeString(namespaceAndId.getBytes(StandardCharsets.UTF_8));
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString(namespaceAndId.getBytes(StandardCharsets.UTF_8));
 
     String expandedAdditionalParameters = "";
     if (additionalParameters != null && !additionalParameters.isEmpty()) {
