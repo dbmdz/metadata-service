@@ -9,7 +9,7 @@ import de.digitalcollections.model.exception.http.client.ResourceNotFoundExcepti
 import de.digitalcollections.model.semantic.Tag;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 
 public class CudamiTagsClient extends CudamiRestClient<Tag> {
 
@@ -25,7 +25,10 @@ public class CudamiTagsClient extends CudamiRestClient<Tag> {
    * @throws TechnicalException in case of an error
    */
   public Tag getByValue(String value) throws TechnicalException {
-    String encodedValue = Base64.encodeBase64URLSafeString(value.getBytes(StandardCharsets.UTF_8));
+    String encodedValue =
+        Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString(value.getBytes(StandardCharsets.UTF_8));
 
     try {
       return doGetRequestForObject(String.format(baseEndpoint + "/value/%s", encodedValue));
