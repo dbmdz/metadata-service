@@ -3,7 +3,6 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.semantic;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import de.digitalcollections.cudami.model.config.CudamiConfig;
 import de.digitalcollections.model.list.buckets.Bucket;
 import de.digitalcollections.model.list.buckets.BucketsRequest;
 import de.digitalcollections.model.list.buckets.BucketsResponse;
@@ -13,8 +12,6 @@ import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.Reposit
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
-import org.jdbi.v3.core.Jdbi;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,16 +31,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @DisplayName("The Headword Repository")
 class HeadwordRepositoryImplTest {
 
-  HeadwordRepositoryImpl repo;
-
-  @Autowired CudamiConfig cudamiConfig;
-
-  @Autowired Jdbi jdbi;
-
-  @BeforeEach
-  public void beforeEach() {
-    repo = new HeadwordRepositoryImpl(jdbi, cudamiConfig);
-  }
+  @Autowired HeadwordRepositoryImpl repo;
 
   @Test
   @DisplayName("can save and retrieve")
