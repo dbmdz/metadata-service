@@ -11,7 +11,7 @@
 
   <groupId>io.github.dbmdz.metadata</groupId>
   <artifactId>metasvc</artifactId>
-  <version>11.0.0-SNAPSHOT</version>
+  <version>11.0.0-rc.2</version>
   <packaging>pom</packaging>
 
   <name>Metadata-Service</name>
