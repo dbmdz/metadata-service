@@ -8,7 +8,7 @@
   <parent>
     <groupId>io.github.dbmdz.metadata</groupId>
     <artifactId>metasvc-server</artifactId>
-    <version>11.0.0-rc.2</version>
+    <version>11.0.0-SNAPSHOT</version>
   </parent>
 
   <name>Metadata-Service: Repository Server (Backend IMPL JDBI PostgreSql)</name>
@@ -63,32 +63,32 @@
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-core</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-freemarker</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-postgres</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-spring5</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-sqlobject</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
       <artifactId>jdbi3-testcontainers</artifactId>
-      <version>3.37.1</version>
+      <version>3.49.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -104,7 +104,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.7.3</version>
+      <version>42.7.5</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -151,25 +151,25 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.19.7</version>
+      <version>1.20.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <version>1.19.8</version>
+      <version>1.20.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>jdbc</artifactId>
-      <version>1.20.0</version>
+      <version>1.20.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>postgresql</artifactId>
-      <version>1.20.0</version>
+      <version>1.20.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
