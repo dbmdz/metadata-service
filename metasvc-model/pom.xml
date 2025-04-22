@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.github.dbmdz.metadata</groupId>
     <artifactId>metasvc</artifactId>
-    <version>11.0.0-rc.3</version>
+    <version>11.0.0-rc.4</version>
   </parent>
 
   <name>Metadata-Service: Model</name>
