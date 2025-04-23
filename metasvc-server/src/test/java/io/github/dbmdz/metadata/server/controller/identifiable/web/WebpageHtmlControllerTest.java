@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 import de.digitalcollections.model.identifiable.web.Webpage;
 import io.github.dbmdz.metadata.server.business.api.service.identifiable.web.WebpageService;
 import java.util.Locale;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 @WebMvcTest(WebpageHtmlController.class)
-@Disabled
 public class WebpageHtmlControllerTest extends BaseWebpageControllerTest {
 
   private static final boolean IGNORE_WHITESPACES = true;
