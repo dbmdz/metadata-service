@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## coming soon: [12.0.0](https://github.com/dbmdz/metadata-service/releases/tag/12.0.0)
+
+### Changed
+
+- **Breaking**: Upgrade to Spring Boot 3.4
+- unwind `metasvc-server` modules:
+
+  - merge backend-jdbi into webapp
+  - merge backend-api into webapp
+  - merge business into webapp
+  - merge backend-inmemory into webapp
+  - merge backend-file into webapp
+  - merge backend-lobid into webapp
+  - move metasvc-server/webapp to metasvc-server/
+
+  ⇒ only remaining artifacts are:
+
+  - `metasvc-client`
+  - `metasvc-lobid-client`
+  - `metasvc-model`
+  - `metasvc-server-webapp`
+
+### Fixed
+
+- stick to Thymeleaf 3.1.2
+
+### Removed
+
+- all artifacts/modules under `metasvc-server/` except for `metasvc-server-webapp`, see "Changed" for details
+
+## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0)
+
 ### Changed
 
 - **Breaking**: Removed Spring Security dependency from model
