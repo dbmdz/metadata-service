@@ -92,12 +92,7 @@
         <artifactId>jackson-databind</artifactId>
         <version>2.18.3</version>
       </dependency>
-<!--      <dependency>
-        <groupId>com.fasterxml.jackson.datatype</groupId>
-        <artifactId>jackson-datatype-jdk8</artifactId>
-        <version>2.16.2</version>
-      </dependency>
--->      <dependency>
+      <dependency>
         <groupId>com.fasterxml.jackson.datatype</groupId>
         <artifactId>jackson-datatype-jsr310</artifactId>
         <version>2.18.3</version>
@@ -195,12 +190,7 @@
         <artifactId>metasvc-server-business</artifactId>
         <version>${project.version}</version>
       </dependency>
-<!--      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>4.0.1</version>
-      </dependency>
--->      <dependency>
+      <dependency>
         <groupId>net.logstash.logback</groupId>
         <artifactId>logstash-logback-encoder</artifactId>
         <version>7.3</version>
