@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
-## coming soon: [12.0.0](https://github.com/dbmdz/metadata-service/releases/tag/12.0.0)
+## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0)
 
 ### Changed
 
+- **Breaking**: Removed Spring Security dependency from model
 - **Breaking**: Upgrade to Spring Boot 3.4
 - unwind `metasvc-server` modules:
 
@@ -35,12 +36,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Removed
 
 - all artifacts/modules under `metasvc-server/` except for `metasvc-server-webapp`, see "Changed" for details
-
-## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0)
-
-### Changed
-
-- **Breaking**: Removed Spring Security dependency from model
 
 ## [10.0.0](https://github.com/dbmdz/metadata-service/releases/tag/10.0.0) - 2025-02-25
 
