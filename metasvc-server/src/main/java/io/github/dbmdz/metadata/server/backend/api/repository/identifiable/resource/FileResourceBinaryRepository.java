@@ -4,6 +4,7 @@ import de.digitalcollections.model.exception.ResourceNotFoundException;
 import de.digitalcollections.model.file.MimeType;
 import de.digitalcollections.model.identifiable.resource.FileResource;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
+import jakarta.validation.constraints.NotNull;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.UUID;
@@ -33,7 +34,8 @@ public interface FileResourceBinaryRepository {
   InputStream getInputStream(FileResource resource)
       throws RepositoryException, ResourceNotFoundException;
 
-  void save(FileResource fileResource, InputStream binaryData) throws RepositoryException;
+  void save(@NotNull FileResource fileResource, @NotNull InputStream binaryData)
+      throws RepositoryException;
 
   void save(FileResource fileResource, String input, Charset charset) throws RepositoryException;
 }
