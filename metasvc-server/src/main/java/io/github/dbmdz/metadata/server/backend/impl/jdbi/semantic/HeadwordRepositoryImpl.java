@@ -164,7 +164,7 @@ public class HeadwordRepositoryImpl extends UniqueObjectRepositoryImpl<Headword>
     }
 
     String baseQuery =
-            """
+        """
         WITH headwords_list AS (SELECT row_number() OVER (ORDER BY {{sortColumn}}) as num, {{tableAlias}}.uuid, {{selectForLabel}} FROM {{tableName}} AS {{tableAlias}}),
           hws AS (SELECT * FROM headwords_list WHERE num <@ int8range((SELECT num FROM headwords_list WHERE uuid = :startUuid), (SELECT num FROM headwords_list WHERE uuid = :endUuid), '[]'))
         """
@@ -244,7 +244,7 @@ public class HeadwordRepositoryImpl extends UniqueObjectRepositoryImpl<Headword>
       argumentMappings.put("endUuid", endUuid);
 
       sqlQuery.append(
-              """
+          """
           WITH headwords_list AS (SELECT row_number() OVER (ORDER BY {{sortColumn}}) AS num, {{tableAlias}}.uuid, {{selectForLabel}} FROM {{tableName}} AS {{tableAlias}}),
             hws AS (SELECT * FROM headwords_list WHERE num <@ int8range((SELECT num FROM headwords_list WHERE uuid = :startUuid), (SELECT num FROM headwords_list WHERE uuid = :endUuid), '[]')),
           """
@@ -254,7 +254,7 @@ public class HeadwordRepositoryImpl extends UniqueObjectRepositoryImpl<Headword>
               .replace("{{tableName}}", tableName));
     } else {
       sqlQuery.append(
-              """
+          """
           WITH hws AS (SELECT row_number() OVER (ORDER BY {{sortColumn}}) AS num, {{tableAlias}}.uuid, {{selectForLabel}} FROM {{tableName}} AS {{tableAlias}}),
           """
               .replace("{{selectForLabel}}", selectForLabel)
@@ -263,7 +263,7 @@ public class HeadwordRepositoryImpl extends UniqueObjectRepositoryImpl<Headword>
               .replace("{{tableName}}", tableName));
     }
     sqlQuery.append(
-            """
+        """
         buckets AS (SELECT {{tableAlias}}.num, {{tableAlias}}.uuid, {{tableAlias}}.label, ntile(:numberOfBuckets) OVER (ORDER BY {{sortColumn}} ASC) AS tile_number FROM hws AS {{tableAlias}}),
           buckets_borders_nums AS (SELECT min(num) AS minNum, max(num) AS maxNum, tile_number FROM buckets GROUP BY tile_number ORDER BY tile_number)
           SELECT bu.num, bu.uuid, bu.label, bu.tile_number FROM buckets AS bu WHERE bu.num IN (SELECT minNum FROM buckets_borders_nums UNION SELECT maxNum FROM buckets_borders_nums)

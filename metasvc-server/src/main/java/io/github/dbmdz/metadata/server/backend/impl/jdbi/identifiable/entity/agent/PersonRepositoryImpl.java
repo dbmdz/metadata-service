@@ -213,8 +213,7 @@ public class PersonRepositoryImpl extends AgentRepositoryImpl<Person> implements
   @Override
   protected String getSqlSelectAllFieldsJoins() {
     return super.getSqlSelectAllFieldsJoins()
-        +
-            """
+        + """
         LEFT JOIN geolocations AS glbirth ON glbirth.uuid = %1$s.locationofbirth
         LEFT JOIN geolocations AS gldeath ON gldeath.uuid = %1$s.locationofdeath
         LEFT JOIN (

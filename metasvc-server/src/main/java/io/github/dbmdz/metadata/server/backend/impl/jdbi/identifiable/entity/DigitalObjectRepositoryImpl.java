@@ -749,8 +749,7 @@ public class DigitalObjectRepositoryImpl extends EntityRepositoryImpl<DigitalObj
   @Override
   public String getSqlSelectAllFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectAllFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
         , {{licenseTable}}.uuid {{licenseMapping}}_uuid,
         {{licenseTable}}.label {{licenseMapping}}_label,
         {{licenseTable}}.url {{licenseMapping}}_url,
@@ -813,8 +812,7 @@ public class DigitalObjectRepositoryImpl extends EntityRepositoryImpl<DigitalObj
   @Override
   protected String getSqlSelectAllFieldsJoins() {
     return super.getSqlSelectAllFieldsJoins()
-        +
-            """
+        + """
         LEFT JOIN {{licenseTable}} {{licenseAlias}}
           ON {{tableAlias}}.license_uuid = {{licenseAlias}}.uuid
         -- creation info creator
@@ -885,8 +883,7 @@ public class DigitalObjectRepositoryImpl extends EntityRepositoryImpl<DigitalObj
   @Override
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
         , %1$s.parent_uuid %2$s_parent_uuid,
         %1$s.item_uuid %2$s_item_uuid, get_identifiers(%1$s.item_uuid) item_identifiers,
         %3$s.label item_label"""

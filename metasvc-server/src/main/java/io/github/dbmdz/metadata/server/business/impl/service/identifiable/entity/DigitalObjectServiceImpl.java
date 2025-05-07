@@ -377,7 +377,7 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
             .orElseThrow(
                 () ->
                     new ServiceException(
-                            """
+                        """
                   The item's manifestation could not be found although there must be one!
                   Item: %s;
                   Manifestation acc. to item: %s;

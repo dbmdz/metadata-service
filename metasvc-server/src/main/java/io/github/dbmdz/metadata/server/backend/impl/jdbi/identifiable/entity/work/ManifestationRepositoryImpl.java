@@ -289,8 +289,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   protected String getSqlInsertFields() {
     return super.getSqlInsertFields()
-        +
-        """
+        + """
         , composition, dimensions, expressiontypes,
         language, manifestationtype, manufacturingtype,
         mediatypes, otherlanguages,
@@ -305,8 +304,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   protected String getSqlInsertValues() {
     return super.getSqlInsertValues()
-        +
-        """
+        + """
         , :composition, :dimensions, :expressionTypes::mainsubtype[],
         :language, :manifestationType, :manufacturingType,
         :mediaTypes::varchar[], :otherLanguages::varchar[],
@@ -321,8 +319,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   public String getSqlSelectAllFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectAllFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
         , %1$s.composition %2$s_composition, %1$s.dimensions %2$s_dimensions, %1$s.otherlanguages %2$s_otherLanguages,
         %1$s.scale %2$s_scale, %1$s.version %2$s_version
         """
@@ -332,8 +329,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
             , %1$s.expressiontypes %2$s_expressionTypes, %1$s.language %2$s_language, %1$s.manifestationtype %2$s_manifestationType,
             %1$s.manufacturingtype %2$s_manufacturingType, %1$s.mediatypes %2$s_mediaTypes,
             %1$s.titles %2$s_titles,
@@ -347,8 +343,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
                 WorkRepositoryImpl.TABLE_ALIAS,
                 WorkRepositoryImpl.MAPPING_PREFIX)
         // parents
-        +
-        """
+        + """
             mms.title parent_title, mms.sortKey parent_sortKey,
             parent.uuid parent_uuid, parent.label parent_label, parent.titles parent_titles, parent.manifestationtype parent_manifestationType,
             parent.refid parent_refId, parent.notes parent_notes, parent.created parent_created, parent.last_modified parent_lastModified,
@@ -358,8 +353,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
             parentwork.titles parentwork_titles,
             """
         // relations
-        +
-            """
+        + """
             {{entityRelationAlias}}.predicate {{entityRelationMap}}_predicate, {{entityRelationAlias}}.sortindex {{entityRelationMap}}_sortindex,
             {{entityRelationAlias}}.additional_predicates {{entityRelationMap}}_additionalPredicates,
             max({{entityRelationAlias}}.sortindex) OVER (PARTITION BY {{tableAlias}}.uuid) relation_max_sortindex,
@@ -374,8 +368,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
             .replace("{{entityMapping}}", entityRepository.getMappingPrefix())
         + entityRepository.getSqlSelectReducedFields()
         // publishing infos
-        +
-            """
+        + """
             , {{tableAlias}}.publication_info {{mappingPrefix}}_publicationInfo, {{tableAlias}}.production_info {{mappingPrefix}}_productionInfo,
             {{tableAlias}}.distribution_info {{mappingPrefix}}_distributionInfo,
             -- publisher
@@ -398,8 +391,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   protected String getSqlSelectReducedFieldsJoins() {
     return super.getSqlSelectReducedFieldsJoins()
-        +
-            """
+        + """
         LEFT JOIN (
           manifestation_manifestations mms INNER JOIN manifestations parent
           ON parent.uuid = mms.subject_uuid
@@ -423,8 +415,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
                 /* 6-7 */
                 WorkRepositoryImpl.TABLE_NAME,
                 WorkRepositoryImpl.TABLE_ALIAS)
-        +
-            """
+        + """
         LEFT JOIN %2$s %3$s ON %3$s.uuid = ANY (%1$s.publishing_info_agent_uuids)
         LEFT JOIN %4$s %5$s ON %5$s.uuid = ANY (%1$s.publishing_info_locations_uuids)
         """
@@ -574,8 +565,7 @@ public class ManifestationRepositoryImpl extends EntityRepositoryImpl<Manifestat
   @Override
   public String getSqlUpdateFieldValues() {
     return super.getSqlUpdateFieldValues()
-        +
-        """
+        + """
             , composition=:composition, dimensions=:dimensions, expressiontypes=:expressionTypes::mainsubtype[],
             language=:language, manifestationtype=:manifestationType, manufacturingtype=:manufacturingType,
             mediatypes=:mediaTypes::varchar[], otherlanguages=:otherLanguages::varchar[],
