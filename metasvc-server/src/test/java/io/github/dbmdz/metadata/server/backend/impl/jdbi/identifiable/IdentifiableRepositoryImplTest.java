@@ -508,8 +508,7 @@ class IdentifiableRepositoryImplTest
     repo.addFiltering(f, actual, mappings);
     String expected =
         " "
-            +
-                """
+            + """
         WHERE (i.split_label::TEXT[] @> :searchTermArray_1::TEXT[]
         OR jsonb_path_exists(i.description, ('$.\"de-Latn\" ? (@ like_regex \"' || :searchTerm_2 || '\" flag \"iq\")')::jsonpath))
         AND ((i.last_modified > :filtervalue_3))"""

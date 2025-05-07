@@ -427,8 +427,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
   protected String getSqlInsertFields() {
     return super.getSqlInsertFields()
         + ", "
-        +
-        """
+        + """
         description, identifiable_objecttype,
         identifiable_type, label, previewfileresource,
         preview_hints, split_label, tags_uuids, subjects_uuids
@@ -439,8 +438,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
   protected String getSqlInsertValues() {
     return super.getSqlInsertValues()
         + ", "
-        +
-        """
+        + """
         :description::JSONB, :identifiableObjectType,
         :type, :label::JSONB, :previewFileResource,
         :previewImageRenderingHints::JSONB, :split_label::TEXT[], :tags_uuids::UUID[], :subjects_uuids::UUID[]
@@ -454,8 +452,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
         + ", "
-        +
-            """
+        + """
         {{alias}}.description {{prefix}}_description,
         {{alias}}.identifiable_objecttype {{prefix}}_identifiableObjectType,
         {{alias}}.identifiable_type {{prefix}}_type,
@@ -588,8 +585,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
       throws RepositoryException {
     StringBuilder sql =
         new StringBuilder(
-            (
-                    """
+            ("""
             SELECT {{fieldsSql}}, {{identifierFields}},
               {{imageFileFields}}, get_identifiers(file.uuid) pi_identifiers,
               {{urlAliasFields}}, {{tagFields}}, {{subjectFields}}
@@ -606,8 +602,7 @@ public class IdentifiableRepositoryImpl<I extends Identifiable>
                         ? "%s\n".formatted(getSqlSelectReducedFieldsJoins())
                         : "")
                     // regular identifiable joins
-                    +
-                    """
+                    + """
             LEFT JOIN {{identifierTable}} AS {{identifierAlias}}
               ON  {{mainAlias}}.uuid = {{identifierAlias}}.identifiable
             LEFT JOIN {{imageFileTable}} AS file

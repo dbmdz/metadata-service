@@ -40,8 +40,7 @@ public abstract class UniqueObjectRepositoryImpl<U extends UniqueObject>
 
   public static String sqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return " "
-        +
-            """
+        + """
         {{alias}}.uuid {{prefix}}_uuid, {{alias}}.created {{prefix}}_created, {{alias}}.last_modified {{prefix}}_lastModified"""
             .replace("{{alias}}", tableAlias)
             .replace("{{prefix}}", mappingPrefix);

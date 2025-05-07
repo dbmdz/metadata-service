@@ -67,10 +67,10 @@ public class DigipressManifestationRepositoryImpl extends ManifestationRepositor
       case "identifiers.id" -> "id_id";
       case "identifiers.namespace" -> "id_namespace";
       case "expressionTypes",
-              "manifestationType",
-              "manufacturingType",
-              "mediaTypes",
-              "otherLanguages" ->
+          "manifestationType",
+          "manufacturingType",
+          "mediaTypes",
+          "otherLanguages" ->
           "mf_%s".formatted(modelProperty);
       default -> super.getColumnName(modelProperty).replace('.', '_');
     };

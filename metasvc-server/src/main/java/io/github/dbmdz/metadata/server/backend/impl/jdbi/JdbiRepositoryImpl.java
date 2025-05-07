@@ -333,9 +333,9 @@ public abstract class JdbiRepositoryImpl<U extends UniqueObject>
           return SearchTermTemplates.ARRAY_CONTAINS.renderTemplate(
               String.valueOf(criterionCount), tableAlias, "split_" + filterProperty);
         }
-        /* In case that there is no split column (e.g. for `description`) CONTAINS and EQUALS are actually the same.
-         * Hence we explicitly fall through (no `break`) and use JSONB_PATH instead.
-         */
+      /* In case that there is no split column (e.g. for `description`) CONTAINS and EQUALS are actually the same.
+       * Hence we explicitly fall through (no `break`) and use JSONB_PATH instead.
+       */
       case EQUALS:
         Matcher matchLanguage = Pattern.compile("\\.([\\w_-]+)$").matcher(fc.getExpression());
         String language = matchLanguage.find() ? "\"%s\"".formatted(matchLanguage.group(1)) : "**";
@@ -370,7 +370,7 @@ public abstract class JdbiRepositoryImpl<U extends UniqueObject>
 
     String criterionKey = KEY_PREFIX_FILTERVALUE + criterionCount;
     switch (filterOperation) {
-        // @see https://www.postgresql.org/docs/11/functions.html
+      // @see https://www.postgresql.org/docs/11/functions.html
       case BETWEEN:
         if (fc.getMinValue() == null || fc.getMaxValue() == null) {
           throw new IllegalArgumentException("For 'BETWEEN' operation two values are expected");

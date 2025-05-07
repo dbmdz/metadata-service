@@ -111,7 +111,7 @@ public class CorporateBodyRepositoryImpl extends AgentRepositoryImpl<CorporateBo
     // between corporatebody and project
     StringBuilder innerQuery =
         new StringBuilder(
-                """
+            """
               SELECT * FROM {{tableName}} {{tableAlias}}
               LEFT JOIN rel_entity_entities AS r ON {{tableAlias}}.uuid = r.object_uuid
               LEFT JOIN rel_entity_entities AS rel ON r.subject_uuid = rel.subject_uuid

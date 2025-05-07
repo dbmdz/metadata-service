@@ -240,8 +240,7 @@ public class ItemRepositoryImpl extends EntityRepositoryImpl<Item> implements It
   @Override
   public String getSqlSelectAllFields(String tableAlias, String mappingPrefix) {
     return getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
         , %1$s.exemplifies_manifestation %2$s_exemplifies_manifestation,
         poi.label poi_label, get_identifiers(poi.uuid) poi_identifiers,
         %3$s.label %2$s_manifestation_label, get_identifiers(%3$s.uuid) %2$s_manifestation_identifiers
@@ -252,8 +251,7 @@ public class ItemRepositoryImpl extends EntityRepositoryImpl<Item> implements It
   @Override
   protected String getSqlSelectAllFieldsJoins() {
     return super.getSqlSelectAllFieldsJoins()
-        +
-            """
+        + """
         LEFT JOIN %1$s poi ON %2$s.part_of_item = poi.uuid
         LEFT JOIN %3$s %4$s ON %4$s.uuid = %2$s.manifestation
         """
@@ -286,8 +284,7 @@ public class ItemRepositoryImpl extends EntityRepositoryImpl<Item> implements It
   @Override
   protected String getSqlSelectReducedFieldsJoins() {
     return super.getSqlSelectReducedFieldsJoins()
-        +
-            """
+        + """
         LEFT JOIN %2$s %3$s ON %3$s.uuid = ANY(%1$s.holder_uuids)
         """
             .formatted(tableAlias, AgentRepositoryImpl.TABLE_NAME, "holdertable");

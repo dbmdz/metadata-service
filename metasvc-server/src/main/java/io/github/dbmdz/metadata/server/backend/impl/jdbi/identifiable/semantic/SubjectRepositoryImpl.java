@@ -36,8 +36,7 @@ public class SubjectRepositoryImpl extends UniqueObjectRepositoryImpl<Subject>
 
   public static String sqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return UniqueObjectRepositoryImpl.sqlSelectReducedFields(tableAlias, mappingPrefix)
-        +
-            """
+        + """
        , dbidentifiers2jsonb({{tableAlias}}.identifiers) {{mappingPrefix}}_identifiers,
        {{tableAlias}}.label {{mappingPrefix}}_label,
        {{tableAlias}}.type {{mappingPrefix}}_subjectType
