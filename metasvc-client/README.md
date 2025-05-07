@@ -149,7 +149,7 @@ Example Thymeleaf template `foo.html`:
       layout:decorate="~{base}">
   <body>
     <section layout:fragment="content">
-      <div th:if="${webpage}" th:insert="cudami/fragments/webpage-to-html :: renderWebpage(${webpage}, ${locale})"></div>
+      <div th:if="${webpage}" th:insert="~{cudami/fragments/webpage-to-html :: renderWebpage(${webpage}, ${locale})}"></div>
       <div th:unless="${webpage}">
         <span>Foobar</span>
       </div>
