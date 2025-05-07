@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.hc.core5.http.ContentType;
 import org.jsoup.Jsoup;
+import org.jsoup.internal.Normalizer;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -260,12 +261,13 @@ public abstract class BaseControllerTest {
     String actual = mockMvc.perform(get(path)).andReturn().getResponse().getContentAsString();
     String expected = getHtmlFromFileResource(path);
 
-    Document actualDocument = Jsoup.parse(actual).normalise();
+    Document actualDocument = Jsoup.parse(actual);
     removeEmptyTitleAttributes(actualDocument);
-    Document expectedDocument = Jsoup.parse(expected).normalise();
+    Document expectedDocument = Jsoup.parse(expected);
     removeEmptyTitleAttributes(expectedDocument);
 
-    assertThat(actualDocument.html()).isEqualTo(expectedDocument.html());
+    assertThat(Normalizer.normalize(actualDocument.html()))
+        .isEqualTo(Normalizer.normalize(expectedDocument.html()));
   }
 
   private void removeEmptyTitleAttributes(Document document) {
