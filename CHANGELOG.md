@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - Fixed template syntax
 
+### Changed
+
+- Updated dependencies
+
 ## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0) - 05.05.2025
 
 ### Changed
