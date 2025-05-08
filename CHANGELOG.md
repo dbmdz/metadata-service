@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [11.0.1](https://github.com/dbmdz/metadata-service/releases/tag/11.0.1) - 2025-05-08
+
 ### Fixed
 
 - Fixed template syntax
@@ -14,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - Updated dependencies
 
-## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0) - 05.05.2025
+## [11.0.0](https://github.com/dbmdz/metadata-service/releases/tag/11.0.0) - 2025-05-05
 
 ### Changed
 
