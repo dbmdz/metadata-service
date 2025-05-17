@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre-jammy
+FROM eclipse-temurin:11.0.27_6-jre-jammy
 
 ARG EUPHORIA_VERSION
 
