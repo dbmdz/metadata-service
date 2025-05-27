@@ -2,8 +2,10 @@ name: metasvc
 services:
   database:
     build:
-      context: .
-      dockerfile: Dockerfile-postgres
+      dockerfile_inline: |
+        FROM postgres:15.13-alpine
+        RUN apk update -q && apk add -q p7zip
+        RUN test -d /docker-entrypoint-initdb.d || mkdir /docker-entrypoint-initdb.d
     ports:
       - "0.0.0.0:22222:5432"
     environment:
@@ -13,6 +15,8 @@ services:
     command:
       - "-c"
       - random_page_cost=2
+      - "-c"
+      - "jit=false"
     volumes:
       - type: bind
         source: ./postgres-initdb.d/
@@ -20,28 +24,67 @@ services:
         read_only: true
     # see https://docs.docker.com/compose/compose-file/compose-file-v2/#shm_size for documentation
     shm_size: "1g"
+    healthcheck:
+      test: pg_isready -h localhost -q || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 6
+      # long start period since restoring the database may take up to an hour
+      # ("Probe failure during that period will not be counted towards the maximum number of retries.")
+      start_period: 1h
+
   iiif:
     build:
-      args:
-        HYMIR_VERSION: "5.1.10"
       context: .
-      dockerfile: Dockerfile-iiif
+      args:
+        HYMIR_VERSION: "5.1.13"
+      dockerfile_inline: |
+        FROM eclipse-temurin:11-jre-noble
+        RUN apt-get update && apt-get install -y libopenjp2-7 libturbojpeg
+        ARG HYMIR_VERSION
+        ADD https://oss.sonatype.org/content/repositories/releases/de/digitalcollections/iiif-server-hymir/$$HYMIR_VERSION/iiif-server-hymir-$$HYMIR_VERSION-exec.jar hymir.jar
+        ENTRYPOINT [ "java", "-jar", "/hymir.jar" ]
+    command:
+      - --management.server.port=9001
+      - --server.port=9000
+      - --spring.config.additional-location=file:/application-iiif.yml
     ports:
       - "0.0.0.0:23232:9000"
       - "0.0.0.0:23233:9001"
     volumes:
       - ./iiif_rules.yml:/application-iiif.yml
       - ~/cudami/fileResources:/iiif/upload
+    healthcheck:
+      test: |
+        /bin/bash -c '[[ $(wget -qO- http://localhost:9001/monitoring/health) == "{\"status\":\"UP\"}" ]]'
+      interval: 15s
+      timeout: 2s
+      retries: 8
+
   media:
     build:
-      args:
-        EUPHORIA_VERSION: "4.0.5"
       context: .
-      dockerfile: Dockerfile-media
+      args:
+        EUPHORIA_VERSION: "4.1.0"
+      dockerfile_inline: |
+        FROM eclipse-temurin:17-jre-noble
+        ARG EUPHORIA_VERSION
+        ADD https://oss.sonatype.org/content/repositories/releases/de/digitalcollections/streaming-server-euphoria/$$EUPHORIA_VERSION/streaming-server-euphoria-$$EUPHORIA_VERSION-exec.jar euphoria.jar
+        ENTRYPOINT [ "java", "-jar", "/euphoria.jar" ]
+    command:
+      - --management.server.port=9001
+      - --server.port=9000
+      - --spring.config.additional-location=file:/application-media.yml
     ports:
       - "0.0.0.0:24242:9000"
       - "0.0.0.0:24244:9001"
     volumes:
       - ./media_rules.yml:/application-media.yml
       - ~/cudami/fileResources:/media/upload
+    healthcheck:
+      test: |
+        /bin/bash -c '[[ $(wget -qO- http://localhost:9001/monitoring/health) == "{\"status\":\"UP\"}" ]]'
+      interval: 15s
+      timeout: 2s
+      retries: 8
 
