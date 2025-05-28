@@ -18,14 +18,17 @@ services:
       - "-c"
       - "jit=false"
     volumes:
+      - type: volume
+        source: pgdata
+        target: /var/lib/postgresql/data
       - type: bind
-        source: ./postgres-initdb.d/
-        target: /docker-entrypoint-initdb.d/
+        source: ./postgres-initdb.d
+        target: /docker-entrypoint-initdb.d
         read_only: true
     # see https://docs.docker.com/compose/compose-file/compose-file-v2/#shm_size for documentation
     shm_size: "1g"
     healthcheck:
-      test: pg_isready -h localhost -q || exit 1
+      test: pg_isready -h localhost -U $$POSTGRES_USER -q || exit 1
       interval: 30s
       timeout: 5s
       retries: 6
@@ -87,4 +90,7 @@ services:
       interval: 15s
       timeout: 2s
       retries: 8
+
+volumes:
+  pgdata:
 
