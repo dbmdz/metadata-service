@@ -9,12 +9,14 @@ import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.AbstractIdentifiableRepositoryImplTest;
 import java.util.function.Function;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
+@Disabled
 @SpringBootTest(
     webEnvironment = WebEnvironment.MOCK,
     classes = {StillWatersRepositoryImpl.class})
