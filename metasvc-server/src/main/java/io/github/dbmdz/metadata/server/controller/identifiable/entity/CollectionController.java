@@ -648,4 +648,20 @@ public class CollectionController extends AbstractEntityController<Collection> {
       throws ServiceException, ValidationException {
     return super.update(uuid, collection, errors);
   }
+
+  @Operation(summary = "Update the order of a collection's children")
+  @PutMapping(
+      value = {"/v6/collections/{uuid:" + ParameterHelper.UUID_PATTERN + "}/children"},
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity updateChildrenOrder(
+      @Parameter(example = "", description = "UUID of the collection") @PathVariable("uuid")
+          UUID uuid,
+      @Parameter(example = "", description = "List of the children") @RequestBody
+          List<Collection> children)
+      throws ServiceException {
+    boolean successful = service.updateChildrenOrder(buildExampleWithUuid(uuid), children);
+    return successful
+        ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+        : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
 }
