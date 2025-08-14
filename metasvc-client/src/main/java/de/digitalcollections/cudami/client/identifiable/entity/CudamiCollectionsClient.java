@@ -182,4 +182,15 @@ public class CudamiCollectionsClient extends CudamiEntitiesClient<Collection> {
     }
     return true;
   }
+
+  public boolean updateChildrenOrder(UUID collectionUuid, List<Collection> children)
+      throws TechnicalException {
+    try {
+      doPutRequestForString(
+          String.format("%s/%s/children", baseEndpoint, collectionUuid), children);
+    } catch (ResourceNotFoundException e) {
+      return false;
+    }
+    return true;
+  }
 }
