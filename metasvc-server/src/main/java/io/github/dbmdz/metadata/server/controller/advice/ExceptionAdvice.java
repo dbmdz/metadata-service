@@ -110,7 +110,7 @@ public class ExceptionAdvice implements ProblemHandling {
             .withTimestamp(new Date())
             .build();
     if (problem.getStatus() == Status.INTERNAL_SERVER_ERROR)
-      LOGGER.error("Exception stack trace", exception);
+      LOGGER.error(cause.getMessage(), exception);
     return create(problem, request);
   }
 }
