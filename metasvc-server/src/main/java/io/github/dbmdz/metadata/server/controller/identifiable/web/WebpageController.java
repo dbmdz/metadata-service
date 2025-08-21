@@ -359,9 +359,9 @@ public class WebpageController extends AbstractIdentifiableController<Webpage> {
   public ResponseEntity updateChildrenOrder(
       @Parameter(example = "", description = "UUID of the webpage") @PathVariable("uuid") UUID uuid,
       @Parameter(example = "", description = "List of the children") @RequestBody
-          List<Webpage> rootPages)
+          List<Webpage> children)
       throws ServiceException {
-    boolean successful = service.updateChildrenOrder(buildExampleWithUuid(uuid), rootPages);
+    boolean successful = service.updateChildrenOrder(buildExampleWithUuid(uuid), children);
     return successful
         ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
         : new ResponseEntity<>(HttpStatus.NOT_FOUND);
