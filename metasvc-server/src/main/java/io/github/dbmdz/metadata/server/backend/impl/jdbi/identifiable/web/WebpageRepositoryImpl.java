@@ -188,26 +188,29 @@ public class WebpageRepositoryImpl extends IdentifiableRepositoryImpl<Webpage>
         dbi.withHandle(
             h ->
                 h.createQuery(
-                        "WITH RECURSIVE breadcrumb (targetId, label, parentId, depth)"
-                            + " AS ("
-                            + "        SELECT w.uuid AS targetId, w.label AS label, ww.parent_webpage_uuid AS parentId, 99 AS depth"
-                            + "        FROM webpages w, webpage_webpages ww"
-                            + "        WHERE uuid=:uuid and ww.child_webpage_uuid = w.uuid"
-                            + ""
-                            + "        UNION ALL"
-                            + "        SELECT w.uuid AS targetId, w.label AS label, ww.parent_webpage_uuid AS parentId, depth-1 AS depth"
-                            + "        FROM webpages w, webpage_webpages ww, breadcrumb b"
-                            + "        WHERE b.targetId = ww.child_webpage_uuid AND ww.parent_webpage_uuid = w.uuid AND ww.parent_webpage_uuid IS NOT NULL"
-                            + "    )"
-                            + ""
-                            + " SELECT cast(targetId AS VARCHAR) AS targetId, label, parentId, depth FROM breadcrumb"
-                            + ""
-                            + " UNION"
-                            + " SELECT NULL AS targetId, ws.label AS label, NULL AS parentId, 0 AS depth"
-                            + " FROM websites ws, website_webpages ww, breadcrumb b"
-                            + " WHERE ww.webpage_uuid = b.parentId AND ws.uuid = ww.website_uuid"
-                            + ""
-                            + " ORDER BY depth ASC")
+                        """
+                    WITH RECURSIVE breadcrumb (targetId, label, parentId, depth)
+                    AS (
+                        SELECT w.uuid, w.label, ww.parent_webpage_uuid, 0
+                        FROM webpages w INNER JOIN webpage_webpages ww ON ww.child_webpage_uuid = w.uuid
+                        WHERE uuid = :uuid
+                        UNION ALL
+                        SELECT w.uuid, w.label, ww.parent_webpage_uuid, depth + 1
+                        FROM webpages w
+                            INNER JOIN breadcrumb b ON b.parentId = w.uuid
+                            LEFT JOIN webpage_webpages ww ON ww.child_webpage_uuid = w.uuid
+                        WHERE depth < 100
+                    )
+                    SELECT cast(targetId AS VARCHAR) AS targetId, label, parentId, depth FROM breadcrumb
+
+                    UNION
+
+                    SELECT NULL, ws.label, NULL, 100
+                    FROM websites ws, website_webpages ww, breadcrumb b
+                    WHERE ww.webpage_uuid = b.targetId AND ws.uuid = ww.website_uuid
+
+                    ORDER BY depth DESC
+                    """)
                     .bind("uuid", uuid)
                     .mapTo(BreadcrumbNode.class)
                     .list());
