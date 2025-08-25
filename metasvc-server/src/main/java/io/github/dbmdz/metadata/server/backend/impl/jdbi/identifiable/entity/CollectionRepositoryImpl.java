@@ -241,19 +241,23 @@ public class CollectionRepositoryImpl extends EntityRepositoryImpl<Collection>
         dbi.withHandle(
             h ->
                 h.createQuery(
-                        "WITH recursive breadcrumb (uuid,label,refId,parentId,depth)"
-                            + " AS ("
-                            + "        SELECT c.uuid AS uuid, c.label AS label, c.refid AS refId, cc.parent_collection_uuid AS parentId, 99 AS depth"
-                            + "        FROM collections c, collection_collections cc"
-                            + "        WHERE uuid= :uuid and cc.child_collection_uuid = c.uuid"
-                            + ""
-                            + "        UNION ALL"
-                            + "        SELECT c.uuid AS uuid, c.label AS label, c.refid AS refID, cc.parent_collection_uuid AS parentId, depth-1 AS depth"
-                            + "        FROM collections c, collection_collections cc, breadcrumb b"
-                            + "        WHERE b.uuid = cc.child_collection_uuid AND cc.parent_collection_uuid = c.uuid AND cc.parent_collection_uuid IS NOT null"
-                            + "    )"
-                            + " SELECT cast(refId AS VARCHAR) as targetId, label, depth FROM breadcrumb"
-                            + " ORDER BY depth ASC")
+                        """
+                    WITH RECURSIVE breadcrumb (uuid, label, refId, parentId, depth)
+                    AS (
+                        SELECT c.uuid, c.label, c.refid, cc.parent_collection_uuid, 0
+                        FROM collections c INNER JOIN collection_collections cc ON c.uuid = cc.child_collection_uuid
+                        WHERE c.uuid = :uuid
+
+                        UNION ALL
+                        SELECT c.uuid, c.label, c.refid, cc.parent_collection_uuid, depth + 1
+                        FROM collections c -- is the parent from above, now the child
+                            INNER JOIN breadcrumb b ON b.parentId = c.uuid
+                            LEFT JOIN collection_collections cc ON b.parentId = cc.child_collection_uuid
+                        WHERE depth < 100
+                    )
+                    SELECT DISTINCT cast(refId AS VARCHAR) AS targetId, label, depth, refId FROM breadcrumb
+                    ORDER BY depth DESC, refId;
+                    """)
                     .bind("uuid", nodeUuid)
                     .mapTo(BreadcrumbNode.class)
                     .list());
@@ -266,7 +270,7 @@ public class CollectionRepositoryImpl extends EntityRepositoryImpl<Collection>
               h ->
                   h.createQuery(
                           "SELECT cast(refId AS VARCHAR) as targetId, label AS label"
-                              + " FROM collections WHERE uuid= :uuid")
+                              + " FROM collections WHERE uuid = :uuid")
                       .bind("uuid", nodeUuid)
                       .mapTo(BreadcrumbNode.class)
                       .list());
