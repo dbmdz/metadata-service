@@ -278,6 +278,28 @@ public class Identifiable extends UniqueObject {
     this.subjects = subjects;
   }
 
+  @Override
+  public String toString() {
+    return "Identifiable {"
+        + (description != null ? "description=" + description + ", " : "")
+        + (identifiableObjectType != null
+            ? "identifiableObjectType=" + identifiableObjectType + ", "
+            : "")
+        + (identifiers != null ? "identifiers=" + identifiers + ", " : "")
+        + (label != null ? "label=" + label + ", " : "")
+        + (localizedUrlAliases != null ? "localizedUrlAliases=" + localizedUrlAliases + ", " : "")
+        + (previewImage != null ? "previewImage=" + previewImage + ", " : "")
+        + (previewImageRenderingHints != null
+            ? "previewImageRenderingHints=" + previewImageRenderingHints + ", "
+            : "")
+        + (subjects != null ? "subjects=" + subjects + ", " : "")
+        + (tags != null ? "tags=" + tags + ", " : "")
+        + (type != null ? "type=" + type : "")
+        + ", "
+        + super.toString()
+        + "}";
+  }
+
   public abstract static class IdentifiableBuilder<
           C extends Identifiable, B extends IdentifiableBuilder<C, B>>
       extends UniqueObjectBuilder<C, B> {
