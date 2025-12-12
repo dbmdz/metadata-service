@@ -1,7 +1,7 @@
 package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import de.digitalcollections.model.identifiable.entity.Event;
 import de.digitalcollections.model.list.filtering.FilterCriterion;
