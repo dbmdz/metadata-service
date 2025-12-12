@@ -9,6 +9,7 @@ import de.digitalcollections.model.identifiable.Node;
 import de.digitalcollections.model.text.LocalizedStructuredContent;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.view.RenderingHints;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,8 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
   private PublicationStatus publicationStatus;
   private RenderingHints renderingHints;
   private LocalizedStructuredContent text;
+  private URL externalUrl;
+  private Boolean showExternalAsInternalUrl;
 
   public Webpage() {
     super();
@@ -72,6 +75,14 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
     return text;
   }
 
+  public URL getExternalUrl() {
+    return externalUrl;
+  }
+
+  public Boolean getShowExternalAsInternalUrl() {
+    return showExternalAsInternalUrl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -83,7 +94,9 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
         && Objects.equals(publicationStart, webpage.publicationStart)
         && publicationStatus == webpage.publicationStatus
         && Objects.equals(renderingHints, webpage.renderingHints)
-        && Objects.equals(text, webpage.text);
+        && Objects.equals(text, webpage.text)
+        && Objects.equals(externalUrl, webpage.externalUrl)
+        && Objects.equals(showExternalAsInternalUrl, webpage.showExternalAsInternalUrl);
   }
 
   @Override
@@ -95,7 +108,9 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
         publicationStart,
         publicationStatus,
         renderingHints,
-        text);
+        text,
+        externalUrl,
+        showExternalAsInternalUrl);
   }
 
   @Override
@@ -113,6 +128,10 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
         + renderingHints
         + ", text="
         + text
+        + ", externalUrl="
+        + externalUrl
+        + ", showExternalAsInternalUrl="
+        + showExternalAsInternalUrl
         + ", "
         + super.toString()
         + '}';
@@ -161,6 +180,14 @@ public class Webpage extends Identifiable implements INode<Webpage>, ManagedCont
 
   public void setText(LocalizedStructuredContent text) {
     this.text = text;
+  }
+
+  public void setExternalUrl(URL externalUrl) {
+    this.externalUrl = externalUrl;
+  }
+
+  public void setShowExternalAsInternalUrl(Boolean showExternalAsInternalUrl) {
+    this.showExternalAsInternalUrl = showExternalAsInternalUrl;
   }
 
   public abstract static class WebpageBuilder<C extends Webpage, B extends WebpageBuilder<C, B>>

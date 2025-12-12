@@ -361,14 +361,14 @@ public class WebpageRepositoryImpl extends IdentifiableRepositoryImpl<Webpage>
   @Override
   protected String getSqlInsertFields() {
     return super.getSqlInsertFields()
-        + ", publication_end, publication_start, rendering_hints, text";
+        + ", publication_end, publication_start, rendering_hints, text, external_url, show_as_internal_url";
   }
 
   /* Do not change order! Must match order in getSqlInsertFields!!! */
   @Override
   protected String getSqlInsertValues() {
     return super.getSqlInsertValues()
-        + ", :publicationEnd, :publicationStart, :renderingHints::JSONB, :text::JSONB";
+        + ", :publicationEnd, :publicationStart, :renderingHints::JSONB, :text::JSONB, :externalUrl, :showExternalAsInternalUrl";
   }
 
   @Override
@@ -384,25 +384,21 @@ public class WebpageRepositoryImpl extends IdentifiableRepositoryImpl<Webpage>
   @Override
   public String getSqlSelectReducedFields(String tableAlias, String mappingPrefix) {
     return super.getSqlSelectReducedFields(tableAlias, mappingPrefix)
-        + ", "
-        + tableAlias
-        + ".publication_end "
-        + mappingPrefix
-        + "_publicationEnd, "
-        + tableAlias
-        + ".publication_start "
-        + mappingPrefix
-        + "_publicationStart, "
-        + tableAlias
-        + ".rendering_hints "
-        + mappingPrefix
-        + "_renderingHints";
+        + ("""
+          , {alias}.publication_end {mapping}_publicationEnd,
+          {alias}.publication_start {mapping}_publicationStart,
+          {alias}.rendering_hints {mapping}_renderingHints,
+          {alias}.external_url {mapping}_externalUrl,
+          {alias}.show_as_internal_url {mapping}_showExternalAsInternalUrl"""
+            .replace("{alias}", tableAlias)
+            .replace("{mapping}", mappingPrefix));
   }
 
   @Override
   protected String getSqlUpdateFieldValues() {
     return super.getSqlUpdateFieldValues()
-        + ", publication_end=:publicationEnd, publication_start=:publicationStart, rendering_hints=:renderingHints::JSONB, text=:text::JSONB";
+        + ", publication_end=:publicationEnd, publication_start=:publicationStart, rendering_hints=:renderingHints::JSONB, text=:text::JSONB"
+        + ", external_url=:externalUrl, show_as_internal_url=:showExternalAsInternalUrl";
   }
 
   @Override
