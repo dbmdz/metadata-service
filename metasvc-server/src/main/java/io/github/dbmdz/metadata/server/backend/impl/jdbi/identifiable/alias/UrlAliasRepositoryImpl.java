@@ -16,6 +16,7 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.list.sorting.Sorting;
 import de.digitalcollections.model.text.LocalizedText;
 import de.digitalcollections.model.validation.ValidationException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
@@ -37,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+@SuppressFBWarnings("HSM_HIDING_METHOD")
 @Repository
 public class UrlAliasRepositoryImpl extends UniqueObjectRepositoryImpl<UrlAlias>
     implements UrlAliasRepository {

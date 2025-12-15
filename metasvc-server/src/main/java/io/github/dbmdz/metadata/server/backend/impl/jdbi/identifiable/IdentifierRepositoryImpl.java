@@ -4,6 +4,7 @@ import de.digitalcollections.cudami.model.config.CudamiConfig;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.Identifier;
 import de.digitalcollections.model.validation.ValidationException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.IdentifierRepository;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.UniqueObjectRepositoryImpl;
@@ -18,6 +19,7 @@ import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.mapper.reflect.BeanMapper;
 import org.springframework.stereotype.Repository;
 
+@SuppressFBWarnings("HSM_HIDING_METHOD")
 @Repository
 public class IdentifierRepositoryImpl extends UniqueObjectRepositoryImpl<Identifier>
     implements IdentifierRepository {

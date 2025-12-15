@@ -23,6 +23,7 @@ import de.digitalcollections.model.identifiable.alias.UrlAlias;
 import de.digitalcollections.model.identifiable.entity.EntityType;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.util.SlugGenerator;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.config.SpringUtility;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
  * </ul>
  */
 @SuppressWarnings("checkstyle:typename")
+@SuppressFBWarnings({"SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
 public class V9_02_02__DML_Fill_urlaliases extends BaseJavaMigration {
   // Cannot be more elegant, since we want to allow null values
   private static final Map<String, Pair<String, EntityType>> ENTITY_MIGRATION_TABLES =

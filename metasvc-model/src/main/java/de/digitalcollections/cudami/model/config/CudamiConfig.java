@@ -10,7 +10,7 @@ import java.util.Locale;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP", "CT_CONSTRUCTOR_THROW"})
 @Getter
 public class CudamiConfig {
 
