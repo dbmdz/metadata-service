@@ -1,6 +1,5 @@
 package de.digitalcollections.model.list.filtering;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -625,7 +624,6 @@ public class FilterCriterion<T> {
     this.values = values;
   }
 
-  @SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
   @Override
   public String toString() {
     if (operation == null) {

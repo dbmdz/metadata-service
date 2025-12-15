@@ -3,7 +3,6 @@ package io.github.dbmdz.metadata.server.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.model.view.BreadcrumbNode;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.plugins.DcCommonsJdbiPlugin;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.plugins.JsonbJdbiPlugin;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.type.DbIdentifierMapper;
@@ -36,9 +35,6 @@ public class SpringConfigBackendDatabase {
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackendDatabase.class);
 
   @Bean
-  @SuppressFBWarnings(
-      value = "THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION",
-      justification = "Jdbi throws java.lang.Exception...")
   public Jdbi dbi(JdbiFactoryBean factory) throws Exception {
     Jdbi dbi = factory.getObject();
     if (dbi != null) {

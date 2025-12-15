@@ -18,6 +18,7 @@ import de.digitalcollections.model.list.filtering.Filtering;
 import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import de.digitalcollections.model.validation.ValidationException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.github.dbmdz.metadata.server.backend.api.repository.exceptions.RepositoryException;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.DigitalObjectRepository;
 import io.github.dbmdz.metadata.server.backend.api.repository.identifiable.entity.DigitalObjectRepository.ManifestationWorkUuids;
@@ -53,6 +54,7 @@ import org.springframework.stereotype.Service;
 
 /** Service for Digital Object handling. */
 // @Transactional should not be set in derived class to prevent overriding, check base class instead
+@SuppressFBWarnings("VA_FORMAT_STRING_USES_NEWLINE")
 @Service
 public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
     implements DigitalObjectService {
