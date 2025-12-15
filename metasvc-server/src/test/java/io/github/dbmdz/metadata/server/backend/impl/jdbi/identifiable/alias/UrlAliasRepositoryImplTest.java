@@ -3,8 +3,8 @@ package io.github.dbmdz.metadata.server.backend.impl.jdbi.identifiable.alias;
 import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLanguage;
 import static io.github.dbmdz.metadata.server.backend.api.repository.identifiable.alias.UrlAliasRepository.grabLocalesByScript;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;

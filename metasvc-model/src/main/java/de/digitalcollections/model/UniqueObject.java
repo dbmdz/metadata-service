@@ -96,6 +96,15 @@ public abstract class UniqueObject {
     this.uuid = uuid;
   }
 
+  @Override
+  public String toString() {
+    return "UniqueObject {"
+        + (created != null ? "created=" + created + ", " : "")
+        + (lastModified != null ? "lastModified=" + lastModified + ", " : "")
+        + (uuid != null ? "uuid=" + uuid : "")
+        + "}";
+  }
+
   public abstract static class UniqueObjectBuilder<
       C extends UniqueObject, B extends UniqueObjectBuilder<C, B>> {
 
