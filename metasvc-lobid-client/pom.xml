@@ -39,7 +39,7 @@
     <dependency>
       <groupId>org.geotools</groupId>
       <artifactId>gt-main</artifactId>
-      <version>33.3</version>
+      <version>34.1</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
