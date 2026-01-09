@@ -72,7 +72,7 @@ public class TagController extends AbstractUniqueObjectController<Tag> {
       tag =
           service.getByValue(
               new String(
-                  Base64.getDecoder().decode(value.getBytes(StandardCharsets.UTF_8)),
+                  Base64.getUrlDecoder().decode(value.getBytes(StandardCharsets.UTF_8)),
                   StandardCharsets.UTF_8));
     }
 

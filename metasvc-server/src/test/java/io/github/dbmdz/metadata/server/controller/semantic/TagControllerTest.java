@@ -33,6 +33,23 @@ class TagControllerTest extends BaseControllerTest {
     verify(tagService, times(1)).getByValue(eq("foobar"));
   }
 
+  @DisplayName("can retrieve by base 64 encoded value with special characters")
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "/v6/tags/value/SURFTlRJRklFUjpIYW5kc2NocmlmdGVuLUlEOkJTQi1Ic3MgQW5hIDUwMC5CLiBTY2hsb8OfLCBKdWxpdXMuSQ"
+      })
+  public void findByBase64EncodedValueSpecial(String path) throws Exception {
+    String encodedValue = path.split("/")[4];
+    String decodedValue = "IDENTIFIER:Handschriften-ID:BSB-Hss Ana 500.B. Schloß, Julius.I";
+
+    when(tagService.getByValue(eq(encodedValue))).thenReturn(null);
+    when(tagService.getByValue(eq(decodedValue))).thenReturn(Tag.builder().build());
+    testHttpGet(path);
+    verify(tagService, times(1)).getByValue(eq(encodedValue));
+    verify(tagService, times(1)).getByValue(eq(decodedValue));
+  }
+
   @DisplayName("can retrieve by encoded value")
   @Test
   public void findByEncodedValue() throws Exception {
