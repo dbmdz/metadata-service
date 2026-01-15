@@ -1,7 +1,7 @@
 services:
 
   grafana:
-    image: grafana/grafana:12.3.0
+    image: grafana/grafana:12.3.1
     ports:
       - "3000:3000"
     volumes:
@@ -12,7 +12,7 @@ services:
     network_mode: host
 
   prometheus:
-    image: prom/prometheus:v3.8.0
+    image: prom/prometheus:v3.9.1
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
