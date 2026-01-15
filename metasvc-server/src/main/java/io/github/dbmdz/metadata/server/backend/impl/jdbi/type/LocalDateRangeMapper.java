@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
 public class LocalDateRangeMapper implements ArgumentFactory, ColumnMapper<LocalDateRange> {
 
   private static final DateTimeFormatter formatter =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd GG", Locale.ROOT);
+      DateTimeFormatter.ofPattern("yyyy-MM-dd GG", Locale.US);
 
   public LocalDateRangeMapper() {}
 
