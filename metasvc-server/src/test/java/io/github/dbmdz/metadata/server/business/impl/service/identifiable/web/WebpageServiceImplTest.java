@@ -257,9 +257,9 @@ class WebpageServiceImplTest extends AbstractServiceImplTest {
 
   @Test
   @DisplayName(
-      "shall use the first locale (alphabetically) as fallback for a localized label, if possible")
+      "shall use the first locale (insertion order) as fallback for a localized label, if possible")
   public void useFirstLocaleAsFallback() {
-    LocalizedText expectedFirstLocaleLabel = new LocalizedText(Locale.FRENCH, "faux");
+    LocalizedText expectedFirstLocaleLabel = new LocalizedText(Locale.ITALIAN, "vero");
 
     Node node = new Node();
     LocalizedText label = new LocalizedText();

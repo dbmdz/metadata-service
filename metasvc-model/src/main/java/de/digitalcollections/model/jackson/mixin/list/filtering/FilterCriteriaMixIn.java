@@ -3,6 +3,7 @@ package de.digitalcollections.model.jackson.mixin.list.filtering;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,6 +19,7 @@ import java.util.List;
 @JsonInclude(value = Include.NON_EMPTY)
 // Otherwise Jackson would treat it as ARRAY and we would lose the `criterionLink`
 @JsonFormat(shape = Shape.OBJECT)
+@JsonIgnoreProperties(value = {"first", "last"})
 public interface FilterCriteriaMixIn extends List<FilterCriterion> {
 
   @Override
