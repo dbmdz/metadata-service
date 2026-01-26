@@ -6,9 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Added
+
+- External URL & flag whether shown as internal or external to WebPage
+
+### Changed
+
+- **BREAKING:** Upgrade Java to version 25, except for client & model that remain Java 17 for compatibility
+- Upgrade dependencies, major too
+
 ### Fixed
 
 - Base64-URL-Decoding in `TagController` (Error `Illegal base64 character 5f`)
+- Fix date era: use of BC/AD instead of BC/BCE
 
 ## [11.1.0](https://github.com/dbmdz/metadata-service/releases/tag/11.1.0) - 2025-08-29
 
