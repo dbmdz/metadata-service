@@ -80,7 +80,7 @@ public class EntityServiceImpl<E extends Entity>
   public void save(E entity) throws ServiceException, ValidationException {
     try {
       super.save(entity);
-      sendNotification("save", "POST", entity.getUuid(), entity.getIdentifiableObjectType());
+      sendNotification("save-%s", entity.getIdentifiableObjectType(), "POST", entity.getUuid());
     } catch (ServiceException e) {
       throw new ServiceException("Cannot save entity %s: %s".formatted(entity, e.getMessage()), e);
     }
@@ -88,8 +88,12 @@ public class EntityServiceImpl<E extends Entity>
 
   /** Send a notification to an external url when an entity has changed */
   protected void sendNotification(
-      String action, String httpVerb, UUID uuid, IdentifiableObjectType identifiableObjectType) {
-    Optional<String> hook = hookProperties.getHookForActionAndType(action, identifiableObjectType);
+      String actionTemplate,
+      IdentifiableObjectType identifiableObjectType,
+      String httpVerb,
+      UUID uuid) {
+    Optional<String> hook =
+        hookProperties.getHookForActionAndType(actionTemplate, identifiableObjectType);
     if (hook.isEmpty()) {
       // if no suitable hook is found, do nothing
       return;
@@ -120,7 +124,7 @@ public class EntityServiceImpl<E extends Entity>
   public void update(E entity) throws ServiceException, ValidationException {
     try {
       super.update(entity);
-      sendNotification("update", "PUT", entity.getUuid(), entity.getIdentifiableObjectType());
+      sendNotification("update-%s", entity.getIdentifiableObjectType(), "PUT", entity.getUuid());
     } catch (ServiceException e) {
       throw new ServiceException(
           "Cannot update identifiable %s: %s".formatted(entity, e.getMessage()), e);
