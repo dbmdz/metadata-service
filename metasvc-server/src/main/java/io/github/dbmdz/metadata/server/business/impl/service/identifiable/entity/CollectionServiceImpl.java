@@ -70,21 +70,37 @@ public class CollectionServiceImpl extends EntityServiceImpl<Collection>
   @Override
   public boolean addDigitalObject(Collection collection, DigitalObject digitalObject)
       throws ServiceException {
+    boolean successful = false;
     try {
-      return ((CollectionRepository) repository).addDigitalObject(collection, digitalObject);
+      successful = ((CollectionRepository) repository).addDigitalObject(collection, digitalObject);
+      if (successful) {
+        sendNotification(
+            "add-%s-to-collection",
+            digitalObject.getIdentifiableObjectType(), "POST", digitalObject.getUuid());
+      }
     } catch (RepositoryException e) {
       throw new ServiceException("Backend failure", e);
     }
+    return successful;
   }
 
   @Override
   public boolean addDigitalObjects(Collection collection, List<DigitalObject> digitalObjects)
       throws ServiceException {
+    boolean successful = false;
     try {
-      return ((CollectionRepository) repository).addDigitalObjects(collection, digitalObjects);
+      successful =
+          ((CollectionRepository) repository).addDigitalObjects(collection, digitalObjects);
+      if (successful) {
+        digitalObjects.forEach(
+            d ->
+                sendNotification(
+                    "add-%s-to-collection", d.getIdentifiableObjectType(), "POST", d.getUuid()));
+      }
     } catch (RepositoryException e) {
       throw new ServiceException("Backend failure", e);
     }
+    return successful;
   }
 
   @Override
@@ -318,11 +334,19 @@ public class CollectionServiceImpl extends EntityServiceImpl<Collection>
   @Override
   public boolean removeDigitalObject(Collection collection, DigitalObject digitalObject)
       throws ServiceException {
+    boolean successful = false;
     try {
-      return ((CollectionRepository) repository).removeDigitalObject(collection, digitalObject);
+      successful =
+          ((CollectionRepository) repository).removeDigitalObject(collection, digitalObject);
+      if (successful) {
+        sendNotification(
+            "remove-%s-from-collection",
+            digitalObject.getIdentifiableObjectType(), "DELETE", digitalObject.getUuid());
+      }
     } catch (RepositoryException e) {
       throw new ServiceException("Backend failure", e);
     }
+    return successful;
   }
 
   @Override
