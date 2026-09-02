@@ -14,8 +14,9 @@ public class HookProperties {
 
   private Map<String, String> hooks = new HashMap<>();
 
-  public Optional<String> getHookForActionAndType(String action, IdentifiableObjectType type) {
-    String key = String.format("%s-%s", action, type.toString().toLowerCase());
+  public Optional<String> getHookForActionAndType(
+      String actionTemplate, IdentifiableObjectType type) {
+    String key = actionTemplate.formatted(type.toString().toLowerCase());
     return Optional.ofNullable(hooks.get(key));
   }
 
