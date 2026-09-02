@@ -15,10 +15,7 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.
 import io.github.dbmdz.metadata.server.business.impl.service.identifiable.IdentifiableServiceImpl;
 import io.github.dbmdz.metadata.server.config.HookProperties;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -67,13 +64,7 @@ public class EntityServiceImpl<E extends Entity>
   // TODO: externalize to Hook-/NotificationService and use Entity instead uuid as param
   protected URI buildNotificationUrl(
       String urlTemplate, UUID entityUuid, IdentifiableObjectType identifiableObjectType) {
-    String url = String.format(urlTemplate, entityUuid, identifiableObjectType);
-    try {
-      return new URL(url).toURI();
-    } catch (MalformedURLException | URISyntaxException e) {
-      LOGGER.warn("Something went wrong when creating the notification url: {}", e.getMessage());
-      return null;
-    }
+    return URI.create(urlTemplate.formatted(entityUuid, identifiableObjectType));
   }
 
   @Override
@@ -104,10 +95,6 @@ public class EntityServiceImpl<E extends Entity>
       return;
     }
     URI url = buildNotificationUrl(hook.get(), uuid, identifiableObjectType);
-    if (url == null) {
-      LOGGER.warn("No url given, ignoring.");
-      return;
-    }
     HttpRequest request =
         HttpRequest.newBuilder()
             .uri(url)
