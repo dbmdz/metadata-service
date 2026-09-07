@@ -149,7 +149,7 @@ public class DigitalObjectController extends AbstractEntityController<DigitalObj
   @Override
   @Operation(summary = "Get a digital object by refId")
   @GetMapping(
-      value = {"/v5/digitalobjects/{refId:[0-9]+}"},
+      value = {"/v5/digitalobjects/{refId:[0-9]+}", "/v6/digitalobjects/{refId:[0-9]+}"},
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<DigitalObject> getByRefId(@PathVariable long refId)
       throws ServiceException {
