@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - Added notifications when one or more digital objects are added to or removed from a collection
 
+### Fixed
+
+- Missing path `/v6/digitalobjects/{refId}`
+
 ## [12.0.0](https://github.com/dbmdz/metadata-service/releases/tag/12.0.0) - 2026-02-04
 
 ### Added
