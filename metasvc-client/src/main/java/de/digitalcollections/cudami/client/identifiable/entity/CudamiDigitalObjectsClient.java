@@ -103,12 +103,6 @@ public class CudamiDigitalObjectsClient extends CudamiEntitiesClient<DigitalObje
         String.format("%s/%s/fileresources", baseEndpoint, uuid), FileResource.class);
   }
 
-  public List<ImageFileResource> getIiifImageFileResources(UUID uuid) throws TechnicalException {
-    return doGetRequestForObjectList(
-        String.format("%s/%s/fileresources/images/iiif", baseEndpoint, uuid),
-        ImageFileResource.class);
-  }
-
   public List<ImageFileResource> getImageFileResources(UUID uuid) throws TechnicalException {
     return doGetRequestForObjectList(
         String.format("%s/%s/fileresources/images", baseEndpoint, uuid), ImageFileResource.class);

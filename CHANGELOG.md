@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+### Removed
+
+- **Breaking**: Removed an unused endpoint for retrieving IIIF images for a digital object and corresponding client method
+
 ## [12.1.0](https://github.com/dbmdz/metadata-service/releases/tag/12.1.0) - 2026-09-14
 
 ### Added

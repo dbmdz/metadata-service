@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.digitalcollections.cudami.model.config.CudamiConfig;
-import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.model.identifiable.Identifiable;
 import de.digitalcollections.model.identifiable.IdentifiableObjectType;
 import de.digitalcollections.model.identifiable.IdentifiableType;
@@ -12,7 +11,6 @@ import de.digitalcollections.model.identifiable.alias.UrlAlias;
 import de.digitalcollections.model.identifiable.entity.Website;
 import de.digitalcollections.model.jackson.DigitalCollectionsObjectMapper;
 import io.github.dbmdz.metadata.server.backend.impl.database.config.SpringConfigBackendTestDatabase;
-import io.github.dbmdz.metadata.server.config.BackendIiifServerConfig;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -32,8 +30,6 @@ public class AbstractRepositoryImplTest {
 
   @Autowired protected Jdbi jdbi;
   @Autowired protected CudamiConfig cudamiConfig;
-  @Autowired protected IiifObjectMapper iiifObjectMapper;
-  @Autowired protected BackendIiifServerConfig iiifServerConfig;
   @Autowired private DigitalCollectionsObjectMapper mapper;
 
   protected <O> O createDeepCopy(O object) {

@@ -5,16 +5,12 @@ import com.zaxxer.hikari.pool.HikariPool;
 import de.digitalcollections.cudami.model.config.CudamiConfig;
 import de.digitalcollections.cudami.model.config.CudamiConfig.Defaults;
 import de.digitalcollections.cudami.model.config.CudamiConfig.UrlAlias;
-import de.digitalcollections.cudami.model.config.IiifServerConfig.Identifier;
-import de.digitalcollections.cudami.model.config.IiifServerConfig.Image;
-import de.digitalcollections.cudami.model.config.IiifServerConfig.Presentation;
 import io.github.dbmdz.metadata.server.config.SpringConfigBackendDatabase;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sql.DataSource;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -74,23 +70,5 @@ public class SpringConfigBackendTestDatabase {
   @Primary
   CudamiConfig testCudamiConfig() {
     return cudamiConfig;
-  }
-
-  @Bean
-  @Primary
-  Identifier testIiifServerConfigIdentifier() {
-    return Mockito.mock(Identifier.class);
-  }
-
-  @Bean
-  @Primary
-  Image testIiifServerConfigImage() {
-    return Mockito.mock(Image.class);
-  }
-
-  @Bean
-  @Primary
-  Presentation testIiifServerConfigPresentation() {
-    return Mockito.mock(Presentation.class);
   }
 }
