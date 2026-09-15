@@ -437,16 +437,6 @@ public class DigitalObjectServiceImpl extends EntityServiceImpl<DigitalObject>
   }
 
   @Override
-  public List<ImageFileResource> getIiifImageFileResources(DigitalObject digitalObject)
-      throws ServiceException {
-    try {
-      return ((DigitalObjectRepository) repository).getIiifImageFileResources(digitalObject);
-    } catch (RepositoryException e) {
-      throw new ServiceException("Backend failure", e);
-    }
-  }
-
-  @Override
   public List<ImageFileResource> getImageFileResources(DigitalObject digitalObject)
       throws ServiceException {
     try {

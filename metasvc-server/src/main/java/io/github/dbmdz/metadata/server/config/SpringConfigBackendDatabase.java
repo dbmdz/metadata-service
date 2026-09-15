@@ -1,7 +1,6 @@
 package io.github.dbmdz.metadata.server.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import de.digitalcollections.model.view.BreadcrumbNode;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.plugins.DcCommonsJdbiPlugin;
 import io.github.dbmdz.metadata.server.backend.impl.jdbi.plugins.JsonbJdbiPlugin;
@@ -63,11 +62,6 @@ public class SpringConfigBackendDatabase {
   @Bean
   public DbIdentifierMapper dbIdentifierMapper() {
     return new DbIdentifierMapper();
-  }
-
-  @Bean
-  public IiifObjectMapper iiifObjectMapper() {
-    return new IiifObjectMapper();
   }
 
   @Bean

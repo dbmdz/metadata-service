@@ -52,9 +52,6 @@ public interface DigitalObjectService extends EntityService<DigitalObject> {
 
   List<FileResource> getFileResources(DigitalObject digitalObject) throws ServiceException;
 
-  List<ImageFileResource> getIiifImageFileResources(DigitalObject buildExampleWithUuid)
-      throws ServiceException;
-
   List<ImageFileResource> getImageFileResources(DigitalObject digitalObject)
       throws ServiceException;
 
