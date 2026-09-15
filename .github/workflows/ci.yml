@@ -81,7 +81,7 @@ jobs:
         with:
           check-latest: true
           distribution: temurin
-          java-version: 25
+          java-version: 25.0.4+101.0.LTS
           server-id: central
           server-password: MAVEN_PASSWORD
           server-username: MAVEN_USERNAME
@@ -100,7 +100,7 @@ jobs:
           distribution: temurin
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          java-version: 25
+          java-version: 25.0.4+101.0.LTS
           server-id: central
           server-password: MAVEN_PASSWORD
           server-username: MAVEN_USERNAME
