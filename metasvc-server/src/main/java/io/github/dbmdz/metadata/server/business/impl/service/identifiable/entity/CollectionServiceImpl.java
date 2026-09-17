@@ -22,6 +22,7 @@ import io.github.dbmdz.metadata.server.business.api.service.identifiable.entity.
 import io.github.dbmdz.metadata.server.config.HookProperties;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,9 @@ public class CollectionServiceImpl extends EntityServiceImpl<Collection>
 
   @Override
   public boolean addChild(Collection parent, Collection child) throws ServiceException {
+    if (Objects.equals(parent.getUuid(), child.getUuid())) {
+      throw new ServiceException(new ConflictException("Parent and child cannot be the same."));
+    }
     try {
       return ((NodeRepository<Collection>) repository).addChild(parent, child);
     } catch (RepositoryException e) {
@@ -60,6 +64,12 @@ public class CollectionServiceImpl extends EntityServiceImpl<Collection>
 
   @Override
   public boolean addChildren(Collection parent, List<Collection> children) throws ServiceException {
+    boolean foundChildSameAsParent =
+        children.stream().anyMatch(child -> Objects.equals(parent.getUuid(), child.getUuid()));
+    if (foundChildSameAsParent) {
+      throw new ServiceException(
+          new ConflictException("Parent and any of the children cannot be the same."));
+    }
     try {
       return ((NodeRepository<Collection>) repository).addChildren(parent, children);
     } catch (RepositoryException e) {
