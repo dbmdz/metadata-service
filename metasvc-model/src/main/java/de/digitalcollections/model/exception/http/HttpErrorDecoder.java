@@ -20,7 +20,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,17 +73,12 @@ public class HttpErrorDecoder {
               .map(URL::toString)
               .orElse(null);
 
-      final byte[] body = (byte[]) response.body();
-      if (body != null && body.length > 0) {
+      String body = response.body().toString();
+      if (body != null && !body.isBlank()) {
         try {
           problem = mapper.readerFor(MetasvcProblem.class).readValue(body);
         } catch (Exception e) {
-          LOGGER.error(
-              "Got response="
-                  + new String(body, StandardCharsets.UTF_8)
-                  + " but cannot construct problem: "
-                  + e,
-              e);
+          LOGGER.error("Cannot construct problem from response '%s': %s".formatted(body, e), e);
         }
       }
     }
