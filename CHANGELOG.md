@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [13.0.0](https://github.com/dbmdz/metadata-service/releases/tag/13.0.0) - 2026-09-22
+
 ### Changed
 
 - Added a check to prevent a collection from being added as a sub-collection of itself
