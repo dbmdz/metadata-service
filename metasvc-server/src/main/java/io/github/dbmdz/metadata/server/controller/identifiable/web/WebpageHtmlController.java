@@ -30,6 +30,7 @@ public class WebpageHtmlController {
   @GetMapping(
       value = {
         "/latest/webpages/{uuid}.html",
+        "/v6/webpages/{uuid}.html",
         "/v3/webpages/{uuid}.html",
         "/v2/webpages/{uuid}.html",
         "/v1/webpages/{uuid}.html"
