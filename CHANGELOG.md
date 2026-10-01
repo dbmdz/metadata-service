@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - Added missing HTML endpoint for webpages in `v6`
 
+### Fixed
+
+- `MetasvcProblem` deserialisation
+
 ## [13.0.0](https://github.com/dbmdz/metadata-service/releases/tag/13.0.0) - 2026-09-22
 
 ### Changed

@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class HttpErrorDecoder {
     }
   }
 
-  public static HttpException decode(String methodKey, int statusCode, HttpResponse response) {
+  public static HttpException decode(String methodKey, int statusCode, HttpResponse<?> response) {
     String requestUrl = null;
     MetasvcProblem problem = null;
     if (response != null) {
@@ -73,14 +74,29 @@ public class HttpErrorDecoder {
               .map(URL::toString)
               .orElse(null);
 
-      String body = response.body().toString();
-      if (body != null && !body.isBlank()) {
+      Object body = response.body();
+      if (body != null)
         try {
-          problem = mapper.readerFor(MetasvcProblem.class).readValue(body);
+          // We have always got byte arrays as response bodies in case of an error.
+          // For whatever reason there is also a String body coming now in some cases.
+          // Therefore we assume both at this point.
+          if (body instanceof String sbod && !sbod.isBlank()) {
+            problem = mapper.readerFor(MetasvcProblem.class).readValue(sbod);
+          } else if (body instanceof byte[] bbod && bbod.length > 0) {
+            problem = mapper.readerFor(MetasvcProblem.class).readValue(bbod);
+          }
         } catch (Exception e) {
-          LOGGER.error("Cannot construct problem from response '%s': %s".formatted(body, e), e);
+          LOGGER.error(
+              "Cannot construct problem from response '%s': %s"
+                  .formatted(
+                      body instanceof String sbod
+                          ? sbod
+                          : body instanceof byte[] bbod
+                              ? new String(bbod, StandardCharsets.UTF_8)
+                              : "Neither bytes nor String body!",
+                      e),
+              e);
         }
-      }
     }
 
     if (400 <= statusCode && statusCode < 500) {
