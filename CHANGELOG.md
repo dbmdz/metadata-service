@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## Unreleased
 
+## [13.1.0](https://github.com/dbmdz/metadata-service/releases/tag/13.1.0) - 2026-10-05
+
 ### Added
 
 - Added missing HTML endpoint for webpages in `v6`
