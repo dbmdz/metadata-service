@@ -14,12 +14,17 @@ import de.digitalcollections.model.list.paging.PageResponse;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiItemsClient extends CudamiEntitiesClient<Item> {
 
-  public CudamiItemsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Item.class, mapper, API_VERSION_PREFIX + "/items");
+  public CudamiItemsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, Item.class, mapper, API_VERSION_PREFIX + "/items", additionalGETHeaders);
   }
 
   public boolean addDigitalObject(UUID itemUuid, UUID digitalObjectUuid) throws TechnicalException {

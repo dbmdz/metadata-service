@@ -11,6 +11,7 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import java.net.http.HttpClient;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiEntitiesClient<E extends Entity> extends CudamiIdentifiablesClient<E> {
@@ -22,12 +23,23 @@ public class CudamiEntitiesClient<E extends Entity> extends CudamiIdentifiablesC
       String serverUrl,
       Class<E> entityClass,
       ObjectMapper mapper,
-      String baseEndpoint) {
-    super(http, serverUrl, entityClass, mapper, baseEndpoint);
+      String baseEndpoint,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, entityClass, mapper, baseEndpoint, additionalGETHeaders);
   }
 
-  public CudamiEntitiesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    this(http, serverUrl, (Class<E>) Entity.class, mapper, BASE_ENDPOINT_ENTITIES);
+  public CudamiEntitiesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    this(
+        http,
+        serverUrl,
+        (Class<E>) Entity.class,
+        mapper,
+        BASE_ENDPOINT_ENTITIES,
+        additionalGETHeaders);
   }
 
   public void addRelatedFileresource(UUID uuid, UUID fileResourceUuid) throws TechnicalException {

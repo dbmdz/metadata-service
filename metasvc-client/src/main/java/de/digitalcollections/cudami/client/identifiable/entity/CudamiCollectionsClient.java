@@ -13,12 +13,23 @@ import de.digitalcollections.model.view.BreadcrumbNavigation;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiCollectionsClient extends CudamiEntitiesClient<Collection> {
 
-  public CudamiCollectionsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Collection.class, mapper, API_VERSION_PREFIX + "/collections");
+  public CudamiCollectionsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Collection.class,
+        mapper,
+        API_VERSION_PREFIX + "/collections",
+        additionalGETHeaders);
   }
 
   public boolean addDigitalObject(UUID collectionUuid, UUID digitalObjectUuid)

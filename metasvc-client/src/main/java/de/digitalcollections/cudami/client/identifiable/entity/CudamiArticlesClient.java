@@ -8,12 +8,23 @@ import de.digitalcollections.model.identifiable.entity.agent.Agent;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiArticlesClient extends CudamiEntitiesClient<Article> {
 
-  public CudamiArticlesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Article.class, mapper, API_VERSION_PREFIX + "/articles");
+  public CudamiArticlesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Article.class,
+        mapper,
+        API_VERSION_PREFIX + "/articles",
+        additionalGETHeaders);
   }
 
   public Article getByUuid(UUID uuid, Locale locale) throws TechnicalException {

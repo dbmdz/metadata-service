@@ -16,13 +16,24 @@ import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class CudamiUrlAliasClient extends BaseRestClient<UrlAlias> {
 
-  public CudamiUrlAliasClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, UrlAlias.class, mapper, API_VERSION_PREFIX + "/urlaliases");
+  public CudamiUrlAliasClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        UrlAlias.class,
+        mapper,
+        API_VERSION_PREFIX + "/urlaliases",
+        additionalGETHeaders);
   }
 
   public PageResponse<LocalizedUrlAliases> find(PageRequest pageRequest) throws TechnicalException {

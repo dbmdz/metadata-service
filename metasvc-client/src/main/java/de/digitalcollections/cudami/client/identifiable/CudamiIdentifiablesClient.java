@@ -28,17 +28,23 @@ public class CudamiIdentifiablesClient<I extends Identifiable> extends CudamiRes
       String serverUrl,
       Class<I> identifiableClass,
       ObjectMapper mapper,
-      String baseEndpoint) {
-    super(http, serverUrl, identifiableClass, mapper, baseEndpoint);
+      String baseEndpoint,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, identifiableClass, mapper, baseEndpoint, additionalGETHeaders);
   }
 
-  public CudamiIdentifiablesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
+  public CudamiIdentifiablesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
     super(
         http,
         serverUrl,
         (Class<I>) Identifiable.class,
         mapper,
-        API_VERSION_PREFIX + "/identifiables");
+        API_VERSION_PREFIX + "/identifiables",
+        additionalGETHeaders);
   }
 
   // FIXME replace with filtering
@@ -130,7 +136,8 @@ public class CudamiIdentifiablesClient<I extends Identifiable> extends CudamiRes
   }
 
   public List<Locale> getLanguages() throws TechnicalException {
-    // endpoint on server side for "identifiables/languages" missing because only implemented in
+    // endpoint on server side for "identifiables/languages" missing because only
+    // implemented in
     // inherited clients (baseEndpoint given)
     return this.doGetRequestForObjectList(baseEndpoint + "/languages", Locale.class);
   }

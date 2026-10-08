@@ -10,12 +10,22 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import java.net.http.HttpClient;
 import java.util.List;
+import java.util.Map;
 
 public class CudamiEntityRelationsClient extends BaseRestClient<EntityRelation> {
 
-  public CudamiEntityRelationsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
+  public CudamiEntityRelationsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
     super(
-        http, serverUrl, EntityRelation.class, mapper, API_VERSION_PREFIX + "/entities/relations");
+        http,
+        serverUrl,
+        EntityRelation.class,
+        mapper,
+        API_VERSION_PREFIX + "/entities/relations",
+        additionalGETHeaders);
   }
 
   public PageResponse<EntityRelation> findByPredicate(String predicate, PageRequest pageRequest)

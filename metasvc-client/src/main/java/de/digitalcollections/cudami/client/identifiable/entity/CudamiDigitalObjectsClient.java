@@ -21,8 +21,18 @@ import java.util.stream.Collectors;
 
 public class CudamiDigitalObjectsClient extends CudamiEntitiesClient<DigitalObject> {
 
-  public CudamiDigitalObjectsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, DigitalObject.class, mapper, API_VERSION_PREFIX + "/digitalobjects");
+  public CudamiDigitalObjectsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        DigitalObject.class,
+        mapper,
+        API_VERSION_PREFIX + "/digitalobjects",
+        additionalGETHeaders);
   }
 
   public PageResponse<Collection> findActiveCollections(UUID uuid, PageRequest pageRequest)

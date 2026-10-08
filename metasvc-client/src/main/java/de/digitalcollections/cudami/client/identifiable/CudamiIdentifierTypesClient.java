@@ -6,12 +6,23 @@ import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.exception.http.client.ResourceNotFoundException;
 import de.digitalcollections.model.identifiable.IdentifierType;
 import java.net.http.HttpClient;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiIdentifierTypesClient extends CudamiRestClient<IdentifierType> {
 
-  public CudamiIdentifierTypesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, IdentifierType.class, mapper, API_VERSION_PREFIX + "/identifiertypes");
+  public CudamiIdentifierTypesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        IdentifierType.class,
+        mapper,
+        API_VERSION_PREFIX + "/identifiertypes",
+        additionalGETHeaders);
   }
 
   public IdentifierType getByNamespace(String namespace) throws TechnicalException {

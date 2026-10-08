@@ -709,7 +709,8 @@ public abstract class BaseRestClient<T extends Object> {
    */
   public String getFilterParamsAsString(Filtering filtering) {
     List<FilterCriteria> filterCriterias = filtering.getFilterCriteriaList();
-    // braces and logical link operator can be omitted if there is only one AND-linked
+    // braces and logical link operator can be omitted if there is only one
+    // AND-linked
     // `FilterCriteria`
     final boolean simpleShape =
         filterCriterias.size() == 1
