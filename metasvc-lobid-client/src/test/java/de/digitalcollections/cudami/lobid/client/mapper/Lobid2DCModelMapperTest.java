@@ -2,8 +2,8 @@ package de.digitalcollections.cudami.lobid.client.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import de.digitalcollections.lobid.model.LobidGeometry;
 import de.digitalcollections.model.geo.CoordinateLocation;
+import dev.mdz.lobid.model.LobidGeometry;
 import org.junit.jupiter.api.Test;
 
 class Lobid2DCModelMapperTest {

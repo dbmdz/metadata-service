@@ -2,9 +2,9 @@ package de.digitalcollections.cudami.lobid.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.cudami.lobid.client.mapper.Lobid2DCModelMapper;
-import de.digitalcollections.lobid.model.LobidEvent;
 import de.digitalcollections.model.exception.TechnicalException;
 import de.digitalcollections.model.identifiable.entity.Event;
+import dev.mdz.lobid.model.LobidEvent;
 import java.net.http.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
