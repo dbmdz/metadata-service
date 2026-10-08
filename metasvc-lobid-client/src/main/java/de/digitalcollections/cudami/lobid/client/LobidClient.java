@@ -1,7 +1,7 @@
 package de.digitalcollections.cudami.lobid.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.lobid.jackson.LobidObjectMapper;
+import dev.mdz.lobid.jackson.LobidObjectMapper;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.time.Duration;
