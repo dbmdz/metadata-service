@@ -32,9 +32,9 @@
       <artifactId>metasvc-model</artifactId>
     </dependency>
     <dependency>
-      <groupId>de.digitalcollections.lobid</groupId>
+      <groupId>dev.mdz</groupId>
       <artifactId>lobid-entityfacts-api</artifactId>
-      <version>1.1.0</version>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.geotools</groupId>
