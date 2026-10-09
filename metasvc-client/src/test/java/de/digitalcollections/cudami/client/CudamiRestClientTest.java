@@ -19,7 +19,12 @@ public class CudamiRestClientTest {
   public void beforeEach() {
     client =
         new CudamiRestClient(
-            null, serverUrl, Identifiable.class, new DigitalCollectionsObjectMapper(), "/v999");
+            null,
+            serverUrl,
+            Identifiable.class,
+            new DigitalCollectionsObjectMapper(),
+            "/v999",
+            null);
   }
 
   @Test
@@ -28,7 +33,12 @@ public class CudamiRestClientTest {
     String requestUrl = "/foo/bar";
     CudamiRestClient base =
         new CudamiRestClient(
-            null, serverUrl, Identifiable.class, new DigitalCollectionsObjectMapper(), "/v999");
+            null,
+            serverUrl,
+            Identifiable.class,
+            new DigitalCollectionsObjectMapper(),
+            "/v999",
+            null);
     URI result = base.createFullUri(requestUrl);
     URI expectedResult = URI.create(serverUrl + requestUrl);
     assertThat(result).isEqualTo(expectedResult);
@@ -40,7 +50,12 @@ public class CudamiRestClientTest {
     String requestUrl = "/foo/bar";
     CudamiRestClient base =
         new CudamiRestClient(
-            null, serverUrl, Identifiable.class, new DigitalCollectionsObjectMapper(), "/v999");
+            null,
+            serverUrl,
+            Identifiable.class,
+            new DigitalCollectionsObjectMapper(),
+            "/v999",
+            null);
     URI result = base.createFullUri(requestUrl);
     URI expectedResult = URI.create(serverUrl + requestUrl);
     assertThat(result).isEqualTo(expectedResult);
