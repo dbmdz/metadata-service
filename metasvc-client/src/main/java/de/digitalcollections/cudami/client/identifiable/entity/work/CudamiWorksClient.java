@@ -14,6 +14,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,8 +23,12 @@ public class CudamiWorksClient extends CudamiEntitiesClient<Work> {
   @SuppressFBWarnings(value = "SS_SHOULD_BE_STATIC", justification = "non-static is fine, though")
   private final String digiPressBaseEndpoint = API_VERSION_PREFIX + "/digipress";
 
-  public CudamiWorksClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Work.class, mapper, API_VERSION_PREFIX + "/works");
+  public CudamiWorksClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, Work.class, mapper, API_VERSION_PREFIX + "/works", additionalGETHeaders);
   }
 
   public Set<Agent> getCreators(UUID uuid) throws TechnicalException {

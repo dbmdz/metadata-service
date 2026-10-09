@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Flow;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,14 +63,15 @@ public abstract class BaseRestClientTest<T extends Object, C extends BaseRestCli
     httpResponse = mock(HttpResponse.class);
     httpRequestCaptor = ArgumentCaptor.forClass(HttpRequest.class);
     // Instanciate the client with lots of magic because of the generics
-    Class[] constructorArgTypes = new Class[3];
+    Class[] constructorArgTypes = new Class[4];
     constructorArgTypes[0] = HttpClient.class;
     constructorArgTypes[1] = String.class;
     constructorArgTypes[2] = ObjectMapper.class;
+    constructorArgTypes[3] = Map.class;
     client =
         clientType
             .getDeclaredConstructor(constructorArgTypes)
-            .newInstance(httpClient, BaseRestClientTest.SERVER_URL, mapper);
+            .newInstance(httpClient, BaseRestClientTest.SERVER_URL, mapper, null);
     baseEndpoint = client.getBaseEndpoint();
     when(httpResponse.statusCode()).thenReturn(200);
     when(httpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))

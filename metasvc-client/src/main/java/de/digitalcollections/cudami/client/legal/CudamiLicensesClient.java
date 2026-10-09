@@ -13,11 +13,22 @@ import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class CudamiLicensesClient extends CudamiRestClient<License> {
 
-  public CudamiLicensesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, License.class, mapper, API_VERSION_PREFIX + "/licenses");
+  public CudamiLicensesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        License.class,
+        mapper,
+        API_VERSION_PREFIX + "/licenses",
+        additionalGETHeaders);
   }
 
   /**

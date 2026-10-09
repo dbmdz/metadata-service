@@ -13,12 +13,23 @@ import de.digitalcollections.model.view.BreadcrumbNavigation;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiWebpagesClient extends CudamiIdentifiablesClient<Webpage> {
 
-  public CudamiWebpagesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Webpage.class, mapper, API_VERSION_PREFIX + "/webpages");
+  public CudamiWebpagesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Webpage.class,
+        mapper,
+        API_VERSION_PREFIX + "/webpages",
+        additionalGETHeaders);
   }
 
   public PageResponse<Webpage> findActiveChildren(UUID uuid, PageRequest pageRequest)

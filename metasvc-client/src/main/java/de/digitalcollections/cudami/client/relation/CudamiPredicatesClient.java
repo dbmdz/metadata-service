@@ -10,11 +10,22 @@ import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class CudamiPredicatesClient extends CudamiRestClient<Predicate> {
 
-  public CudamiPredicatesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Predicate.class, mapper, API_VERSION_PREFIX + "/predicates");
+  public CudamiPredicatesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Predicate.class,
+        mapper,
+        API_VERSION_PREFIX + "/predicates",
+        additionalGETHeaders);
   }
 
   public Predicate getByValue(String value) throws TechnicalException {
@@ -32,7 +43,8 @@ public class CudamiPredicatesClient extends CudamiRestClient<Predicate> {
 
   public Predicate update(Predicate predicate) throws TechnicalException {
     if (predicate.getUuid() == null) {
-      // Old consumers don't set the UUID, we must provide the value in the request path
+      // Old consumers don't set the UUID, we must provide the value in the request
+      // path
       return doPutRequestForObject(
           String.format(
               "%s/%s",

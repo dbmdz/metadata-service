@@ -10,12 +10,23 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import java.net.http.HttpClient;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiPersonsClient extends CudamiEntitiesClient<Person> {
 
-  public CudamiPersonsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Person.class, mapper, API_VERSION_PREFIX + "/persons");
+  public CudamiPersonsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Person.class,
+        mapper,
+        API_VERSION_PREFIX + "/persons",
+        additionalGETHeaders);
   }
 
   public PageResponse<Person> findByGeoLocationOfBirth(

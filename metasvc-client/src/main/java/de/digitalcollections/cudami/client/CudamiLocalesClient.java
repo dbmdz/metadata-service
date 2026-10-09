@@ -9,12 +9,23 @@ import de.digitalcollections.model.exception.http.client.ResourceNotFoundExcepti
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CudamiLocalesClient extends BaseRestClient<Locale> {
 
-  public CudamiLocalesClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Locale.class, mapper, API_VERSION_PREFIX + "/locales");
+  public CudamiLocalesClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Locale.class,
+        mapper,
+        API_VERSION_PREFIX + "/locales",
+        additionalGETHeaders);
   }
 
   public List<String> getAllLanguages() throws TechnicalException {

@@ -13,6 +13,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiManifestationsClient extends CudamiEntitiesClient<Manifestation> {
@@ -20,8 +21,18 @@ public class CudamiManifestationsClient extends CudamiEntitiesClient<Manifestati
   @SuppressFBWarnings(value = "SS_SHOULD_BE_STATIC", justification = "non-static is fine, though")
   private final String digiPressBaseEndpoint = API_VERSION_PREFIX + "/digipress";
 
-  public CudamiManifestationsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Manifestation.class, mapper, API_VERSION_PREFIX + "/manifestations");
+  public CudamiManifestationsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Manifestation.class,
+        mapper,
+        API_VERSION_PREFIX + "/manifestations",
+        additionalGETHeaders);
   }
 
   public PageResponse<Manifestation> findChildren(UUID uuid, PageRequest pageRequest)

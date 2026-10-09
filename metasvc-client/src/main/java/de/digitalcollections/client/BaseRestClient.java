@@ -31,10 +31,12 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -50,19 +52,22 @@ public abstract class BaseRestClient<T extends Object> {
   protected final ObjectReader reader;
   protected final URI serverUri;
   protected final Class<T> targetType;
+  protected final Map<String, String> additionalGETHeaders;
 
   public BaseRestClient(
       HttpClient http,
       String serverUrl,
       Class<T> targetType,
       ObjectMapper mapper,
-      String baseEndpoint) {
+      String baseEndpoint,
+      Map<String, String> additionalGETHeaders) {
     this.baseEndpoint = baseEndpoint;
     this.http = http;
     this.mapper = mapper;
     this.reader = mapper.reader().forType(targetType);
     this.serverUri = URI.create(serverUrl);
     this.targetType = targetType;
+    this.additionalGETHeaders = additionalGETHeaders;
   }
 
   public T create() throws TechnicalException {
@@ -75,6 +80,16 @@ public abstract class BaseRestClient<T extends Object> {
       throw new TechnicalException(
           "Cannot create new instance of " + targetType.getName() + ": " + e, e);
     }
+  }
+
+  private void addGETHeaders(HttpRequest.Builder reqBuilder) {
+    if (reqBuilder == null || additionalGETHeaders == null || additionalGETHeaders.isEmpty())
+      return;
+    String[] params =
+        additionalGETHeaders.entrySet().stream()
+            .flatMap(entry -> Stream.of(entry.getKey(), entry.getValue()))
+            .toArray(length -> new String[length]);
+    reqBuilder.headers(params);
   }
 
   private HttpRequest createDeleteRequest(String requestUrl) {
@@ -98,6 +113,7 @@ public abstract class BaseRestClient<T extends Object> {
     LOGGER.debug("GET " + url);
     HttpRequest.Builder req =
         HttpRequest.newBuilder().GET().uri(url).header("Accept", "application/json");
+    addGETHeaders(req);
     String requestId = MDC.get("request_id");
     if (!Strings.nullToEmpty(requestId).trim().isBlank()) {
       req.header("X-Request-Id", requestId);
@@ -693,7 +709,8 @@ public abstract class BaseRestClient<T extends Object> {
    */
   public String getFilterParamsAsString(Filtering filtering) {
     List<FilterCriteria> filterCriterias = filtering.getFilterCriteriaList();
-    // braces and logical link operator can be omitted if there is only one AND-linked
+    // braces and logical link operator can be omitted if there is only one
+    // AND-linked
     // `FilterCriteria`
     final boolean simpleShape =
         filterCriterias.size() == 1
