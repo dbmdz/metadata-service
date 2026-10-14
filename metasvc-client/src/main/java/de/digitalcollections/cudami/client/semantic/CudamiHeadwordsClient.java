@@ -13,12 +13,23 @@ import de.digitalcollections.model.semantic.Headword;
 import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiHeadwordsClient extends CudamiRestClient<Headword> {
 
-  public CudamiHeadwordsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Headword.class, mapper, API_VERSION_PREFIX + "/headwords");
+  public CudamiHeadwordsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Headword.class,
+        mapper,
+        API_VERSION_PREFIX + "/headwords",
+        additionalGETHeaders);
   }
 
   public BucketObjectsResponse<Headword> findBucketObjects(

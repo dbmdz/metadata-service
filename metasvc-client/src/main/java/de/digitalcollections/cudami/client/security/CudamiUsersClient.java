@@ -7,11 +7,16 @@ import de.digitalcollections.model.exception.http.client.ResourceNotFoundExcepti
 import de.digitalcollections.model.security.User;
 import java.net.http.HttpClient;
 import java.util.List;
+import java.util.Map;
 
 public class CudamiUsersClient extends CudamiRestClient<User> {
 
-  public CudamiUsersClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, User.class, mapper, API_VERSION_PREFIX + "/users");
+  public CudamiUsersClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, User.class, mapper, API_VERSION_PREFIX + "/users", additionalGETHeaders);
   }
 
   public List<User> getActiveAdminUsers() throws TechnicalException {

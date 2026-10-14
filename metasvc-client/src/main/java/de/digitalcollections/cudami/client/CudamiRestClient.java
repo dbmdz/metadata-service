@@ -22,8 +22,9 @@ public class CudamiRestClient<T extends UniqueObject> extends BaseRestClient<T> 
       String serverUrl,
       Class<T> targetType,
       ObjectMapper mapper,
-      String baseEndpoint) {
-    super(http, serverUrl, targetType, mapper, baseEndpoint);
+      String baseEndpoint,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, targetType, mapper, baseEndpoint, additionalGETHeaders);
   }
 
   public long count() throws TechnicalException {
@@ -72,13 +73,11 @@ public class CudamiRestClient<T extends UniqueObject> extends BaseRestClient<T> 
           doPostRequestForObject(String.format("%s/list", baseEndpoint), uuids, PageResponse.class);
     }
 
-    return (PageResponse<T>)
-        doGetRequestForObject(
-            String.format(
-                "%s/list/%s",
-                baseEndpoint,
-                uuids.stream().map(Object::toString).collect(Collectors.joining(","))),
-            PageResponse.class);
+    return doGetRequestForObject(
+        String.format(
+            "%s/list/%s",
+            baseEndpoint, uuids.stream().map(Object::toString).collect(Collectors.joining(","))),
+        PageResponse.class);
   }
 
   public T save(T object) throws TechnicalException {

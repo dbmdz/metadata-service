@@ -10,11 +10,16 @@ import de.digitalcollections.model.semantic.Tag;
 import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Map;
 
 public class CudamiTagsClient extends CudamiRestClient<Tag> {
 
-  public CudamiTagsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Tag.class, mapper, API_VERSION_PREFIX + "/tags");
+  public CudamiTagsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(http, serverUrl, Tag.class, mapper, API_VERSION_PREFIX + "/tags", additionalGETHeaders);
   }
 
   /**

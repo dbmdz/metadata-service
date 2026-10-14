@@ -12,12 +12,18 @@ import de.digitalcollections.model.view.BreadcrumbNavigation;
 import java.net.http.HttpClient;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiTopicsClient extends CudamiEntitiesClient<Topic> {
 
-  public CudamiTopicsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Topic.class, mapper, API_VERSION_PREFIX + "/topics");
+  public CudamiTopicsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http, serverUrl, Topic.class, mapper, API_VERSION_PREFIX + "/topics", additionalGETHeaders);
   }
 
   public boolean addEntities(UUID topicUuid, List<Entity> entities) throws TechnicalException {

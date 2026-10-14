@@ -10,11 +10,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class CudamiSubjectsClient extends CudamiIdentifiablesClient<Subject> {
 
-  public CudamiSubjectsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Subject.class, mapper, API_VERSION_PREFIX + "/subjects");
+  public CudamiSubjectsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Subject.class,
+        mapper,
+        API_VERSION_PREFIX + "/subjects",
+        additionalGETHeaders);
   }
 
   /**

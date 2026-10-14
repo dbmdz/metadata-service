@@ -57,8 +57,8 @@ public class CudamiFileResourcesBinaryClient {
     try {
       filename =
           URLEncoder.encode(
-              filename,
-              StandardCharsets.UTF_8.toString()); // filenames with umlauts caused exception...
+              filename, StandardCharsets.UTF_8.toString()); // filenames with umlauts caused
+      // exception...
       HttpEntity entity =
           MultipartEntityBuilder.create()
               .addBinaryBody(contentType, inputStream, ContentType.create(contentType), filename)
@@ -74,8 +74,8 @@ public class CudamiFileResourcesBinaryClient {
     try {
       filename =
           URLEncoder.encode(
-              filename,
-              StandardCharsets.UTF_8.toString()); // filenames with umlauts caused exception...
+              filename, StandardCharsets.UTF_8.toString()); // filenames with umlauts caused
+      // exception...
       HttpEntity entity =
           MultipartEntityBuilder.create()
               .addBinaryBody(contentType, bytes, ContentType.create(contentType), filename)

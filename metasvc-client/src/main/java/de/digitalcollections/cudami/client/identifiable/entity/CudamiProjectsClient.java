@@ -9,12 +9,23 @@ import de.digitalcollections.model.list.paging.PageRequest;
 import de.digitalcollections.model.list.paging.PageResponse;
 import java.net.http.HttpClient;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class CudamiProjectsClient extends CudamiEntitiesClient<Project> {
 
-  public CudamiProjectsClient(HttpClient http, String serverUrl, ObjectMapper mapper) {
-    super(http, serverUrl, Project.class, mapper, API_VERSION_PREFIX + "/projects");
+  public CudamiProjectsClient(
+      HttpClient http,
+      String serverUrl,
+      ObjectMapper mapper,
+      Map<String, String> additionalGETHeaders) {
+    super(
+        http,
+        serverUrl,
+        Project.class,
+        mapper,
+        API_VERSION_PREFIX + "/projects",
+        additionalGETHeaders);
   }
 
   public boolean addDigitalObject(UUID projectUuid, UUID digitalObjectUuid)

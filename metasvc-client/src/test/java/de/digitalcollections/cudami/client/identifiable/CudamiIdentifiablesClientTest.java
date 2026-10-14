@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.digitalcollections.cudami.client.identifiable.CudamiIdentifiablesClientTest.CudamiIdentifiablesClientForIdentifiables;
 import de.digitalcollections.model.identifiable.Identifiable;
 import java.net.http.HttpClient;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 
 @DisplayName("The Identifiables Client for Identifiables")
@@ -18,13 +19,17 @@ public class CudamiIdentifiablesClientTest
       extends CudamiIdentifiablesClient<Identifiable> {
 
     public CudamiIdentifiablesClientForIdentifiables(
-        HttpClient httpClient, String serverUrl, ObjectMapper objectMapper) {
+        HttpClient httpClient,
+        String serverUrl,
+        ObjectMapper objectMapper,
+        Map<String, String> additionalGETHeaders) {
       super(
           httpClient,
           serverUrl,
           Identifiable.class,
           objectMapper,
-          API_VERSION_PREFIX + "/identifiable");
+          API_VERSION_PREFIX + "/identifiable",
+          null);
     }
   }
 }
