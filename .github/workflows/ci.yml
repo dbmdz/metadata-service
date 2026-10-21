@@ -1,12 +1,11 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [ main, release/* ]
   push:
     branches: [ main, release/* ]
-  release:
-    types: [ published ]
+    tags: [ "*" ]
+  pull_request:
+    branches: [ main, release/* ]
   workflow_dispatch:
 
 jobs:
@@ -54,3 +53,35 @@ jobs:
             **/target
       - name: Publish code coverage reports
         uses: codecov/codecov-action@v7
+  release:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-26.04
+    needs: build
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up cache
+        uses: actions/cache@v6
+        env:
+          cache-name: cache-maven-artifacts
+        with:
+          key: metasvc-cache-java-25-${{ github.run_id }}
+          path: |
+            ~/.m2/repository
+            **/target
+      - name: Install XML utils
+        run: sudo apt update && sudo apt install libxml2-utils
+      - name: Extract project version
+        run: echo "PROJECT_VERSION=$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="version"]/text()' pom.xml)" >> $GITHUB_ENV
+      - name: Create GitHub release
+        if: "!endswith(env.PROJECT_VERSION, 'SNAPSHOT') && env.PROJECT_VERSION == github.ref_name"
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            metasvc-client/target/metasvc-client-${{ env.PROJECT_VERSION }}.jar
+            metasvc-lobid-client/target/metasvc-lobid-client-${{ env.PROJECT_VERSION }}.jar
+            metasvc-model/target/metasvc-model-${{ env.PROJECT_VERSION }}.jar
+            metasvc-server/target/metasvc-server-webapp-${{ env.PROJECT_VERSION }}.jar
+          name: "${{ env.PROJECT_VERSION }}"
+          prerelease: ${{ contains(env.PROJECT_VERSION, '-rc.') }}
+          tag_name: "${{ github.ref_name }}"
